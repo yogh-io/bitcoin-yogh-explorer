@@ -9,7 +9,9 @@ import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.google.web.bindery.event.shared.EventBus;
 
+import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
+import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.context.TransactionContext;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
@@ -17,7 +19,9 @@ import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 
 @Component(components = {
-    BlockLink.class
+    BlockLink.class,
+    TransactionLink.class,
+    AddressLink.class
 })
 public class TransactionView implements IsVueComponent {
   @Prop EventBus eventBus;
