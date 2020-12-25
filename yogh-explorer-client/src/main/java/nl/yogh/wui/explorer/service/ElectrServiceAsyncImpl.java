@@ -8,6 +8,7 @@ import com.google.inject.Singleton;
 import nl.aerius.wui.util.RequestUtil;
 import nl.yogh.wui.explorer.config.EnvironmentConfiguration;
 import nl.yogh.wui.explorer.context.ConfigurationContext;
+import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 
@@ -90,5 +91,12 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
     }
 
     return host;
+  }
+
+  @Override
+  public void fetchAddress(final String address, final AsyncCallback<AddressInformation> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "address/:address", ":address", address);
+
+    InteropRequestUtil.doGet(url, callback);
   }
 }

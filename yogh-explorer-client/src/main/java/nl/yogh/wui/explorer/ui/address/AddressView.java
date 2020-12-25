@@ -1,4 +1,4 @@
-package nl.yogh.wui.explorer.ui.landing;
+package nl.yogh.wui.explorer.ui.address;
 
 import javax.inject.Inject;
 
@@ -11,16 +11,16 @@ import com.google.web.bindery.event.shared.EventBus;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
-import nl.yogh.wui.explorer.context.OverviewContext;
+import nl.yogh.wui.explorer.context.AddressContext;
 
 @Component(components = {
     BlockLink.class,
     TransactionLink.class,
-    AddressLink.class
+    AddressLink.class,
 })
-public class LandingView implements IsVueComponent {
+public class AddressView implements IsVueComponent {
   @Prop EventBus eventBus;
 
-  @Inject @Data OverviewContext context;
+  @Data @Inject AddressContext context;
 
 }

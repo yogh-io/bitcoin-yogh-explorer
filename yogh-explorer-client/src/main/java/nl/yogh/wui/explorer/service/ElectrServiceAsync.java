@@ -3,6 +3,7 @@ package nl.yogh.wui.explorer.service;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.ImplementedBy;
 
+import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 
@@ -24,4 +25,6 @@ public interface ElectrServiceAsync {
   void fetchRecentBlocks(String height, AsyncCallback<BlockInformation[]> callback);
 
   void fetchTxids(String hash, AsyncCallback<String[]> callback);
+
+  void fetchAddress(String address, AsyncCallback<AddressInformation> callback);
 }

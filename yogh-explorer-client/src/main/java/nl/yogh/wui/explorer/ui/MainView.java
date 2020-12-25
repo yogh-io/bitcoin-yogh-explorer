@@ -10,6 +10,7 @@ import com.google.web.bindery.event.shared.EventBus;
 
 import nl.aerius.wui.dev.GWTProd;
 import nl.yogh.wui.explorer.component.application.ApplicationView;
+import nl.yogh.wui.explorer.ui.address.AddressView;
 import nl.yogh.wui.explorer.ui.block.BlockView;
 import nl.yogh.wui.explorer.ui.landing.LandingView;
 import nl.yogh.wui.explorer.ui.transaction.TransactionView;
@@ -18,7 +19,8 @@ import nl.yogh.wui.explorer.ui.transaction.TransactionView;
     ApplicationView.class,
     LandingView.class,
     TransactionView.class,
-    BlockView.class
+    BlockView.class,
+    AddressView.class
 })
 public class MainView implements IsVueComponent, HasActivated {
   @Data String main;

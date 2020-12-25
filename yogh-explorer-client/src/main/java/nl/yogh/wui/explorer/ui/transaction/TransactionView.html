@@ -30,6 +30,9 @@
     <div v-for="TransactionOutput vout in transaction.vout">
       <p>scriptpubkey: {{ vout.scriptpubkey }}</p>
       <p>value: {{ vout.value }}</p>
+      
+      <p>Address: <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link></p>
+      <p>Type: {{ vout.scriptpubkeyType }}</p>
     </div>
 
     <h2>Miscellaneous information:</h2>
