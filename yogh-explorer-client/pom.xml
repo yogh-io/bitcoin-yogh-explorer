@@ -1,0 +1,154 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>nl.yogh</groupId>
+    <artifactId>bitcoin-explorer-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>bitcoin-explorer-client</artifactId>
+  <packaging>gwt-app</packaging>
+
+  <properties>
+    <application.gwt.module>nl.yogh.Bitcoin</application.gwt.module>
+    <vue.version>1.0-beta-10-YOGH</vue.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>vue-gwt-mvn-repo</id>
+      <url>https://raw.github.com/JornC/vue-gwt/mvn-repo/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.axellience</groupId>
+      <artifactId>vue-gwt</artifactId>
+      <version>${vue.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.axellience</groupId>
+      <artifactId>vue-gwt-processors</artifactId>
+      <version>${vue.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>nl.aerius</groupId>
+      <artifactId>gwt-client-common-json</artifactId>
+      <version>${common-json.version}</version>
+      <type>gwt-lib</type>
+    </dependency>
+
+    <dependency>
+      <groupId>nl.aerius</groupId>
+      <artifactId>gwt-client-common</artifactId>
+      <version>${gwt.client.common.version}</version>
+      <type>gwt-lib</type>
+    </dependency>
+
+    <dependency>
+      <groupId>nl.aerius</groupId>
+      <artifactId>gwt-client-vue</artifactId>
+      <version>${gwt.client.common.version}</version>
+      <type>gwt-lib</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.gwt.inject</groupId>
+      <artifactId>gin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt.eventbinder</groupId>
+      <artifactId>eventbinder</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-gwt</artifactId>
+      <version>28.0-jre</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>28.0-jre</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.elemental2</groupId>
+      <artifactId>elemental2-core</artifactId>
+      <version>1.0.0-RC1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.elemental2</groupId>
+      <artifactId>elemental2-dom</artifactId>
+      <version>1.0.0-RC1</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgument>-parameters</compilerArgument>
+          <testCompilerArgument>-parameters</testCompilerArgument>
+          <useIncrementalCompilation>false</useIncrementalCompilation>
+
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>net.ltgt.gwt.maven</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <skipModule>true</skipModule>
+
+          <!-- https://github.com/gwtproject/gwt/issues/9452 default value (9) creates an infinite loop in rare cases -->
+          <optimize>8</optimize>
+
+          <compilerArgs>
+            <arg>-generateJsInteropExports</arg>
+          </compilerArgs>
+          <moduleName>${application.gwt.module}</moduleName>
+          <moduleShortName>application</moduleShortName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>vue-gwt-resources</id>
+      <activation>
+        <property>
+          <name>!m2e.version</name>
+        </property>
+      </activation>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/java</directory>
+          </resource>
+          <resource>
+            <directory>src/main/resources</directory>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+  </profiles>
+</project>

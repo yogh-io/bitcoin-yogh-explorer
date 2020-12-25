@@ -1,0 +1,18 @@
+server:
+  servlet:
+    context-path: /
+
+zuul:
+  debug:
+    request: true
+  routes:
+    cms:
+      path: /electr/**
+      url: http://localhost:3000
+    server:
+      path: /**
+      url: http://localhost:8081
+      
+eureka:
+  client:
+    enabled: false

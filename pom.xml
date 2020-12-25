@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>nl.yogh</groupId>
+  <artifactId>bitcoin-explorer-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <repositories>
+    <repository>
+      <id>aerius-nexus-public</id>
+      <name>AERIUS Nexus repository</name>
+      <url>https://nexus.aerius.nl/repository/maven-public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <logback.version>1.2.3</logback.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <gwt.client.common.version>1.0</gwt.client.common.version>
+    <com.google.gwt.version>2.8.2</com.google.gwt.version>
+    <com.google.gwt.inject.version>2.1.2</com.google.gwt.inject.version>
+    <com.google.gwt.eventbinder.version>1.1.0</com.google.gwt.eventbinder.version>
+    <gwt.maven.plugin.version>1.0.0</gwt.maven.plugin.version>
+    <auto-value.version>1.7.2</auto-value.version>
+    <java.version>8</java.version>
+
+    <autovalue-processors.version>1.0-SNAPSHOT</autovalue-processors.version>
+    <common-json.version>1.1-SNAPSHOT</common-json.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt-user</artifactId>
+        <version>${com.google.gwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt-dev</artifactId>
+        <version>${com.google.gwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.gwt.inject</groupId>
+        <artifactId>gin</artifactId>
+        <version>${com.google.gwt.inject.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.gwt.eventbinder</groupId>
+        <artifactId>eventbinder</artifactId>
+        <version>${com.google.gwt.eventbinder.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>yogh-explorer-client</module>
+    <module>yogh-explorer-server</module>
+    <module>yogh-explorer-gateway</module>
+  </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>net.ltgt.gwt.maven</groupId>
+          <artifactId>gwt-maven-plugin</artifactId>
+          <version>${gwt.maven.plugin.version}</version>
+          <inherited>false</inherited>
+          <configuration>
+            <launcherDir>${project.build.directory}/gwt/launcherDir</launcherDir>
+            <sourceLevel>1.8</sourceLevel>
+            <failOnError>true</failOnError>
+            <jvmArgs>
+              <arg>-Dlogback.configurationFile=${logback.configurationFile}</arg>
+            </jvmArgs>
+            <codeserverArgs>
+              <arg>-generateJsInteropExports</arg>
+            </codeserverArgs>
+            <compilerArgs>
+              <arg>-generateJsInteropExports</arg>
+            </compilerArgs>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>9.4.8.v20171121</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-buildnumber-plugin</artifactId>
+          <version>1.4</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.2.4</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.3</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.1</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <useIncrementalCompilation>false</useIncrementalCompilation>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

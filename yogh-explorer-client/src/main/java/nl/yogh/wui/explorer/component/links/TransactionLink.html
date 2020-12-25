@@ -1,0 +1,10 @@
+<a @click.prevent="go()" :href="token">
+  <slot></slot>
+</a>
+
+<style scoped>
+a {
+  cursor: pointer;
+  user-select: none;
+}
+</style>

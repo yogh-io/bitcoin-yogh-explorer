@@ -1,0 +1,218 @@
+html {
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 81.25%;
+  color: #212121;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	outline: 0;
+}
+
+* {
+  font: 400 12pt/1.5 'RO-Sans-Text', Arial, Sans-Serif;
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+     -moz-font-feature-settings: "kern" 1;
+       -o-font-feature-settings: "kern" 1;
+          font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
+html, body {
+	margin: 0px;
+	min-height: 100vh;
+}
+
+.glassPanel {
+	animation: animateGlass 0.25s ease-out 0s 1 normal forwards;
+}
+
+.removeGlassPanel {
+	animation: animateGlass 0.15s ease-out 0s 1 normal backwards;
+}
+
+/* An absolute minimum height for the application, any smaller than this makes it ridiculous so a scrollbar is warranted. */
+.rootLayoutPanel {
+	/*min-height: 500px;*/
+}
+
+.globalMaxWidth {
+    max-width: 100%;
+    min-width: 600px;
+}
+
+.mainPanel {
+	width: 1060px;
+}
+
+.elementMargin {
+	margin-bottom: 15px;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex>* {
+	min-width: 0;
+	min-height: 0;
+}
+
+.columns {
+	flex-direction: column;
+}
+
+.justify {
+	justify-content: center;
+}
+
+.alignCenter {
+	align-items: center;
+}
+
+.distribute {
+	justify-content: space-between;
+}
+.around {
+	justify-content: space-around;
+}
+.line {
+    border-top: 1px solid #888;
+}
+
+.grow {
+	flex-grow: 1;
+}
+
+.noShrink {
+	flex-shrink: 0;
+}
+
+.rowReverse {
+	flex-direction: row-reverse;
+}
+.wrap {
+	flex-wrap: wrap;
+}
+.wrapMargins {
+	margin-top: -10px;
+}
+.wrapMargins > * {
+	margin-top: 10px !important;
+}
+.clickableBackground {
+    transition: background 0.15s ease-out;
+}
+.clickableBackground:hover {
+    background: rgba(0,0,0,0.1);
+}
+.clickableBackground:active {
+    background: rgba(0,0,0,0.12);
+}
+.focus {
+    background: rgba(0,0,0,0.12) !important;
+}
+
+input[type=text] {
+	padding: 0px 10px;
+}
+.ellipsis {
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+button {
+  border: 1px solid #e17731;
+  border-radius: 3px;
+  color: #e17731;
+  background: white;
+  outline: 0;
+  padding: 5px 30px;
+  cursor: pointer;
+  align-self: center;
+  transition: all 0.1s ease-out;
+}
+button:hover, button:active, button:focus {
+  border: 1px solid #e17731;
+  background: #e17731;
+  color: white;
+}
+
+.tableOutline {
+    box-shadow: 0 0 6px rgba(0,0,0,.16), 0 6px 12px rgba(0,0,0,.32);
+}
+
+.tableRow {
+	position: relative;
+	line-height: 20px;
+	transition: background 0.15s ease-out;
+}
+.tableRow > div:hover {
+	background: #eee;
+}
+.tableRow > div {
+    cursor: pointer;
+	background: white;
+	padding: 6px 0px;
+	margin-top: 1px;
+	position: relative;
+    transition: all .15s ease-out;
+}
+.tableRow > div::before {
+	box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);
+	content: '';
+	display: block;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	pointer-events: none;
+	position: absolute;
+}
+
+.tableRowSelected {
+    margin-top: 40px !important;
+    margin-bottom: 40px;
+    padding: 25px 0px !important;
+    flex-basis: 900px;
+    margin-left: -30px;
+    margin-right: -30px;
+}
+.tableRowSelected .tableRowSelected {
+    margin-bottom: 0px;
+}
+.tableRow:first-child > .tableRowSelected {
+    margin-top: 0px !important;
+}
+.tableRow > .tableRowSelected {
+	background: white !important;
+}
+.tableRow > .tableRowSelectedExpanded {
+	background: #ddd !important;
+}
+.tableRowSelectedExpanded {
+	background: #ddd !important;
+    flex-basis: 880px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.tableRowSelectedExpanded::before {
+	box-shadow: none !important;
+}
+.tableLayout {
+	padding: 0px 33px;
+}
+.titleAmount {
+	flex-basis: 80px;
+	text-align: right;
+	color: #077d0c;
+	font-weight: bold;
+}
+
+.overflow {
+	overflow: auto;
+}
+    

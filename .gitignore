@@ -1,0 +1,18 @@
+# Compiled source #
+*.class
+*.jar
+*.war
+dependency-reduced-pom.xml
+
+# Eclipse files #
+/.metadata/
+.settings/
+.project
+.classpath
+.externalToolBuilders
+.factorypath
+
+#Build folders #
+target/
+bin/
+war/

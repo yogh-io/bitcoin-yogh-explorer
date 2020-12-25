@@ -1,0 +1,42 @@
+<vue-gwt:import class="nl.yogh.wui.explorer.service.domain.TransactionInput" />
+<vue-gwt:import class="nl.yogh.wui.explorer.service.domain.TransactionOutput" />
+
+<div>
+  <h1>Transaction</h1>
+  
+  <div v-if="transaction != null">
+    <p>{{ transaction.txid }}</p>
+
+    <h2>Information</h2>
+    <p>Transaction weight: {{ transaction.weight }}</p>
+    <p>Transaction size: {{ transaction.size }}</p>
+
+    <h2>In blockchain</h2>
+    <p>
+      Block hash:
+      <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
+    </p>
+    <p>Date/time: {{ transaction.status.blockTime }}</p>
+    <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
+    <p v-if="tip != null">Confirmations: {{ tip.height - transaction.status.blockHeight }}</p>
+
+    <h2>Inputs:</h2>
+    <div v-for="TransactionInput vin in transaction.vin">
+      <p>prevtx: {{ vin.txid }}</p>
+      <p>prevout: {{ vin.vout }}</p>
+    </div>
+
+    <h2>Outputs:</h2>
+    <div v-for="TransactionOutput vout in transaction.vout">
+      <p>scriptpubkey: {{ vout.scriptpubkey }}</p>
+      <p>value: {{ vout.value }}</p>
+    </div>
+
+    <h2>Miscellaneous information:</h2>
+    <p>Format version: {{ transaction.version }}</p>
+    <p>Locktime: {{ transaction.locktime }}</p>
+  </div>
+</div>
+
+<style scoped lang="scss">
+</style>

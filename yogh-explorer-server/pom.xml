@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>nl.yogh</groupId>
+    <artifactId>bitcoin-explorer-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>bitcoin-explorer-server</artifactId>
+  <packaging>war</packaging>
+
+  <properties>
+    <vue.version>2.5.13</vue.version>
+    <d3.version>5.9.7</d3.version>
+    <!--
+    <d3.version>5.16.0</d3.version>
+     -->
+    <application.root>${project.basedir}/..</application.root>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>vue</artifactId>
+      <version>${vue.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>d3js</artifactId>
+      <version>${d3.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <configuration>
+            <scanIntervalSeconds>1</scanIntervalSeconds>
+            <contextXml>${basedir}/src/main/jettyconf/context.xml</contextXml>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>env-prod</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>bitcoin-explorer-client</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <webResources>
+                <resource>
+                  <directory>src/main/index</directory>
+                  <filtering>true</filtering>
+                </resource>
+                <resource>
+                  <directory>src/main/config</directory>
+                  <filtering>true</filtering>
+                </resource>
+                <resource>
+                  <directory>src/main/webapp</directory>
+                  <excludes>
+                    <!-- Exclude various dev files -->
+                    <exclude>src/main/webapp/scripts/config_dev.js</exclude>
+                    <exclude>src/main/webapp/scripts/reload.js</exclude>
+                    <exclude>src/main/webapp/dev.jsp</exclude>
+                  </excludes>
+                </resource>
+              </webResources>
+            </configuration>
+          </plugin>
+        </plugins>
+
+        <filters>
+          <filter>src/main/config/application.properties</filter>
+        </filters>
+      </build>
+    </profile>
+
+    <profile>
+      <id>env-dev</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>dev</value>
+        </property>
+      </activation>
+
+      <build>
+        <resources>
+          <resource>
+            <!-- this is relative to the pom.xml directory -->
+            <directory>src/main/index</directory>
+            <filtering>true</filtering>
+            <targetPath>${project.build.directory}/jettyFilteredIndex</targetPath>
+            <excludes>
+              <!-- Exclude prod files -->
+              <exclude>index.jsp</exclude>
+            </excludes>
+          </resource>
+        </resources>
+
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>jetty-maven-plugin</artifactId>
+              <configuration>
+                <webApp>
+                  <resourceBases>
+                    <resourceBase>${basedir}/src/main/webapp</resourceBase>
+                    <resourceBase>${project.build.directory}/jettyFilteredIndex</resourceBase>
+                    <resourceBase>${application.root}/target/gwt/launcherDir/</resourceBase>
+                  </resourceBases>
+                  <overrideDescriptor>${basedir}/src/main/webapp/WEB-INF/web_dev.xml</overrideDescriptor>
+                </webApp>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+
+    <profile>
+      <id>env-dev-reload</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>dev-reload</value>
+        </property>
+      </activation>
+
+      <build>
+        <resources>
+          <resource>
+            <!-- this is relative to the pom.xml directory -->
+            <directory>src/main/index</directory>
+            <filtering>true</filtering>
+            <targetPath>${project.build.directory}/jettyFilteredIndex</targetPath>
+            <excludes>
+              <!-- Exclude prod files -->
+              <exclude>index.jsp</exclude>
+            </excludes>
+          </resource>
+        </resources>
+
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>jetty-maven-plugin</artifactId>
+              <configuration>
+                <webApp>
+                  <resourceBases>
+                    <resourceBase>${basedir}/src/main/webapp</resourceBase>
+                    <resourceBase>${project.build.directory}/jettyFilteredIndex</resourceBase>
+                    <resourceBase>${application.root}/target/gwt/launcherDir/</resourceBase>
+                  </resourceBases>
+                  <overrideDescriptor>${basedir}/src/main/webapp/WEB-INF/web_dev_gwt.xml</overrideDescriptor>
+                </webApp>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%-80(%d{HH:mm:ss}|%highlight(%-5level) %boldYellow(%logger{38})) %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.apache" level="info" />
+  <logger name="org.eclipse" level="info" />
+  <logger name="io.micronaut" level="debug" />
+  <logger name="io.micronaut.http" level="info" />
+  <logger name="io.micronaut.context" level="info" />
+  <logger name="io.netty" level="info" />
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
