@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class ConfigurationContext {
-  private String source;
+  private String source = "blockstream";
 
   public void setSource(final String source) {
     this.source = source;
