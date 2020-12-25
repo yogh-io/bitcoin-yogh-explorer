@@ -8,10 +8,11 @@ import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 
 @Singleton
 public class TransactionContext {
-  @Data TransactionInformation transactionInformation = null;
-  @Data String raw = null;
+  @Data public TransactionInformation transactionInformation = null;
+  @Data public String raw = null;
 
-  @Data Throwable failure = null;
+  @Data public Throwable failure = null;
+  @Data public boolean transactionLoading;
 
   public void setRawBlock(final String raw) {
     this.raw = raw;
@@ -27,9 +28,9 @@ public class TransactionContext {
     raw = null;
     failure = null;
   }
-
-  public TransactionInformation getTransactionInformation() {
-    return transactionInformation;
+  
+  public void setLoading() {
+    transactionLoading = true;
   }
 
   public void setTransactionInformation(final TransactionInformation transactionInformation) {

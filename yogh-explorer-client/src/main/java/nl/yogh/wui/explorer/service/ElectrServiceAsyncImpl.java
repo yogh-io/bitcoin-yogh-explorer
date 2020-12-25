@@ -11,6 +11,7 @@ import nl.yogh.wui.explorer.context.ConfigurationContext;
 import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
+import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
 @Singleton
 public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
@@ -77,6 +78,20 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
     InteropRequestUtil.doGet(url, callback);
   }
 
+  @Override
+  public void fetchAddress(final String address, final AsyncCallback<AddressInformation> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "address/:address", ":address", address);
+
+    InteropRequestUtil.doGet(url, callback);
+  }
+
+  @Override
+  public void fetchUtxos(final String address, final AsyncCallback<UtxoInformation[]> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "address/:address/utxo", ":address", address);
+
+    InteropRequestUtil.doGet(url, callback);
+  }
+
   private String getHost() {
     String host;
 
@@ -91,12 +106,5 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
     }
 
     return host;
-  }
-
-  @Override
-  public void fetchAddress(final String address, final AsyncCallback<AddressInformation> callback) {
-    final String url = RequestUtil.prepareUrl(getHost(), "address/:address", ":address", address);
-
-    InteropRequestUtil.doGet(url, callback);
   }
 }

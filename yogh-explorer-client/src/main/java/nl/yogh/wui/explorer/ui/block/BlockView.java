@@ -37,12 +37,17 @@ public class BlockView implements IsVueComponent {
 
   @Computed
   public BlockInformation getBlock() {
-    return context.getBlockInformation();
+    return context.blockInformation;
   }
 
   @Computed
   public String getRaw() {
-    return context.getRawBlock();
+    return context.raw;
+  }
+
+  @Computed
+  public String[] getTxids() {
+    return context.txids;
   }
 
   @JsMethod
@@ -55,10 +60,5 @@ public class BlockView implements IsVueComponent {
   @JsMethod
   public void increaseLimit() {
     limit += 5;
-  }
-
-  @Computed
-  public String[] getTxids() {
-    return context.getTxids();
   }
 }

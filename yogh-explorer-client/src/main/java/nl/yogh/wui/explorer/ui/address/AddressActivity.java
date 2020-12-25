@@ -21,7 +21,6 @@ public class AddressActivity extends BasicEventComponent implements AddressPrese
 
   @Override
   public void onStart() {
-    GWTProd.log("Derp.");
     eventBus.fireEvent(new LoadAddressCommand(place.getHash()));
   }
 

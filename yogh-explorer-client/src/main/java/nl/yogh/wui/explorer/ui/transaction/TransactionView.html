@@ -18,16 +18,18 @@
     </p>
     <p>Date/time: {{ transaction.status.blockTime }}</p>
     <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
-    <p v-if="tip != null">Confirmations: {{ tip.height - transaction.status.blockHeight }}</p>
+    <p v-if="blockContext.tip != null">Confirmations: {{ blockContext.tip.height - transaction.status.blockHeight }}</p>
 
     <h2>Inputs:</h2>
-    <div v-for="TransactionInput vin in transaction.vin">
-      <p>prevtx: {{ vin.txid }}</p>
+    <div v-for="(TransactionInput vin, index) in transaction.vin">
+      <h3>input #{{ index }}</h3>
+      <p>prevtx: <transaction-link :hash="vin.txid">{{ vin.txid }}</transaction-link></p>
       <p>prevout: {{ vin.vout }}</p>
     </div>
 
     <h2>Outputs:</h2>
-    <div v-for="TransactionOutput vout in transaction.vout">
+    <div v-for="(TransactionOutput vout, index) in transaction.vout">
+      <h3>output #{{ index }}</h3>
       <p>scriptpubkey: {{ vout.scriptpubkey }}</p>
       <p>value: {{ vout.value }}</p>
       
@@ -38,6 +40,9 @@
     <h2>Miscellaneous information:</h2>
     <p>Format version: {{ transaction.version }}</p>
     <p>Locktime: {{ transaction.locktime }}</p>
+  </div>
+  <div v-else-if="context.transactionLoading">
+    <p>Transaction information is being loaded.</p>
   </div>
 </div>
 
