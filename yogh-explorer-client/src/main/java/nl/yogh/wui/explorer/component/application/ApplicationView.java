@@ -10,8 +10,12 @@ import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
 import com.google.web.bindery.event.shared.EventBus;
 
+import jsinterop.annotations.JsMethod;
+
+import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.component.notification.NotificationComponent;
 import nl.yogh.wui.explorer.context.ConfigurationContext;
+import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
 
 @Component(components = {
     NotificationComponent.class
@@ -20,12 +24,19 @@ public class ApplicationView implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;
 
   @Data @Inject ConfigurationContext context;
+  
+  @Inject PlaceController placeController;
 
   @Data String source = "blockstream";
 
   @Watch(value = "source", isImmediate = true)
   public void onSourceChange() {
     context.setSource(source);
+  }
+
+  @JsMethod
+  public void goHome() {
+    placeController.goTo(new LandingPlace());
   }
 
   @Override

@@ -7,7 +7,7 @@ html {
 	outline: 0;
 }
 
-* {
+p, div {
   font: 400 12pt/1.5 'RO-Sans-Text', Arial, Sans-Serif;
   color: #111;
   -webkit-font-smoothing: antialiased;

@@ -16,6 +16,7 @@ import nl.yogh.wui.explorer.context.AddressContext;
 import nl.yogh.wui.explorer.place.AddressPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.AddressInformation;
+import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
 public class AddressDaemon extends BasicEventComponent implements Daemon {
   private static final BlockDaemonEventBinder EVENT_BINDER = GWT.create(BlockDaemonEventBinder.class);
@@ -54,11 +55,24 @@ public class AddressDaemon extends BasicEventComponent implements Daemon {
     service.fetchAddress(address, AppAsyncCallback.create(
         v -> ifMatchThen(address, () -> loadAddressInformation(v)),
         e -> ifMatchThen(address, () -> failAddressInformation(e))));
+    service.fetchUtxos(address, AppAsyncCallback.create(
+        v -> ifMatchThen(address, () -> loadUtxosInformation(v)),
+        e -> ifMatchThen(address, () -> failUtxosInformation(e))));
 
     placeController.goTo(new AddressPlace(address));
   }
 
-  private void failAddressInformation(final Throwable e) {}
+  private void loadUtxosInformation(final UtxoInformation[] v) {
+    context.setUtxos(v);
+  }
+
+  private void failAddressInformation(final Throwable e) {
+    context.setFailure(e);
+  }
+
+  private void failUtxosInformation(final Throwable e) {
+    // Depend on failAddressInformation instead
+  }
 
   private void loadAddressInformation(final AddressInformation v) {
     context.setAddressInformation(v);

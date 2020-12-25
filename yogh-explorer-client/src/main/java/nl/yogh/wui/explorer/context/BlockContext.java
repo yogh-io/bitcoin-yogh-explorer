@@ -10,12 +10,10 @@ import nl.yogh.wui.explorer.service.domain.BlockInformation;
 
 @Singleton
 public class BlockContext {
-  @Data private BlockInformation tip = null;
-
-  @Data BlockInformation blockInformation = null;
-  @Data String raw = null;
-
-  @Data @JsProperty private String[] txids = null;
+  @Data public BlockInformation tip = null;
+  @Data public BlockInformation blockInformation = null;
+  @Data public String raw = null;
+  @Data @JsProperty public String[] txids = null;
 
   @Data public boolean blockLoading;
   @Data public boolean rawLoading;
@@ -38,9 +36,19 @@ public class BlockContext {
     this.txids = txids;
   }
 
+  public void setTip(final BlockInformation tip) {
+    this.tip = tip;
+  }
+
   public void setFailure(final Throwable e) {
     clear();
     failure = e;
+  }
+
+  public void setLoading() {
+    blockLoading = true;
+    rawLoading = true;
+    txidsLoading = true;
   }
 
   public void clear() {
@@ -48,31 +56,5 @@ public class BlockContext {
     raw = null;
     failure = null;
     txids = null;
-  }
-
-  public BlockInformation getBlockInformation() {
-    return blockInformation;
-  }
-
-  public String getRawBlock() {
-    return raw;
-  }
-
-  public String[] getTxids() {
-    return txids;
-  }
-
-  public BlockInformation getTip() {
-    return tip;
-  }
-
-  public void setTip(final BlockInformation tip) {
-    this.tip = tip;
-  }
-
-  public void setLoading() {
-    blockLoading = true;
-    rawLoading = true;
-    txidsLoading = true;
   }
 }

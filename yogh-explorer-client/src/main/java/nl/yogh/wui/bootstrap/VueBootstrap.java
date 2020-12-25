@@ -40,7 +40,6 @@ public class VueBootstrap implements EntryPoint {
 
           Scheduler.get().scheduleFinally(() -> {
             comp.onApplicationReady(() -> {
-              GWTProd.log("Here we are.");
               Application.A.create(() -> {
                 comp.destroy();
               });

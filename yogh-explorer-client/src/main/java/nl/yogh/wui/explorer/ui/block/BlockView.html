@@ -16,19 +16,20 @@
   </div>
     
   <div v-if="raw != null">
-    <p>Raw: {{ raw }}</p>
+    <h2>Raw header:</h2>
+    <p>{{ raw }}</p>
   </div>
   <div v-else-if="context.rawLoading">
     Loading raw header
   </div>
     
   <div v-if="txids != null">
-    <p>Transactions:</p>
+    <h2>Transactions:</h2>
     <p v-for="String txid in limit(txids)">
       <transaction-link :hash="txid">{{ txid }}</transaction-link>
     </p>
     
-    <p @click="increaseLimit()">Load more...</p>
+    <a href="" @click.prevent="increaseLimit()">Load more...</a>
   </div>
   <div v-else-if="context.txidsLoading">
     Loading transaction ids

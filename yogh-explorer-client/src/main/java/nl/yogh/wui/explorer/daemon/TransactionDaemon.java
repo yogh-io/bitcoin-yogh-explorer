@@ -49,6 +49,7 @@ public class TransactionDaemon extends BasicEventComponent implements Daemon {
 
     latestFetch = hash;
     context.clear();
+    context.setLoading();
 
     service.fetchTransaction(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadTransactionInformation(v)),

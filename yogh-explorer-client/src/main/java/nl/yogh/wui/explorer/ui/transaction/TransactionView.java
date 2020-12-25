@@ -15,7 +15,6 @@ import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.context.TransactionContext;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
-import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 
 @Component(components = {
@@ -33,11 +32,6 @@ public class TransactionView implements IsVueComponent {
 
   @Computed
   public TransactionInformation getTransaction() {
-    return context.getTransactionInformation();
-  }
-
-  @Computed
-  public BlockInformation getTip() {
-    return blockContext.getTip();
+    return context.transactionInformation;
   }
 }
