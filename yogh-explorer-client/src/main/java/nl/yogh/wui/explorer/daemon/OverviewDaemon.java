@@ -1,7 +1,5 @@
 package nl.yogh.wui.explorer.daemon;
 
-import java.util.Arrays;
-
 import javax.inject.Inject;
 
 import com.google.gwt.core.client.GWT;
@@ -10,9 +8,9 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.event.BasicEventComponent;
+import nl.aerius.wui.future.AppAsyncCallback;
 import nl.yogh.wui.explorer.command.UpdateRecentBlocksCommand;
 import nl.yogh.wui.explorer.context.OverviewContext;
-import nl.yogh.wui.explorer.service.ConversionAsyncCallback;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 
 public class OverviewDaemon extends BasicEventComponent implements Daemon {
@@ -27,9 +25,9 @@ public class OverviewDaemon extends BasicEventComponent implements Daemon {
   @EventHandler
   public void onUpdateRecentBlocksCommand(final UpdateRecentBlocksCommand c) {
     context.clear();
+    context.setLoading();
 
-    service.fetchRecentBlocks(ConversionAsyncCallback.create(
-        v -> Arrays.asList(v),
+    service.fetchRecentBlocks(AppAsyncCallback.create(
         v -> context.setRecentBlocks(v),
         e -> context.setFailure(e)));
   }

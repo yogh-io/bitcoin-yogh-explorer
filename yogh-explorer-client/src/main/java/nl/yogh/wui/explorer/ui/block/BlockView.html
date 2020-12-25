@@ -22,7 +22,7 @@
     Loading raw header
   </div>
     
-  <div v-if="txids.length != 0">
+  <div v-if="txids != null">
     <p>Transactions:</p>
     <p v-for="String txid in limit(txids)">
       <transaction-link :hash="txid">{{ txid }}</transaction-link>

@@ -1,8 +1,5 @@
 package nl.yogh.wui.explorer.context;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Singleton;
 
 import com.axellience.vuegwt.core.annotations.component.Data;
@@ -13,7 +10,8 @@ import nl.yogh.wui.explorer.service.domain.BlockInformation;
 
 @Singleton
 public class OverviewContext {
-  @Data @JsProperty private List<BlockInformation> blocks = new ArrayList<>();
+  @Data @JsProperty public BlockInformation[] blocks = null;
+  @Data @JsProperty public boolean blocksLoading;
 
   @Data Throwable failure = null;
 
@@ -25,12 +23,13 @@ public class OverviewContext {
   public void clear() {
     failure = null;
   }
-
-  public void setRecentBlocks(final List<BlockInformation> blocks) {
-    this.blocks = blocks;
+  
+  public void setLoading() {
+    blocksLoading = true;
   }
 
-  public List<BlockInformation> getRecentBlocks() {
-    return blocks;
+  public void setRecentBlocks(final BlockInformation[] blocks) {
+    blocksLoading = false;
+    this.blocks = blocks;
   }
 }
