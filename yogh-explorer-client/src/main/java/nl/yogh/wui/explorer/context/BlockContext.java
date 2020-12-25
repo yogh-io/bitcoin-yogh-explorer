@@ -1,8 +1,5 @@
 package nl.yogh.wui.explorer.context;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Singleton;
 
 import com.axellience.vuegwt.core.annotations.component.Data;
@@ -18,7 +15,7 @@ public class BlockContext {
   @Data BlockInformation blockInformation = null;
   @Data String raw = null;
 
-  @Data @JsProperty private List<String> txids = new ArrayList<>();
+  @Data @JsProperty private String[] txids = null;
 
   @Data public boolean blockLoading;
   @Data public boolean rawLoading;
@@ -36,7 +33,7 @@ public class BlockContext {
     this.raw = raw;
   }
 
-  public void setTxids(final List<String> txids) {
+  public void setTxids(final String[] txids) {
     txidsLoading = false;
     this.txids = txids;
   }
@@ -50,7 +47,7 @@ public class BlockContext {
     blockInformation = null;
     raw = null;
     failure = null;
-    txids = new ArrayList<>();
+    txids = null;
   }
 
   public BlockInformation getBlockInformation() {
@@ -61,7 +58,7 @@ public class BlockContext {
     return raw;
   }
 
-  public List<String> getTxids() {
+  public String[] getTxids() {
     return txids;
   }
 

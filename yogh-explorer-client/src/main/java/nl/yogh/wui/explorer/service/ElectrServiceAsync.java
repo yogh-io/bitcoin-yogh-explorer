@@ -23,5 +23,5 @@ public interface ElectrServiceAsync {
 
   void fetchRecentBlocks(String height, AsyncCallback<BlockInformation[]> callback);
 
-  void fetchTxids(String hash, AsyncCallback<String[]> create);
+  void fetchTxids(String hash, AsyncCallback<String[]> callback);
 }
