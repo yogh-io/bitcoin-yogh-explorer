@@ -10,16 +10,28 @@
     </p>
 
     <p>Tx count: {{ block.txCount }}</p>
+  </div>
+  <div v-else-if="context.blockLoading">
+    Loading block information
+  </div>
     
+  <div v-if="raw != null">
     <p>Raw: {{ raw }}</p>
+  </div>
+  <div v-else-if="context.rawLoading">
+    Loading raw header
+  </div>
     
+  <div v-if="!txids.isEmpty()">
     <p>Transactions:</p>
-    
     <p v-for="String txid in limit(txids)">
       <transaction-link :hash="txid">{{ txid }}</transaction-link>
     </p>
     
     <p @click="increaseLimit()">Load more...</p>
+  </div>
+  <div v-else-if="context.txidsLoading">
+    Loading transaction ids
   </div>
 </div>
 
