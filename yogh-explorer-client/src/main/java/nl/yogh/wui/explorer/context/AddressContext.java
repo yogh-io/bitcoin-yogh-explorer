@@ -4,13 +4,15 @@ import javax.inject.Singleton;
 
 import com.axellience.vuegwt.core.annotations.component.Data;
 
+import jsinterop.annotations.JsProperty;
+
 import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
 @Singleton
 public class AddressContext {
   @Data public AddressInformation addressInformation = null;
-  @Data public UtxoInformation[] utxos = null;
+  @Data @JsProperty public UtxoInformation[] utxos = null;
 
   @Data public Throwable failure = null;
   @Data public boolean addressLoading;

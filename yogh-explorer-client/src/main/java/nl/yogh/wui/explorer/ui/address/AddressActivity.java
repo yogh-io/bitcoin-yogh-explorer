@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import com.google.inject.assistedinject.Assisted;
 
-import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.yogh.wui.explorer.command.LoadAddressCommand;
 import nl.yogh.wui.explorer.place.AddressPlace;
