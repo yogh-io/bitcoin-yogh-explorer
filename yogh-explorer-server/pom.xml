@@ -13,10 +13,6 @@
 
   <properties>
     <vue.version>2.5.13</vue.version>
-    <d3.version>5.9.7</d3.version>
-    <!--
-    <d3.version>5.16.0</d3.version>
-     -->
     <application.root>${project.basedir}/..</application.root>
   </properties>
 
@@ -25,11 +21,6 @@
       <groupId>org.webjars</groupId>
       <artifactId>vue</artifactId>
       <version>${vue.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>d3js</artifactId>
-      <version>${d3.version}</version>
     </dependency>
 
     <dependency>
