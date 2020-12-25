@@ -53,6 +53,7 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
 
     latestFetch = hash;
     context.clear();
+    context.setLoading();
 
     service.fetchBlock(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadBlockInformation(v)),

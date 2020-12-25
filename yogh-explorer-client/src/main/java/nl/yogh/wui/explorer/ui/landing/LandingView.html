@@ -2,6 +2,7 @@
 
 <div>
   <h1>Landing</h1>
+  <p>Recents: {{ context.getRecentBlocks().size() }}</p>
   <div v-for="BlockInformation block in context.getRecentBlocks()">
     <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
   </div>
