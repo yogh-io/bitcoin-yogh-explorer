@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN" "http://www.gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to="application">
+  <define-configuration-property name="application.ginModules" is-multi-valued="true" />
+  
+  <!-- GWT module inherits -->
+  <inherits name="com.google.gwt.i18n.I18N" />
+  <inherits name='com.google.gwt.place.Place' />
+  <inherits name='com.google.web.bindery.event.Event' />
+  <inherits name="com.google.gwt.logging.Logging" />
+  <inherits name='com.google.gwt.http.HTTP' />
+
+  <!-- Other module inherits -->
+  <inherits name="com.google.gwt.inject.Inject" />
+  <inherits name='com.google.web.bindery.event.EventBinder' />
+  <inherits name="com.google.common.collect.Collect"/>
+
+  <!-- Vue inherits -->
+  <inherits name='com.axellience.vuegwt.VueGWT' />
+
+  <!-- Application module inherits -->
+  <inherits name='nl.aerius.Json' />
+  <inherits name='nl.aerius.Common' />
+  <inherits name='nl.aerius.CommonVue' />
+  
+  <!-- GSS related config -->
+  <set-configuration-property name="CssResource.enableGss" value="true" />
+  <set-configuration-property name="CssResource.conversionMode" value="strict" />
+  <set-configuration-property name="CssResource.gssDefaultInUiBinder" value="true" />
+  
+  <extend-property name="locale" values="nl" /> 
+  <set-property name="locale" value="nl" />
+  <set-property-fallback name="locale" value="nl" /> 
+
+  <!-- Specify the app entry point class. -->
+  <entry-point class='nl.yogh.wui.bootstrap.VueBootstrap' />
+  
+  <replace-with class="nl.yogh.wui.ApplicationImpl">
+    <when-type-is class="nl.yogh.wui.Application" />
+  </replace-with>
+
+  <!-- Enable server site logging -->
+  <set-property name="gwt.logging.enabled" value="TRUE" />
+  <set-property name="gwt.logging.logLevel" value="INFO" />
+  <set-property name="gwt.logging.consoleHandler" value="ENABLED" />
+  <set-property name="gwt.logging.developmentModeHandler" value="DISABLED" />
+  <set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED" />
+  <set-property name="gwt.logging.systemHandler" value="DISABLED" />
+  <set-property name="compiler.stackMode" value="emulated" />
+  <set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true" />
+  <set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true" />
+
+  <extend-configuration-property name="application.ginModules" value="nl.yogh.wui.explorer.ApplicationClientModule" />
+
+  <source path="wui" />
+</module>

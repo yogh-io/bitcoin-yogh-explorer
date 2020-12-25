@@ -1,0 +1,21 @@
+<div class="main">
+  <div>
+    <p>Data source</p>
+    <select v-model="source">
+      <option value="blockstream">Blockstream Electr instance</option>
+      <option value="local">Yogh Electr instance (offline)</option>
+    </select>
+  </div>
+
+
+  <keep-alive>
+    <slot></slot>
+  </keep-alive>
+  
+  <slot name="aux"></slot>
+  
+  <app-notification :eventBus="eventBus"></app-notification>
+</div>
+
+<style scoped lang="scss">
+</style>

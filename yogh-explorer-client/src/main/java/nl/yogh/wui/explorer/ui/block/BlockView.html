@@ -1,0 +1,27 @@
+<div>
+  <h1>Block</h1>
+
+  <div v-if="block != null">
+    <p>Block hash: {{ block.id }}</p>
+    <p>Merkle root: {{ block.merkleRoot }}</p>
+    <p>
+      Previous block:
+      <block-link :hash="block.previousBlockHash">{{ block.previousBlockHash }}</block-link>
+    </p>
+
+    <p>Tx count: {{ block.txCount }}</p>
+    
+    <p>Raw: {{ raw }}</p>
+    
+    <p>Transactions:</p>
+    
+    <p v-for="String txid in limit(txids)">
+      <transaction-link :hash="txid">{{ txid }}</transaction-link>
+    </p>
+    
+    <p @click="increaseLimit()">Load more...</p>
+  </div>
+</div>
+
+<style scoped lang="scss">
+</style>

@@ -1,0 +1,85 @@
+<vue-gwt:import class="nl.yogh.wui.i18n.M"/>
+<vue-gwt:import class="nl.aerius.wui.util.Notification"/>
+
+<div class="notificationPanel">
+  <fade-transition>
+    <div v-show="showing || tempShowing" class="panel">
+      <vertical-collapse-group>
+        <div v-for="Notification notification in notifications"
+          class="notificationContainer"
+          @click="remove(notification)"
+          :key="notification.hashCode()">
+          <div class="notification"
+            :class='map(e("error", notification.isError()), e("warning", notification.isWarning()), e("message", notification.isMessage()))'>
+            <p class="datetime">{{ M.formatDateTime(notification.getDateTime()) }}</p>
+            <p v-if='notification.hasMessage()' class="text" v-html="sanitize(notification.getMessage())"></p>
+            <p v-else class="text">{{ M.getErrorMessage(notification.getException()) }}</p>
+          </div>
+        </div>
+      </vertical-collapse-group>
+    </div>
+  </fade-transition>
+</div>
+
+<style scoped lang="scss">
+@import "../../fade-transition.scss";
+@import "../../vertical-collapse.scss";
+
+.notificationPanel {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 9999999;
+  
+  .panel {
+    width: 350px;
+    
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+  }
+}
+
+.notificationContainer {
+  display: block;
+  margin: 0px 0px 20px 0px;
+
+  .notification {
+    cursor: pointer;
+    padding: 10px;
+    background: #e17731;
+    transition: background 0.15s ease-out;
+    position: relative;
+    border-radius: 4px;
+    user-select: none;
+  }
+  
+  .datetime {
+    color: white;
+    font-weight: bold;
+    margin: 0px;
+  }
+  
+  .text {
+    margin: 5px 0px 0px;
+    color: white;
+  }
+  
+  &:hover {
+    background: #e17731;
+  }
+  
+  &.error {
+    border-left: #a00 10px solid;
+  }
+  &.warning {
+    border-left: #f93 10px solid;
+  }
+  &.message {
+    border-left: #1e61c5 10px solid;
+  }
+}
+</style>

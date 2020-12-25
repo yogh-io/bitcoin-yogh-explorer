@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  services:
+    build: uitkoop-services
+    image: ${REGISTRY_URL}uitkoop-services:${IMAGE_TAG}
+    restart: unless-stopped
+    environment:
+      - TZ=${TIMEZONE}
+      - UITKOOP_CHROME_HOST=localhost
+
+  server:
+    build: uitkoop-server
+    image: ${REGISTRY_URL}uitkoop-server:${IMAGE_TAG}
+    restart: unless-stopped
+    environment:
+      - TZ=${TIMEZONE}
+
+  chrome-headless:
+    image: justinribeiro/chrome-headless:latest
+    command: ["--headless", "--no-sandbox", "--disable-gpu", "--remote-debugging-address=0.0.0.0", "--remote-debugging-port=9222"]

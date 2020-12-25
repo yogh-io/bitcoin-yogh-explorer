@@ -1,0 +1,21 @@
+.height-enter-active,
+.height-leave-active {
+  transition: height .15s ease-out, margin .15s ease-out;
+  overflow: hidden;
+}
+.height-enter,
+.height-leave-to {
+  height: 0px !important;
+  margin: 0px !important;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: height .15s ease-out, margin .15s ease-out;
+  overflow: hidden;
+}
+.list-enter,
+.list-leave-to{
+  height: 0px;
+  margin: 0px !important;
+}

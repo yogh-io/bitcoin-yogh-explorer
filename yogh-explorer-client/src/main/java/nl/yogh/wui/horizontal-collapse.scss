@@ -1,0 +1,11 @@
+.collapse-enter-active,
+.collapse-leave-active {
+  overflow: hidden;
+  transition: width .15s ease-out .1s, margin .15s ease-out;
+}
+.collapse-enter,
+.collapse-leave-to {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  width: 0 !important;
+}
