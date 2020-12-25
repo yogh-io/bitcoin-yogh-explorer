@@ -2,10 +2,16 @@
 
 <div>
   <h1>Landing</h1>
-  <p>Recents: {{ context.getRecentBlocks().size() }}</p>
-  <div v-for="BlockInformation block in context.getRecentBlocks()">
-    <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
+  
+  <div v-if="context.blocks != null">
+    <div v-for="BlockInformation block in context.blocks">
+      <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
+    </div>
   </div>
+  <div v-else="context.blocksLoading">
+    Recent blocks are loading..
+  </div>
+  
 </div>
 
 <style scoped lang="scss">
