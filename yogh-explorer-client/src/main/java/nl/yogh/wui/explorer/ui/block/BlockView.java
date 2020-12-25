@@ -1,8 +1,8 @@
 package nl.yogh.wui.explorer.ui.block;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -44,8 +44,10 @@ public class BlockView implements IsVueComponent {
   }
 
   @JsMethod
-  public List<String> limit(final List<String> lst) {
-    return lst.stream().limit(limit).collect(Collectors.toCollection(() -> new ArrayList<>()));
+  public List<String> limit(final String[] lst) {
+    return Stream.of(lst)
+        .limit(limit)
+        .collect(Collectors.toList());
   }
 
   @JsMethod
@@ -54,7 +56,7 @@ public class BlockView implements IsVueComponent {
   }
 
   @Computed
-  public List<String> getTxids() {
+  public String[] getTxids() {
     return context.getTxids();
   }
 }

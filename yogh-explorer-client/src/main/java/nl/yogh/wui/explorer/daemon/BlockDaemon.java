@@ -1,8 +1,5 @@
 package nl.yogh.wui.explorer.daemon;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.google.gwt.core.client.GWT;
@@ -17,7 +14,6 @@ import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.place.BlockPlace;
-import nl.yogh.wui.explorer.service.ConversionAsyncCallback;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 
@@ -61,8 +57,7 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
     service.fetchRawBlock(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadRawBlock(v)),
         e -> ifMatchThen(hash, () -> failRawBlock(e))));
-    service.fetchTxids(hash, ConversionAsyncCallback.create(
-        v -> Arrays.asList(v),
+    service.fetchTxids(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadTxids(v)),
         e -> ifMatchThen(hash, () -> failTxids(e))));
 
@@ -83,7 +78,7 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
     context.setRawBlock(raw);
   }
 
-  private void loadTxids(final List<String> txids) {
+  private void loadTxids(final String[] txids) {
     context.setTxids(txids);
   }
 
