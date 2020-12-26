@@ -15,7 +15,13 @@
 
   <app-notification :eventBus="eventBus"></app-notification>
 
-  <div>Build number: {{ cfg.getBuildNumber() }}</div>
+  <hr />
+  <p>
+    <i>
+      <span>Application build number:</span>
+      <a :href='"https://github.com/yogh-io/bitcoin-yogh-explorer/commit/" + cfg.getBuildNumber()'> {{ cfg.getBuildNumber() }}</a>
+    </i>
+  </p>
 </div>
 
 <style scoped lang="scss">
