@@ -15,6 +15,10 @@
     <vue.version>2.5.13</vue.version>
     <application.root>${project.basedir}/..</application.root>
   </properties>
+  
+  <scm>
+    <developerConnection>scm:git:ssh://git@github.com:yogh-io/bitcoin-yogh-explorer.git</developerConnection>
+  </scm>
 
   <dependencies>
     <dependency>
@@ -64,6 +68,23 @@
 
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.4</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <shortRevisionLength>8</shortRevisionLength>
+            </configuration>
+          </plugin>
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
