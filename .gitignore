@@ -16,3 +16,4 @@ dependency-reduced-pom.xml
 target/
 bin/
 war/
+buildNumber.properties

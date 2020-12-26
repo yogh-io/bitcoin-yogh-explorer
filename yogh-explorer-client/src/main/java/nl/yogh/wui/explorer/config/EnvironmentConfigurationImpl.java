@@ -20,8 +20,10 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class EnvironmentConfigurationImpl implements EnvironmentConfiguration {
+  private final EnvironmentConfigurationWrapper wrapper = new EnvironmentConfigurationWrapper();
+
   @Override
-  public String getApiHost() {
-    return "/api";
+  public String getBuildNumber() {
+    return wrapper.buildNumber;
   }
 }

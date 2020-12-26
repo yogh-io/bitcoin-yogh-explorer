@@ -13,6 +13,7 @@
   <script src="webjars/vue/${vue.version}/vue.min.js" type="text/javascript"></script>
   
   <!-- Application code -->
+  <script src="scripts/config_dev.js"></script>
   <script src="application/application.nocache.js"></script>
 </head>
 <body>

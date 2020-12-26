@@ -14,6 +14,7 @@ import jsinterop.annotations.JsMethod;
 
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.component.notification.NotificationComponent;
+import nl.yogh.wui.explorer.config.EnvironmentConfiguration;
 import nl.yogh.wui.explorer.context.ConfigurationContext;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
 
@@ -23,8 +24,10 @@ import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
 public class ApplicationView implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;
 
+  @Data @Inject EnvironmentConfiguration cfg;
+
   @Data @Inject ConfigurationContext context;
-  
+
   @Inject PlaceController placeController;
 
   @Data String source = "blockstream";

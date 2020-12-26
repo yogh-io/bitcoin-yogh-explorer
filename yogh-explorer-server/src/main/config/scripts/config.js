@@ -1,3 +1,3 @@
 function AppConfig() {
-  this.apiHost = "${aerius.apiHost}";
+  this.buildNumber = "${buildNumber}";
 }
