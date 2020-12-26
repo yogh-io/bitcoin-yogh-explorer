@@ -58,7 +58,7 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
         v -> ifMatchThen(hash, () -> loadRawBlock(v)),
         e -> ifMatchThen(hash, () -> failRawBlock(e))));
     service.fetchTxids(hash, AppAsyncCallback.create(
-        v -> ifMatchThen(hash, () -> loadTxids(v)),
+        v -> ifMatchThen(hash, () -> loadTxids(hash, v)),
         e -> ifMatchThen(hash, () -> failTxids(e))));
 
     placeController.goTo(new BlockPlace(hash));
@@ -78,17 +78,32 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
     context.setRawBlock(raw);
   }
 
-  private void loadTxids(final String[] txids) {
+  private void loadTxids(final String hash, final String[] txids) {
     context.setTxids(txids);
+
+    final String coinbaseTxid = txids[0];
+    service.fetchTransactionHex(coinbaseTxid, AppAsyncCallback.create(
+        v -> ifMatchThen(hash, () -> loadCoinbaseTransaction(v)),
+        e -> ifMatchThen(hash, () -> failCoinbaseTransaction(e))));
+  }
+
+  private void loadCoinbaseTransaction(final String coinbaseHex) {
+    context.setRawCoinbase(coinbaseHex);
   }
 
   private void failBlockInformation(final Throwable e) {
     context.setFailure(e);
   }
 
-  private void failRawBlock(final Throwable e) {}
+  private void failRawBlock(final Throwable e) {
+    // Do nothing, depending on block information failure clause instead
+  }
 
   private void failTxids(final Throwable e) {
+    // Do nothing, depending on block information failure clause instead
+  }
+
+  private void failCoinbaseTransaction(final Throwable e) {
     // Do nothing, depending on block information failure clause instead
   }
 
