@@ -54,6 +54,9 @@ public class TransactionDaemon extends BasicEventComponent implements Daemon {
     service.fetchTransaction(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadTransactionInformation(v)),
         e -> ifMatchThen(hash, () -> failTransactionInformation(e))));
+    service.fetchTransactionHex(hash, AppAsyncCallback.create(
+        v -> ifMatchThen(hash, () -> loadRawTransaction(v)),
+        e -> ifMatchThen(hash, () -> failRawTransaction(e))));
 
     placeController.goTo(new TransactionPlace(hash));
   }
@@ -64,12 +67,20 @@ public class TransactionDaemon extends BasicEventComponent implements Daemon {
     }
   }
 
+  private void loadRawTransaction(final String hex) {
+    context.setRawTransaction(hex);
+  }
+
   private void loadTransactionInformation(final TransactionInformation transactionInformation) {
     context.setTransactionInformation(transactionInformation);
   }
 
   private void failTransactionInformation(final Throwable e) {
     context.setFailure(e);
+  }
+
+  private void failRawTransaction(final Throwable e) {
+    // Depend on failTransactionInformation() instead.
   }
 
   @Override

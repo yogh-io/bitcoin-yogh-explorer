@@ -12,9 +12,11 @@ public class TransactionContext {
   @Data public String raw = null;
 
   @Data public Throwable failure = null;
+  @Data public boolean rawLoading;
   @Data public boolean transactionLoading;
 
-  public void setRawBlock(final String raw) {
+  public void setRawTransaction(final String raw) {
+    rawLoading = false;
     this.raw = raw;
   }
 
@@ -28,8 +30,9 @@ public class TransactionContext {
     raw = null;
     failure = null;
   }
-  
+
   public void setLoading() {
+    rawLoading = true;
     transactionLoading = true;
   }
 

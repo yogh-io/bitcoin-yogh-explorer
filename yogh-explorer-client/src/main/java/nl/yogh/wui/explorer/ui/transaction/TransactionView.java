@@ -34,4 +34,9 @@ public class TransactionView implements IsVueComponent {
   public TransactionInformation getTransaction() {
     return context.transactionInformation;
   }
+  
+  @Computed
+  public String getRaw() {
+    return context.raw;
+  }
 }

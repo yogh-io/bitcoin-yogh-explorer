@@ -42,7 +42,15 @@
     <p>Locktime: {{ transaction.locktime }}</p>
   </div>
   <div v-else-if="context.transactionLoading">
-    <p>Transaction information is being loaded.</p>
+    <p>Transaction information is being loaded..</p>
+  </div>
+  
+  <div v-if="raw != null">
+    <h2>Raw transaction</h2>
+    <p>{{ raw }}</p>
+  </div>
+  <div v-else-if="context.rawLoading">
+    <p>Raw transaction is being loaded..</p>
   </div>
 </div>
 
