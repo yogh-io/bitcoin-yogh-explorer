@@ -20,6 +20,7 @@ public class AddressContext {
 
   public void clear() {
     addressInformation = null;
+    utxos = null;
     failure = null;
   }
 
