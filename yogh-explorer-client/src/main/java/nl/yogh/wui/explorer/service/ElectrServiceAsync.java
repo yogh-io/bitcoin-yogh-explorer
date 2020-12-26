@@ -12,6 +12,8 @@ import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 public interface ElectrServiceAsync {
 
   void fetchTransaction(String txid, AsyncCallback<TransactionInformation> callback);
+
+  void fetchTransactionHex(String txid, AsyncCallback<String> callback);
   
   /** BLOCKS **/
 

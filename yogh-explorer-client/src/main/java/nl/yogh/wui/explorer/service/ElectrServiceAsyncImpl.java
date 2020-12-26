@@ -37,6 +37,13 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
   }
 
   @Override
+  public void fetchTransactionHex(final String txid, final AsyncCallback<String> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "tx/:txid/hex", ":txid", txid);
+
+    RequestUtil.doGet(url, callback);
+  }
+
+  @Override
   public void fetchBlock(final String hash, final AsyncCallback<BlockInformation> callback) {
     final String url = RequestUtil.prepareUrl(getHost(), "block/:hash", ":hash", hash);
 

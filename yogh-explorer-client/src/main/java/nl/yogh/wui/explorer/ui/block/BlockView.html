@@ -33,6 +33,14 @@
     Loading raw header
   </div>
     
+  <div v-if="context.coinbaseHex != null">
+    <h2>Coinbase transaction:</h2>
+    <p>{{ context.coinbaseHex }}</p>
+  </div>
+  <div v-else-if="context.coinbaseLoading">
+    Loading coinbase transaction
+  </div>
+    
   <div v-if="txids != null">
     <h2>Transactions:</h2>
     <p v-for="String txid in limit(txids)">
