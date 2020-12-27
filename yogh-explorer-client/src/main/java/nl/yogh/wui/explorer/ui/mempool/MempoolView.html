@@ -1,6 +1,20 @@
 <div>
   <h1>Mempool</h1>
-</div>
 
-<style scoped lang="scss">
-</style>
+  <template v-if="context.failure != null">
+    <p>Loading failed.</p>
+  </template>
+  <template v-else>
+    <p>Load succeeded</p>
+    <template v-if="pool != null">
+      <h2>Summary</h2>
+      <p># Transactions: {{ pool.count }}</p>
+      <p>Virtual size: {{ pool.vsize }}</p>
+      <p>Total fee: {{ pool.totalFee }}</p>
+      <p>Histogram: {{ pool.feeHistogram.length }}#</p>
+    </template>
+    <template v-else-if="context.mempoolLoading">
+      <p>Mempool information is being loaded..</p>
+    </template>
+  </template>
+</div>

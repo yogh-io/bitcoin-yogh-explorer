@@ -8,10 +8,14 @@ import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.google.web.bindery.event.shared.EventBus;
 
+import jsinterop.annotations.JsMethod;
+
+import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.context.OverviewContext;
+import nl.yogh.wui.explorer.place.MempoolPlace;
 
 @Component(components = {
     BlockLink.class,
@@ -23,4 +27,10 @@ public class LandingView implements IsVueComponent {
 
   @Inject @Data OverviewContext context;
 
+  @Inject PlaceController placeController;
+
+  @JsMethod
+  public void viewMempool() {
+    placeController.goTo(new MempoolPlace());
+  }
 }

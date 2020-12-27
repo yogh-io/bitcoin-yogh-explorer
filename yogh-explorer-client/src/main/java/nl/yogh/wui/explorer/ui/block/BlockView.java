@@ -29,8 +29,6 @@ import nl.yogh.wui.explorer.service.domain.BlockInformation;
 public class BlockView implements IsVueComponent {
   @Prop EventBus eventBus;
 
-  @Data String hash;
-
   @Data @Inject BlockContext context;
 
   @Data int limit = 10;

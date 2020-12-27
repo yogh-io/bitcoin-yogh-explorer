@@ -5,11 +5,14 @@ import com.google.inject.ImplementedBy;
 
 import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
+import nl.yogh.wui.explorer.service.domain.MempoolInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
 @ImplementedBy(ElectrServiceAsyncImpl.class)
 public interface ElectrServiceAsync {
+  
+  /** TRANSACTIONS **/
 
   void fetchTransaction(String txid, AsyncCallback<TransactionInformation> callback);
 
@@ -36,4 +39,8 @@ public interface ElectrServiceAsync {
   void fetchAddress(String address, AsyncCallback<AddressInformation> callback);
 
   void fetchUtxos(String address, AsyncCallback<UtxoInformation[]> callback);
+  
+  /** MEMPOOL **/
+
+  void fetchMempool(AsyncCallback<MempoolInformation> callback);
 }

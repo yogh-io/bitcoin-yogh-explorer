@@ -10,6 +10,7 @@ import nl.yogh.wui.explorer.config.EnvironmentConfiguration;
 import nl.yogh.wui.explorer.context.ConfigurationContext;
 import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
+import nl.yogh.wui.explorer.service.domain.MempoolInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
@@ -95,6 +96,13 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
   @Override
   public void fetchUtxos(final String address, final AsyncCallback<UtxoInformation[]> callback) {
     final String url = RequestUtil.prepareUrl(getHost(), "address/:address/utxo", ":address", address);
+
+    InteropRequestUtil.doGet(url, callback);
+  }
+
+  @Override
+  public void fetchMempool(final AsyncCallback<MempoolInformation> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "mempool");
 
     InteropRequestUtil.doGet(url, callback);
   }

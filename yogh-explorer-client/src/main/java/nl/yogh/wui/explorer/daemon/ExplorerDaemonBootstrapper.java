@@ -15,10 +15,11 @@ public class ExplorerDaemonBootstrapper extends BasicEventComponent implements D
   @Inject TransactionDaemon transactionDaemon;
   @Inject OverviewDaemon overviewDaemon;
   @Inject AddressDaemon addressDaemon;
+  @Inject MempoolDaemon mempoolDaemon;
 
   @Override
   public void setEventBus(final EventBus eventBus) {
     super.setEventBus(eventBus, developmentObserver, exceptionDaemon, blockDaemon, blockchainDaemon, transactionDaemon, overviewDaemon,
-        addressDaemon);
+        addressDaemon, mempoolDaemon);
   }
 }
