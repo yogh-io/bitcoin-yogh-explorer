@@ -106,6 +106,9 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
     case "blockstream":
       host = BLOCKSTREAM_HOST;
       break;
+    case "non":
+      host = "";
+      break;
     case "local":
     default:
       host = LOCAL_HOST;

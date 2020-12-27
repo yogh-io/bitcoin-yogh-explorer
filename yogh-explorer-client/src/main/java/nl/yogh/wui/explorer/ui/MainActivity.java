@@ -2,7 +2,7 @@ package nl.yogh.wui.explorer.ui;
 
 import javax.inject.Inject;
 
-import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.ResettableEventBus;
 
 import nl.aerius.wui.activity.DelegableActivity;
 import nl.aerius.wui.command.PlaceChangeCommand;
@@ -28,7 +28,7 @@ public class MainActivity extends AbstractVueActivity<MainPresenter, MainView, M
   }
 
   @Override
-  public boolean delegate(final EventBus eventBus, final PlaceChangeCommand c) {
+  public boolean delegate(final ResettableEventBus eventBus, final PlaceChangeCommand c) {
     final boolean delegated = delegator.delegate(eventBus, c.getValue(), c::setRedirect);
 
     return delegated;

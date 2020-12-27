@@ -65,5 +65,6 @@ public class BlockContext {
     raw = null;
     failure = null;
     txids = null;
+    coinbaseHex = null;
   }
 }

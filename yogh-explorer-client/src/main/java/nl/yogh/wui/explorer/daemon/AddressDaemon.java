@@ -12,6 +12,7 @@ import nl.aerius.wui.event.BasicEventComponent;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadAddressCommand;
+import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.AddressContext;
 import nl.yogh.wui.explorer.place.AddressPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
@@ -37,6 +38,11 @@ public class AddressDaemon extends BasicEventComponent implements Daemon {
       return;
     }
 
+    latestFetch = null;
+  }
+
+  @EventHandler
+  public void onSourceChangedCommand(final SourceChangedCommand c) {
     latestFetch = null;
   }
 

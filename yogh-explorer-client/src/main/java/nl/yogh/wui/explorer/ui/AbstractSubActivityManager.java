@@ -18,13 +18,13 @@ package nl.yogh.wui.explorer.ui;
 
 import java.util.function.Consumer;
 
-import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.ResettableEventBus;
 
 import nl.aerius.wui.event.HasEventBus;
 import nl.aerius.wui.place.Place;
 
 public abstract class AbstractSubActivityManager<V, S extends SubActivity> {
-  private EventBus eventBus;
+  private ResettableEventBus eventBus;
 
   private Consumer<Place> redirector;
 
@@ -33,7 +33,7 @@ public abstract class AbstractSubActivityManager<V, S extends SubActivity> {
 
   private boolean delegate;
 
-  public boolean delegate(final EventBus eventBus, final Place place, final Consumer<Place> redirector) {
+  public boolean delegate(final ResettableEventBus eventBus, final Place place, final Consumer<Place> redirector) {
     this.eventBus = eventBus;
     this.place = place;
     this.redirector = redirector;
@@ -57,6 +57,8 @@ public abstract class AbstractSubActivityManager<V, S extends SubActivity> {
     if (act == null) {
       return;
     }
+    
+    eventBus.removeHandlers();
 
     if (act instanceof HasEventBus) {
       ((HasEventBus) act).setEventBus(eventBus);
