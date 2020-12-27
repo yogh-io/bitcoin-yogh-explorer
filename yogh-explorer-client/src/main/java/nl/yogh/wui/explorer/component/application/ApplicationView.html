@@ -1,29 +1,79 @@
-<div class="main">
-  <h1 @click="goHome()">Home</h1>
-
-  <div>
-    <p>Data source</p>
-    <select v-model="source">
-      <option value="blockstream">Blockstream Electr instance</option>
-      <option value="local">Yogh Electr instance (offline)</option>
-      <option value="non">Non-existent instance</option>
-    </select>
+<div class="root">
+  <div class="main">
+    <div class="header">
+      <a @click.prevent="goHome()"
+        href="/landing"
+        class="inert">
+        <h1>Bitcoin explorer</h1>
+      </a>
+      
+      <div>
+        <select v-model="source" class="list">
+          <option value="blockstream">Blockstream Electr instance</option>
+          <option value="local">Yogh Electr instance (offline)</option>
+          <option value="non">Non-existent instance</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="content">
+      <keep-alive>
+        <slot></slot>
+      </keep-alive>
+    </div>
+  
+    <app-notification :eventBus="eventBus"></app-notification>
+  
+    <div class="footer">
+      <i>
+        <span>Application build number:</span>
+        <a :href='"https://github.com/yogh-io/bitcoin-yogh-explorer/commit/" + cfg.getBuildNumber()'> {{ cfg.getBuildNumber() }}</a>
+      </i>
+    </div>
   </div>
-
-  <keep-alive>
-    <slot></slot>
-  </keep-alive>
-
-  <app-notification :eventBus="eventBus"></app-notification>
-
-  <hr />
-  <p>
-    <i>
-      <span>Application build number:</span>
-      <a :href='"https://github.com/yogh-io/bitcoin-yogh-explorer/commit/" + cfg.getBuildNumber()'> {{ cfg.getBuildNumber() }}</a>
-    </i>
-  </p>
 </div>
 
 <style scoped lang="scss">
+.root {
+  display: flex;
+  justify-content: center;
+  background: #ddd;
+  min-height: 100vh;
+}
+
+.main {
+  width: calc(1005px + 2em);
+}
+
+.header {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  margin-bottom: 20px;
+  padding: 1em;
+  
+  .inert {
+    color: initial;
+    text-decoration: none;
+  }
+  
+  .list {
+    padding: 10px;
+  }
+}
+
+
+.content {
+  padding: 1em;
+  flex-grow: 1;
+  background: #fff;
+}
+
+.footer {
+  margin-top: 20px;
+  padding: 1em;
+  background: #fff;
+}
 </style>
