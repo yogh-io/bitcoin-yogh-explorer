@@ -30,8 +30,11 @@
     </template>
       
     <template v-if="raw != null">
-      <h2>Raw header:</h2>
-      <hex-viewer :hex="raw"></hex-viewer>
+      <h2>Raw block header in hex</h2>
+      <hex-viewer
+        :hex="raw"
+        :interpreter="blockInterpreter">
+      </hex-viewer>
     </template>
     <template v-else-if="context.rawLoading">
       <p>Loading raw header</p>
@@ -39,7 +42,9 @@
       
     <template v-if="context.coinbaseHex != null">
       <h2>Coinbase transaction:</h2>
-      <hex-viewer :hex="context.coinbaseHex"></hex-viewer>
+      <hex-viewer
+        :hex="context.coinbaseHex">
+      </hex-viewer>
     </template>
     <template v-else-if="context.coinbaseLoading">
       <p>Loading coinbase transaction</p>
