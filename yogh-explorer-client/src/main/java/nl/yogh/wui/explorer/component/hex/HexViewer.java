@@ -11,22 +11,25 @@ import com.googlecode.gwt.crypto.bouncycastle.util.encoders.Hex;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
 
+import nl.yogh.wui.explorer.component.hex.interpreters.InterpretationStrategy;
+import nl.yogh.wui.explorer.component.hex.interpreters.SimpleBlandInterpreter;
+
 @Component
 public class HexViewer implements IsVueComponent {
   @Prop String hex;
 
-  @Prop InterpretationStrategy strategy;
+  @Prop InterpretationStrategy interpreter;
 
   @Data @JsProperty Part[] parts;
 
-  @PropDefault("strategy")
-  InterpretationStrategy defaultStrategy() {
-    return new SimpleBlandStrategy();
+  @PropDefault("interpreter")
+  InterpretationStrategy defaultInterpreter() {
+    return new SimpleBlandInterpreter();
   }
 
   @Watch(value = "hex", isImmediate = true)
   public void onHexChange() {
-    parts = strategy.interpret(hex);
+    parts = interpreter.interpret(hex);
   }
 
   @JsMethod

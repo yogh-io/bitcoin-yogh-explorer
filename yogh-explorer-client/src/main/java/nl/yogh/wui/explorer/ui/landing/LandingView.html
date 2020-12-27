@@ -19,7 +19,6 @@
     <template v-else="context.transactionsLoading">
       <p>Recent transactions are loading..</p>
     </template>
-  </template>
   
     <template v-if="context.blocks != null">
       <h2>Recent blocks</h2>
@@ -30,6 +29,7 @@
     <template v-else="context.blocksLoading">
       <p>Recent blocks are loading..</p>
     </template>
+  </template>
 </div>
 
 <style scoped lang="scss">
