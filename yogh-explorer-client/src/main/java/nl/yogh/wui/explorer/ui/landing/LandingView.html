@@ -1,4 +1,5 @@
 <vue-gwt:import class="nl.yogh.wui.explorer.service.domain.BlockInformation"/>
+<vue-gwt:import class="nl.yogh.wui.explorer.service.domain.TransactionSummary"/>
 
 <div>
   <h1>Landing</h1>
@@ -9,7 +10,19 @@
     <p>Loading failed.</p>
   </template>
   <template v-else>
+    <template v-if="context.transactions != null">
+      <h2>Recent transactions</h2>
+      <template v-for="TransactionSummary tx in context.transactions">
+        <p><transaction-link :hash="tx.txid">{{ tx.txid }}</transaction-link> ({{ tx.value }} @ {{ tx.fee }})</p>
+      </template>
+    </template>
+    <template v-else="context.transactionsLoading">
+      <p>Recent transactions are loading..</p>
+    </template>
+  </template>
+  
     <template v-if="context.blocks != null">
+      <h2>Recent blocks</h2>
       <template v-for="BlockInformation block in context.blocks">
         <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
       </template>
@@ -17,7 +30,6 @@
     <template v-else="context.blocksLoading">
       <p>Recent blocks are loading..</p>
     </template>
-  </template>
 </div>
 
 <style scoped lang="scss">

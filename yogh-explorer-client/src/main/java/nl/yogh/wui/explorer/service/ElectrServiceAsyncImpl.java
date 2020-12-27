@@ -12,6 +12,7 @@ import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.MempoolInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
+import nl.yogh.wui.explorer.service.domain.TransactionSummary;
 import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
 @Singleton
@@ -103,6 +104,13 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
   @Override
   public void fetchMempool(final AsyncCallback<MempoolInformation> callback) {
     final String url = RequestUtil.prepareUrl(getHost(), "mempool");
+
+    InteropRequestUtil.doGet(url, callback);
+  }
+
+  @Override
+  public void fetchRecentTransactions(final AsyncCallback<TransactionSummary[]> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "mempool/recent");
 
     InteropRequestUtil.doGet(url, callback);
   }
