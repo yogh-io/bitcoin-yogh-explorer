@@ -3,6 +3,7 @@ package nl.yogh.wui.explorer.ui.mempool;
 import javax.inject.Inject;
 
 import com.axellience.vuegwt.core.annotations.component.Component;
+import com.axellience.vuegwt.core.annotations.component.Computed;
 import com.axellience.vuegwt.core.annotations.component.Data;
 import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
@@ -12,6 +13,7 @@ import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.context.MempoolContext;
+import nl.yogh.wui.explorer.service.domain.MempoolInformation;
 
 @Component(components = {
     BlockLink.class,
@@ -23,4 +25,8 @@ public class MempoolView implements IsVueComponent {
 
   @Data @Inject MempoolContext context;
 
+  @Computed
+  public MempoolInformation getPool() {
+    return context.pool;
+  }
 }

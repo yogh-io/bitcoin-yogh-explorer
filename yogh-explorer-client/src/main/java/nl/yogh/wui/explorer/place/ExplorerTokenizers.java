@@ -35,6 +35,6 @@ public class ExplorerTokenizers {
   public static final PlaceTokenizer<MempoolPlace> MEMPOOL = new MempoolTokenizer();
 
   public static final PlaceTokenizer<?>[] TOKENIZERS = new PlaceTokenizer[] {
-      LANDING, TRANSACTION, BLOCK, ADDRESS
+      LANDING, TRANSACTION, BLOCK, ADDRESS, MEMPOOL
   };
 }

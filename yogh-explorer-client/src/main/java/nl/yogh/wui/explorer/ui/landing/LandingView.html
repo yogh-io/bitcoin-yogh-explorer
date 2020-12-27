@@ -3,6 +3,8 @@
 <div>
   <h1>Landing</h1>
   
+  <a @click.prevent="viewMempool()" href="/mempool">View mempool</a>
+  
   <template v-if="context.failure != null">
     <p>Loading failed.</p>
   </template>
