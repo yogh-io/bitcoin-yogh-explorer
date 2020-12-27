@@ -6,16 +6,20 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.binder.EventBinder;
+import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.event.BasicEventComponent;
+import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
+import nl.aerius.wui.util.NotificationUtil;
+import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 
 public class BlockchainDaemon extends BasicEventComponent implements Daemon {
-  private static final BlockDaemonEventBinder EVENT_BINDER = GWT.create(BlockDaemonEventBinder.class);
+  private static final BlockchainDaemonEventBinder EVENT_BINDER = GWT.create(BlockchainDaemonEventBinder.class);
 
-  interface BlockDaemonEventBinder extends EventBinder<BlockchainDaemon> {}
+  interface BlockchainDaemonEventBinder extends EventBinder<BlockchainDaemon> {}
 
   private static final int CHECK_TIP_DELAY = 15 * 1000;
 
@@ -34,13 +38,24 @@ public class BlockchainDaemon extends BasicEventComponent implements Daemon {
     }
   };
 
+  @EventHandler
+  public void onSourceChangedCommand(final SourceChangedCommand c) {
+    latestBlock = null;
+  }
+
   private void init() {
     timer.scheduleRepeating(CHECK_TIP_DELAY);
     checkTip();
   }
 
   private void checkTip() {
-    service.fetchTip(v -> ifNotMatchThen(v, () -> updateBlock(v)));
+    service.fetchTip(AppAsyncCallback.create(
+        v -> ifNotMatchThen(v, () -> updateBlock(v)),
+        e -> failBlock(e)));
+  }
+
+  private void failBlock(final Throwable e) {
+    NotificationUtil.broadcastWarning(eventBus, "Could not fetch tip: " + e.getMessage());
   }
 
   private void updateBlock(final String hash) {

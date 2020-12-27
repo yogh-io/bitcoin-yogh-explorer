@@ -12,6 +12,7 @@ import nl.aerius.wui.event.BasicEventComponent;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
+import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
@@ -40,9 +41,13 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
   }
 
   @EventHandler
+  public void onSourceChangedCommand(final SourceChangedCommand c) {
+    latestFetch = null;
+  }
+
+  @EventHandler
   public void onLoadBlockCommand(final LoadBlockCommand c) {
     final String hash = c.getValue();
-
     if (hash.equals(latestFetch)) {
       return;
     }

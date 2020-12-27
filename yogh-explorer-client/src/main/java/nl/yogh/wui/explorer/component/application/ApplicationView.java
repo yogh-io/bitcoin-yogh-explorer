@@ -12,8 +12,10 @@ import com.google.web.bindery.event.shared.EventBus;
 
 import jsinterop.annotations.JsMethod;
 
+import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.component.notification.NotificationComponent;
+import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.config.EnvironmentConfiguration;
 import nl.yogh.wui.explorer.context.ConfigurationContext;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
@@ -34,7 +36,9 @@ public class ApplicationView implements IsVueComponent, HasCreated {
 
   @Watch(value = "source", isImmediate = true)
   public void onSourceChange() {
+    GWTProd.log("Firing SourceChangedEvent");
     context.setSource(source);
+    eventBus.fireEvent(new SourceChangedCommand());
   }
 
   @JsMethod

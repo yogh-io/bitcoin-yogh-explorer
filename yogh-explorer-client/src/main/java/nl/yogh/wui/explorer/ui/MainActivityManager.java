@@ -23,6 +23,7 @@ import nl.aerius.wui.place.Place;
 import nl.yogh.wui.explorer.place.AddressPlace;
 import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
+import nl.yogh.wui.explorer.place.MempoolPlace;
 import nl.yogh.wui.explorer.place.TransactionPlace;
 
 public class MainActivityManager extends AbstractSubActivityManager<MainView, MainSubPresenter> {
@@ -43,12 +44,13 @@ public class MainActivityManager extends AbstractSubActivityManager<MainView, Ma
       return activityFactory.createBlockPresenter(view, (BlockPlace) place);
     } else if (place instanceof AddressPlace) {
       return activityFactory.createAddressPresenter(view, (AddressPlace) place);
+    } else if (place instanceof MempoolPlace) {
+      return activityFactory.createMempoolPresenter(view, (MempoolPlace) place);
     } else {
       GWTProd.warn("MainActivityManager", "Could not create sub-activity inside MainActivityManager: no activity for " + place);
 //      return activityFactory.createEmptyActivity(view);
       return null;
     }
-
   }
 
   @Override

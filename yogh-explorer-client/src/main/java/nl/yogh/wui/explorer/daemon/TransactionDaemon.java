@@ -11,6 +11,7 @@ import nl.aerius.wui.command.PlaceChangeCommand;
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
+import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.component.links.LoadTransactionCommand;
 import nl.yogh.wui.explorer.context.TransactionContext;
 import nl.yogh.wui.explorer.place.TransactionPlace;
@@ -36,6 +37,11 @@ public class TransactionDaemon extends BasicEventComponent implements Daemon {
       return;
     }
 
+    latestFetch = null;
+  }
+
+  @EventHandler
+  public void onSourceChangedCommand(final SourceChangedCommand c) {
     latestFetch = null;
   }
 
