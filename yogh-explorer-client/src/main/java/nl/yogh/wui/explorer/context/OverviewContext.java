@@ -13,7 +13,7 @@ public class OverviewContext {
   @Data @JsProperty public BlockInformation[] blocks = null;
   @Data @JsProperty public boolean blocksLoading;
 
-  @Data Throwable failure = null;
+  @Data public Throwable failure = null;
 
   public void setFailure(final Throwable e) {
     clear();
