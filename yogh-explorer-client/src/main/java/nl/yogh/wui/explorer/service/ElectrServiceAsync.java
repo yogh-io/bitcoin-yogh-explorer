@@ -7,6 +7,7 @@ import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.service.domain.MempoolInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
+import nl.yogh.wui.explorer.service.domain.TransactionSummary;
 import nl.yogh.wui.explorer.service.domain.UtxoInformation;
 
 @ImplementedBy(ElectrServiceAsyncImpl.class)
@@ -17,6 +18,8 @@ public interface ElectrServiceAsync {
   void fetchTransaction(String txid, AsyncCallback<TransactionInformation> callback);
 
   void fetchTransactionHex(String txid, AsyncCallback<String> callback);
+
+  void fetchRecentTransactions(AsyncCallback<TransactionSummary[]> callback);
   
   /** BLOCKS **/
 
