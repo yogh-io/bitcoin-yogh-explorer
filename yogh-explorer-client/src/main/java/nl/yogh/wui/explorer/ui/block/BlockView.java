@@ -17,6 +17,7 @@ import jsinterop.annotations.JsMethod;
 
 import nl.yogh.wui.explorer.component.hex.HexViewer;
 import nl.yogh.wui.explorer.component.hex.interpreters.BlockInterpreter;
+import nl.yogh.wui.explorer.component.hex.interpreters.TransactionInterpreter;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
@@ -37,6 +38,7 @@ public class BlockView implements IsVueComponent {
   @Data int limit = 10;
   
   @Inject @Data BlockInterpreter blockInterpreter;
+  @Inject @Data TransactionInterpreter transactionInterpreter;
 
   @Computed
   public BlockInformation getBlock() {
