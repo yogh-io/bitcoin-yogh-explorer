@@ -4,54 +4,59 @@
 <div>
   <h1>Transaction</h1>
   
-  <div v-if="transaction != null">
-    <p>{{ transaction.txid }}</p>
-
-    <h2>Information</h2>
-    <p>Transaction weight: {{ transaction.weight }}</p>
-    <p>Transaction size: {{ transaction.size }}</p>
-
-    <h2>In blockchain</h2>
-    <p>
-      Block hash:
-      <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
-    </p>
-    <p>Date/time: {{ transaction.status.blockTime }}</p>
-    <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
-    <p v-if="blockContext.tip != null">Confirmations: {{ blockContext.tip.height - transaction.status.blockHeight }}</p>
-
-    <h2>Inputs:</h2>
-    <div v-for="(TransactionInput vin, index) in transaction.vin">
-      <h3>input #{{ index }}</h3>
-      <p>prevtx: <transaction-link :hash="vin.txid">{{ vin.txid }}</transaction-link></p>
-      <p>prevout: {{ vin.vout }}</p>
-    </div>
-
-    <h2>Outputs:</h2>
-    <div v-for="(TransactionOutput vout, index) in transaction.vout">
-      <h3>output #{{ index }}</h3>
-      <p>scriptpubkey: {{ vout.scriptpubkey }}</p>
-      <p>value: {{ vout.value }}</p>
-      
-      <p>Address: <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link></p>
-      <p>Type: {{ vout.scriptpubkeyType }}</p>
-    </div>
-
-    <h2>Miscellaneous information:</h2>
-    <p>Format version: {{ transaction.version }}</p>
-    <p>Locktime: {{ transaction.locktime }}</p>
-  </div>
-  <div v-else-if="context.transactionLoading">
-    <p>Transaction information is being loaded..</p>
-  </div>
+  <template v-if="context.failure != null">
+    <p>Loading failed.</p>
+  </template>
+  <template v-else>
+    <template v-if="transaction != null">
+      <p>{{ transaction.txid }}</p>
   
-  <div v-if="raw != null">
-    <h2>Raw transaction</h2>
-    <p>{{ raw }}</p>
-  </div>
-  <div v-else-if="context.rawLoading">
-    <p>Raw transaction is being loaded..</p>
-  </div>
+      <h2>Information</h2>
+      <p>Transaction weight: {{ transaction.weight }}</p>
+      <p>Transaction size: {{ transaction.size }}</p>
+  
+      <h2>In blockchain</h2>
+      <p>
+        Block hash:
+        <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
+      </p>
+      <p>Date/time: {{ transaction.status.blockTime }}</p>
+      <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
+      <p v-if="blockContext.tip != null">Confirmations: {{ blockContext.tip.height - transaction.status.blockHeight }}</p>
+  
+      <h2>Inputs:</h2>
+      <template v-for="(TransactionInput vin, index) in transaction.vin">
+        <h3>input #{{ index }}</h3>
+        <p>prevtx: <transaction-link :hash="vin.txid">{{ vin.txid }}</transaction-link></p>
+        <p>prevout: {{ vin.vout }}</p>
+      </template>
+  
+      <h2>Outputs:</h2>
+      <template v-for="(TransactionOutput vout, index) in transaction.vout">
+        <h3>output #{{ index }}</h3>
+        <p>scriptpubkey: {{ vout.scriptpubkey }}</p>
+        <p>value: {{ vout.value }}</p>
+        
+        <p>Address: <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link></p>
+        <p>Type: {{ vout.scriptpubkeyType }}</p>
+      </template>
+  
+      <h2>Miscellaneous information:</h2>
+      <p>Format version: {{ transaction.version }}</p>
+      <p>Locktime: {{ transaction.locktime }}</p>
+    </template>
+    <template v-else-if="context.transactionLoading">
+      <p>Transaction information is being loaded..</p>
+    </template>
+    
+    <template v-if="raw != null">
+      <h2>Raw transaction</h2>
+      <p>{{ raw }}</p>
+    </template>
+    <template v-else-if="context.rawLoading">
+      <p>Raw transaction is being loaded..</p>
+    </template>
+  </template>
 </div>
 
 <style scoped lang="scss">

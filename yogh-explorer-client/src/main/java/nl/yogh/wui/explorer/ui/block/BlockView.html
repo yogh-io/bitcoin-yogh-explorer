@@ -1,57 +1,62 @@
 <div>
   <h1>Block</h1>
-
-  <div v-if="block != null">
-    <p>Block hash: {{ block.id }}</p>
-    <p>Block height: {{ block.height }}</p>
-    <p>Bits: {{ block.bits }}</p>
-    <p>Difficulty: {{ block.difficulty }}</p>
-    <p>Merkle root: {{ block.merkleRoot }}</p>
-    <p>
-      Previous block:
-      <block-link :hash="block.previousBlockHash">{{ block.previousBlockHash }}</block-link>
-    </p>
-    
-    <p>Nonce: {{ block.nonce }}</p>
-    <p>Size: {{ block.size }}</p>
-    <p>Weight: {{ block.weight }}</p>
-    <p>Timestamp: {{ block.timestamp }}</p>
-    
-    <p>Version: {{ block.version }}</p>
-
-    <p>Tx count: {{ block.txCount }}</p>
-  </div>
-  <div v-else-if="context.blockLoading">
-    Loading block information
-  </div>
-    
-  <div v-if="raw != null">
-    <h2>Raw header:</h2>
-    <p>{{ raw }}</p>
-  </div>
-  <div v-else-if="context.rawLoading">
-    Loading raw header
-  </div>
-    
-  <div v-if="context.coinbaseHex != null">
-    <h2>Coinbase transaction:</h2>
-    <p>{{ context.coinbaseHex }}</p>
-  </div>
-  <div v-else-if="context.coinbaseLoading">
-    Loading coinbase transaction
-  </div>
-    
-  <div v-if="txids != null">
-    <h2>Transactions:</h2>
-    <p v-for="String txid in limit(txids)">
-      <transaction-link :hash="txid">{{ txid }}</transaction-link>
-    </p>
-    
-    <a href="" @click.prevent="increaseLimit()">Load more...</a>
-  </div>
-  <div v-else-if="context.txidsLoading">
-    Loading transaction ids
-  </div>
+  
+  <template v-if="context.failure != null">
+    <p>Loading failed.</p>
+  </template>
+  <template v-else>
+    <template v-if="block != null">
+      <p>Block hash: {{ block.id }}</p>
+      <p>Block height: {{ block.height }}</p>
+      <p>Bits: {{ block.bits }}</p>
+      <p>Difficulty: {{ block.difficulty }}</p>
+      <p>Merkle root: {{ block.merkleRoot }}</p>
+      <p>
+        Previous block:
+        <block-link :hash="block.previousBlockHash">{{ block.previousBlockHash }}</block-link>
+      </p>
+      
+      <p>Nonce: {{ block.nonce }}</p>
+      <p>Size: {{ block.size }}</p>
+      <p>Weight: {{ block.weight }}</p>
+      <p>Timestamp: {{ block.timestamp }}</p>
+      
+      <p>Version: {{ block.version }}</p>
+  
+      <p>Tx count: {{ block.txCount }}</p>
+    </template>
+    <template v-else-if="context.blockLoading">
+      <p>Loading block information</p>
+    </template>
+      
+    <template v-if="raw != null">
+      <h2>Raw header:</h2>
+      <p>{{ raw }}</p>
+    </template>
+    <template v-else-if="context.rawLoading">
+      <p>Loading raw header</p>
+    </template>
+      
+    <template v-if="context.coinbaseHex != null">
+      <h2>Coinbase transaction:</h2>
+      <p>{{ context.coinbaseHex }}</p>
+    </template>
+    <template v-else-if="context.coinbaseLoading">
+      <p>Loading coinbase transaction</p>
+    </template>
+      
+    <template v-if="txids != null">
+      <h2>Transactions:</h2>
+      <p v-for="String txid in limit(txids)">
+        <transaction-link :hash="txid">{{ txid }}</transaction-link>
+      </p>
+      
+      <a href="" @click.prevent="increaseLimit()">Load more...</a>
+    </template>
+    <template v-else-if="context.txidsLoading">
+      <p>Loading transaction ids</p>
+    </template>
+  </template>
 </div>
 
 <style scoped lang="scss">

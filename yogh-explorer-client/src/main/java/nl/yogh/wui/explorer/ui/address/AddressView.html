@@ -3,56 +3,61 @@
 <div>
   <h1>Address</h1>
   
-  <div v-if="context.addressInformation != null">
-    <p>Address: {{ context.addressInformation.address }}</p>
+  <template v-if="context.failure != null">
+    <p>Loading failed.</p>
+  </template>
+  <template v-else>
+    <template v-if="context.addressInformation != null">
+      <p>Address: {{ context.addressInformation.address }}</p>
+      
+      <h2>Mempool stats</h2>
+      <template v-if="context.addressInformation.mempoolStats.txCount > 0">
+        <p>Unconfirmed (mempool) transactions: {{ context.addressInformation.mempoolStats.txCount }}</p>
+        <p>Transaction outputs incoming: {{ context.addressInformation.mempoolStats.fundedTxoCount }}</p>
+        <p>Incoming amount sum: {{ context.addressInformation.mempoolStats.fundedTxoSum }}</p>
+        <p>Transaction outputs outgoing: {{ context.addressInformation.mempoolStats.spentTxoCount }}</p>
+        <p>Outgoing amount sum: {{ context.addressInformation.mempoolStats.spentTxoSum }}</p>
+      </template>
+      <template v-else>
+        <p>This address relates to no known unconfirmed (mempool) transactions.</p>
+      </template>
+      
+      <h2>Chain stats</h2>
+      <template v-if="context.addressInformation.chainStats.txCount > 0">
+        <p>Confirmed transactions: {{ context.addressInformation.chainStats.txCount }}</p>
+        <p>Transaction outputs incoming: {{ context.addressInformation.chainStats.fundedTxoCount }}</p>
+        <p>Incoming amount sum: {{ context.addressInformation.chainStats.fundedTxoSum }}</p>
+        <p>Transaction outputs outgoing: {{ context.addressInformation.chainStats.spentTxoCount }}</p>
+        <p>Outgoing amount sum: {{ context.addressInformation.chainStats.spentTxoSum }}</p>
+      </template>
+      <template v-else>
+        <p>This address pertains to no confirmed transaction outputs.</p>
+      </template>
+    </template>
+    <template v-else="context.addressLoading">
+      <p>Address information is being loaded..</p>
+    </template>
     
-    <h2>Mempool stats</h2>
-    <div v-if="context.addressInformation.mempoolStats.txCount > 0">
-      <p>Unconfirmed (mempool) transactions: {{ context.addressInformation.mempoolStats.txCount }}</p>
-      <p>Transaction outputs incoming: {{ context.addressInformation.mempoolStats.fundedTxoCount }}</p>
-      <p>Incoming amount sum: {{ context.addressInformation.mempoolStats.fundedTxoSum }}</p>
-      <p>Transaction outputs outgoing: {{ context.addressInformation.mempoolStats.spentTxoCount }}</p>
-      <p>Outgoing amount sum: {{ context.addressInformation.mempoolStats.spentTxoSum }}</p>
-    </div>
-    <div v-else>
-      <p>This address relates to no known unconfirmed (mempool) transactions.</p>
-    </div>
-    
-    <h2>Chain stats</h2>
-    <div v-if="context.addressInformation.chainStats.txCount > 0">
-      <p>Confirmed transactions: {{ context.addressInformation.chainStats.txCount }}</p>
-      <p>Transaction outputs incoming: {{ context.addressInformation.chainStats.fundedTxoCount }}</p>
-      <p>Incoming amount sum: {{ context.addressInformation.chainStats.fundedTxoSum }}</p>
-      <p>Transaction outputs outgoing: {{ context.addressInformation.chainStats.spentTxoCount }}</p>
-      <p>Outgoing amount sum: {{ context.addressInformation.chainStats.spentTxoSum }}</p>
-    </div>
-    <div v-else>
-      <p>This address pertains to no confirmed transaction outputs.</p>
-    </div>
-  </div>
-  <div v-else="context.addressLoading">
-    <p>Address information is being loaded..</p>
-  </div>
-  
-  <div v-if="context.utxos != null">
-    <h2>Unspent transaction outputs for this address:</h2>
-    
-    <div v-if="context.utxos.length > 0">
-      <div v-for="(UtxoInformation utxo, index) in context.utxos">
-        <h3>UTXO #{{ index }}</h3>
-        <p>txid: <transaction-link :hash="utxo.txid">{{ utxo.txid }}</transaction-link></p>
-        <p>vout: {{ utxo.vout }}</p>
-        <p>value: {{ utxo.value }}</p>
-        <p>status (confirmed): <block-link :hash="utxo.status.blockHash">{{ utxo.status.confirmed }}</block-link></p>
-      </div>
-    </div>
-    <div v-else>
-      <p>All transaction outputs have been spent.</p>
-    </div>
-  </div>
-  <div v-else="context.utxosLoading">
-    <p>UTXO information is being loaded..</p>
-  </div>
+    <template v-if="context.utxos != null">
+      <h2>Unspent transaction outputs for this address:</h2>
+      
+      <template v-if="context.utxos.length > 0">
+        <template v-for="(UtxoInformation utxo, index) in context.utxos">
+          <h3>UTXO #{{ index }}</h3>
+          <p>txid: <transaction-link :hash="utxo.txid">{{ utxo.txid }}</transaction-link></p>
+          <p>vout: {{ utxo.vout }}</p>
+          <p>value: {{ utxo.value }}</p>
+          <p>status (confirmed): <block-link :hash="utxo.status.blockHash">{{ utxo.status.confirmed }}</block-link></p>
+        </template>
+      </template>
+      <template v-else>
+        <p>All transaction outputs have been spent.</p>
+      </template>
+    </template>
+    <template v-else="context.utxosLoading">
+      <p>UTXO information is being loaded..</p>
+    </template>
+  </template>
 </div>
 
 <style scoped lang="scss">

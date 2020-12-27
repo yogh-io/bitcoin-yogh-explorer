@@ -22,7 +22,7 @@ public class BlockContext {
   @Data public boolean txidsLoading;
   @Data public boolean coinbaseLoading;
 
-  @Data Throwable failure = null;
+  @Data public Throwable failure = null;
 
   public void setBlockInformation(final BlockInformation blockInformation) {
     blockLoading = false;

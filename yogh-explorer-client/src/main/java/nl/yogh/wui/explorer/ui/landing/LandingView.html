@@ -3,14 +3,19 @@
 <div>
   <h1>Landing</h1>
   
-  <div v-if="context.blocks != null">
-    <div v-for="BlockInformation block in context.blocks">
-      <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
-    </div>
-  </div>
-  <div v-else="context.blocksLoading">
-    Recent blocks are loading..
-  </div>
+  <template v-if="context.failure != null">
+    <p>Loading failed.</p>
+  </template>
+  <template v-else>
+    <template v-if="context.blocks != null">
+      <template v-for="BlockInformation block in context.blocks">
+        <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
+      </template>
+    </template>
+    <template v-else="context.blocksLoading">
+      <p>Recent blocks are loading..</p>
+    </template>
+  </template>
 </div>
 
 <style scoped lang="scss">
