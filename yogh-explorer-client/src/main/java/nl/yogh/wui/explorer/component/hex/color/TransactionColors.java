@@ -49,4 +49,10 @@ public interface TransactionColors {
   Color transactionInputLength();
 
   Color transactionArbitraryData();
+
+  Color witnessItemLength();
+
+  Color witnessPushData();
+
+  Color witnessPushDataLength();
 }

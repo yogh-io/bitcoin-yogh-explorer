@@ -9,11 +9,5 @@ public interface ColorPicker extends BlockColors, TransactionColors, AddressColo
 
   Color witnessFlag();
 
-  Color witnessItemLength();
-
-  Color witnessPushData();
-
-  Color witnessPushDataLength();
-
   Color error();
 }

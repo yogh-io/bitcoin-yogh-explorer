@@ -22,58 +22,77 @@ public class TransactionInterpreter extends BasicInterpreter implements Interpre
 
     final List<Part> parts = new ArrayList<>();
 
-    int pointer = 0;
-    pointer = consume(bytes, pointer, 4, parts::add, colors.transactionVersion());
+    try {
+      int pointer = 0;
+      pointer = consume(bytes, pointer, 4, parts::add, colors.transactionVersion());
 
-    GWTProd.log("Pointer: " + pointer);
+      GWTProd.log("Pointer: " + pointer);
 
-    // Inputs
-    final Semaphore<VariableLengthInteger> transactionInputLength = new Semaphore<>();
-    pointer = consumeVarInt(bytes, pointer, parts::add, transactionInputLength::setObj, colors.transactionInputLength());
-    if (transactionInputLength.getObj().getValue() == 0) {
-      GWTProd.log("Witness flag encountered.");
-      pointer += 2;
+      boolean segregatedWitnessEnabled = false;
 
-      // pointer = parseWitnessFlag(transaction, pointer, bytes);
+      // Inputs
+      final Semaphore<VariableLengthInteger> transactionInputLength = new Semaphore<>();
+      pointer = consumeVarInt(bytes, pointer, parts::add, transactionInputLength::setObj, colors.transactionInputLength());
+      if (transactionInputLength.getObj().getValue() == 0) {
+        segregatedWitnessEnabled = true;
+        GWTProd.log("Witness flag encountered.");
+        pointer += 1;
 
-      // parts[2] = new Part(new byte[] {0x00, 0x01},
-      parts.add(buildPart(new byte[] { 0x00, 0x01 }, colors.transactionWitness()));
+        // pointer = parseWitnessFlag(transaction, pointer, bytes);
+        parts.remove(parts.size() - 1);
+        parts.add(buildPart(new byte[] { 0x00, 0x01 }, colors.transactionWitness()));
 
-      // Parse the now-pushed-forward transaction input size
-      pointer = consumeVarInt(bytes, pointer,
-          parts::add,
-          transactionInputLength::setObj,
-          colors.transactionInputLength());
+        // Parse the now-pushed-forward transaction input size
+        pointer = consumeVarInt(bytes, pointer,
+            parts::add,
+            transactionInputLength::setObj,
+            colors.transactionInputLength());
+      }
+
+      for (int i = 0; i < transactionInputLength.getObj().getValue(); i++) {
+        pointer = consume(bytes, pointer, 32, parts::add, colors.transactionHash());
+        pointer = consume(bytes, pointer, 4, parts::add, colors.transactionInputIndex());
+
+        final Semaphore<VariableLengthInteger> scriptSigLength = new Semaphore<>();
+        pointer = consumeVarInt(bytes, pointer, parts::add, scriptSigLength::setObj, colors.transactionScriptSigLength());
+
+        // TODO Interpret the actual Script rather than the script sig data
+        pointer = consume(bytes, pointer, (int) scriptSigLength.getObj().getValue(), parts::add, colors.transactionScriptSigPushData());
+
+        pointer = consume(bytes, pointer, 4, parts::add, colors.transactionInputSequence());
+      }
+
+      // Outputs
+      final Semaphore<VariableLengthInteger> transactionOutputLength = new Semaphore<>();
+      pointer = consumeVarInt(bytes, pointer, parts::add, transactionOutputLength::setObj, colors.transactionOutputLength());
+
+      for (int i = 0; i < transactionOutputLength.getObj().getValue(); i++) {
+        pointer = consume(bytes, pointer, 8, parts::add, colors.transactionOutputAmount());
+
+        final Semaphore<VariableLengthInteger> scriptPubKeyLength = new Semaphore<>();
+        pointer = consumeVarInt(bytes, pointer, parts::add, scriptPubKeyLength::setObj, colors.transactionScriptPubKeyLength());
+
+        // TODO Interpret the actual Script rather than the script pubkey data
+        pointer = consume(bytes, pointer, (int) scriptPubKeyLength.getObj().getValue(), parts::add, colors.transactionScriptPubKeyPushData());
+      }
+
+      if (segregatedWitnessEnabled) {
+        final Semaphore<VariableLengthInteger> witnessItemLength = new Semaphore<>();
+        pointer = consumeVarInt(bytes, pointer, parts::add, witnessItemLength::setObj, colors.witnessItemLength());
+
+        for (int i = 0; i < witnessItemLength.getObj().getValue(); i++) {
+          final Semaphore<VariableLengthInteger> witnessPushDataLength = new Semaphore<>();
+          pointer = consumeVarInt(bytes, pointer, parts::add, witnessPushDataLength::setObj, colors.witnessPushDataLength());
+
+          pointer = consume(bytes, pointer, (int) witnessPushDataLength.getObj().getValue(), parts::add, colors.witnessPushData());
+        }
+      }
+
+      pointer = consume(bytes, pointer, 4, parts::add, colors.transactionLockTime());
+    } catch (final Exception e) {
+      e.printStackTrace();
+      GWTProd.warn("Could not parse transaction: " + e.getMessage());
     }
-
-    for (int i = 0; i < transactionInputLength.getObj().getValue(); i++) {
-      pointer = consume(bytes, pointer, 32, parts::add, colors.transactionHash());
-      pointer = consume(bytes, pointer, 4, parts::add, colors.transactionInputIndex());
-
-      final Semaphore<VariableLengthInteger> scriptSigLength = new Semaphore<>();
-      pointer = consumeVarInt(bytes, pointer, parts::add, scriptSigLength::setObj, colors.transactionScriptSigLength());
-
-      // TODO Interpret the actual Script rather than the script sig data
-      pointer = consume(bytes, pointer, (int) scriptSigLength.getObj().getValue(), parts::add, colors.transactionScriptSigPushData());
-
-      pointer = consume(bytes, pointer, 4, parts::add, colors.transactionInputSequence());
-    }
-
-    // Outputs
-    final Semaphore<VariableLengthInteger> transactionOutputLength = new Semaphore<>();
-    pointer = consumeVarInt(bytes, pointer, parts::add, transactionOutputLength::setObj, colors.transactionOutputLength());
-
-    for (int i = 0; i < transactionOutputLength.getObj().getValue(); i++) {
-      pointer = consume(bytes, pointer, 8, parts::add, colors.transactionOutputAmount());
-
-      final Semaphore<VariableLengthInteger> scriptPubKeyLength = new Semaphore<>();
-      pointer = consumeVarInt(bytes, pointer, parts::add, scriptPubKeyLength::setObj, colors.transactionScriptPubKeyLength());
-
-      // TODO Interpret the actual Script rather than the script pubkey data
-      pointer = consume(bytes, pointer, (int) scriptPubKeyLength.getObj().getValue(), parts::add, colors.transactionScriptPubKeyPushData());
-    }
-
-    pointer = consume(bytes, pointer, 4, parts::add, colors.transactionLockTime());
 
     return parts.stream()
         .filter(v -> v != null)
