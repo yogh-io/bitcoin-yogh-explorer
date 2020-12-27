@@ -16,13 +16,16 @@
       <p>Transaction size: {{ transaction.size }}</p>
   
       <h2>In blockchain</h2>
-      <p>
-        Block hash:
-        <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
-      </p>
-      <p>Date/time: {{ transaction.status.blockTime }}</p>
-      <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
-      <p v-if="blockContext.tip != null">Confirmations: {{ blockContext.tip.height - transaction.status.blockHeight }}</p>
+      <p>Confirmed: {{ transaction.status.confirmed }}</p>
+      <template v-if="transaction.status.confirmed">
+        <p>
+          Block hash:
+          <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
+        </p>
+        <p>Date/time: {{ transaction.status.blockTime }}</p>
+        <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
+        <p v-if="blockContext.tip != null">Confirmations: {{ blockContext.tip.height - transaction.status.blockHeight }}</p>
+      </template>
   
       <h2>Inputs:</h2>
       <template v-for="(TransactionInput vin, index) in transaction.vin">

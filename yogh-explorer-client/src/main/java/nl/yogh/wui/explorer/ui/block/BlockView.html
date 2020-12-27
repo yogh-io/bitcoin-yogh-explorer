@@ -31,7 +31,7 @@
       
     <template v-if="raw != null">
       <h2>Raw header:</h2>
-      <p>{{ raw }}</p>
+      <hex-viewer :hex="raw"></hex-viewer>
     </template>
     <template v-else-if="context.rawLoading">
       <p>Loading raw header</p>
@@ -39,7 +39,7 @@
       
     <template v-if="context.coinbaseHex != null">
       <h2>Coinbase transaction:</h2>
-      <p>{{ context.coinbaseHex }}</p>
+      <hex-viewer :hex="context.coinbaseHex"></hex-viewer>
     </template>
     <template v-else-if="context.coinbaseLoading">
       <p>Loading coinbase transaction</p>

@@ -1,0 +1,47 @@
+<div>
+  <div class="hex">
+    <template v-for="Part part in parts">
+      <span v-for="byte bite in part.bytes"
+        :style='map(e("background", part.backcolor), e("border-top-color", part.forecolor))'>
+      {{ getHex(bite) }}
+      </span>
+    </template>
+  </div>
+  
+  <!--
+  <p class="monospace">{{ hex }}</p>
+   -->
+</div>
+
+<style scoped lang="scss">
+.hex {
+  display: flex;
+  font-family: monospace;
+  
+  /* 32x20 + 3x15 + 32x10 */
+  width: 1005px;
+  
+  flex-wrap: wrap;
+  
+  span {
+    margin-bottom: 10px;
+    border-top: solid 3px black;
+    border-bottom: solid 3px transparent;
+    width: 20px;
+    padding: 0px 5px;
+    line-height: 24px;
+  }
+  
+  span:nth-child(8n) {
+    margin-right: 15px;
+  }
+  
+  span:nth-child(32n) {
+    margin-right: 0px;
+  }
+}
+
+.monospace {
+  font-family: monospace;
+}
+</style>
