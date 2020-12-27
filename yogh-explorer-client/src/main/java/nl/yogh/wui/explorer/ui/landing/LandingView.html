@@ -10,16 +10,6 @@
     <p>Loading failed.</p>
   </template>
   <template v-else>
-    <template v-if="context.transactions != null">
-      <h2>Recent transactions</h2>
-      <template v-for="TransactionSummary tx in context.transactions">
-        <p><transaction-link :hash="tx.txid">{{ tx.txid }}</transaction-link> ({{ tx.value }} @ {{ tx.fee }})</p>
-      </template>
-    </template>
-    <template v-else="context.transactionsLoading">
-      <p>Recent transactions are loading..</p>
-    </template>
-  
     <template v-if="context.blocks != null">
       <h2>Recent blocks</h2>
       <template v-for="BlockInformation block in context.blocks">
@@ -28,6 +18,16 @@
     </template>
     <template v-else="context.blocksLoading">
       <p>Recent blocks are loading..</p>
+    </template>
+    
+    <template v-if="context.transactions != null">
+      <h2>Recent transactions</h2>
+      <template v-for="TransactionSummary tx in context.transactions">
+        <p><transaction-link :hash="tx.txid">{{ tx.txid }}</transaction-link> ({{ tx.value }} @ {{ tx.fee }})</p>
+      </template>
+    </template>
+    <template v-else="context.transactionsLoading">
+      <p>Recent transactions are loading..</p>
     </template>
   </template>
 </div>

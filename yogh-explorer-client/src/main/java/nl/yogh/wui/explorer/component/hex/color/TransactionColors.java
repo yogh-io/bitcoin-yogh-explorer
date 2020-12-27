@@ -32,15 +32,15 @@ public interface TransactionColors {
 
   Color transactionOutputAmount();
 
-  Color transactionPubKeySigOpCode();
+  Color transactionScriptPubKeyOpCode();
 
-  Color transactionPubKeySigPushData();
+  Color transactionScriptPubKeyPushData();
 
   Color transactionVersion();
 
   Color transactionLockTime();
 
-  Color transactionPubKeySigLength();
+  Color transactionScriptPubKeyLength();
 
   Color transactionScriptSigLength();
 

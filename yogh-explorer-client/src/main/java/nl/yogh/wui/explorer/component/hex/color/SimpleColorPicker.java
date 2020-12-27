@@ -134,17 +134,17 @@ public class SimpleColorPicker implements ColorPicker {
   }
 
   @Override
-  public Color transactionPubKeySigLength() {
+  public Color transactionScriptPubKeyLength() {
     return ColorBuilder.interpret("mediumvioletred");
   }
 
   @Override
-  public Color transactionPubKeySigOpCode() {
+  public Color transactionScriptPubKeyOpCode() {
     return ColorBuilder.interpret("red");
   }
 
   @Override
-  public Color transactionPubKeySigPushData() {
+  public Color transactionScriptPubKeyPushData() {
     return ColorBuilder.interpret("green");
   }
 
