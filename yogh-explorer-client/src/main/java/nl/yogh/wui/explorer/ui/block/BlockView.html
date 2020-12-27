@@ -30,7 +30,7 @@
     </template>
       
     <template v-if="raw != null">
-      <h2>Raw block header in hex</h2>
+      <h2>Block header in hex</h2>
       <hex-viewer
         :hex="raw"
         :interpreter="blockInterpreter">
@@ -41,7 +41,7 @@
     </template>
       
     <template v-if="context.coinbaseHex != null">
-      <h2>Coinbase transaction:</h2>
+      <h2>Coinbase transaction in hex</h2>
       <hex-viewer
         :hex="context.coinbaseHex">
       </hex-viewer>
