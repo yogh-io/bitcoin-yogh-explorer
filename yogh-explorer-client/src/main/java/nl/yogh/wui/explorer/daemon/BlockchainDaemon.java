@@ -46,7 +46,6 @@ public class BlockchainDaemon extends BasicEventComponent implements Daemon {
 
   private void init() {
     timer.scheduleRepeating(CHECK_TIP_DELAY);
-    checkTip();
   }
 
   private void checkTip() {
