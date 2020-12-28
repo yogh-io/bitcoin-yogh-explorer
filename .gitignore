@@ -12,8 +12,11 @@ dependency-reduced-pom.xml
 .externalToolBuilders
 .factorypath
 
-#Build folders #
+# Build folders #
 target/
 bin/
 war/
 buildNumber.properties
+
+# Deployment
+redeploy.sh
