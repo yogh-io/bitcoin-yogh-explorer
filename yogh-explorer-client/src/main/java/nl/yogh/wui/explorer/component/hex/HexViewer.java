@@ -34,6 +34,6 @@ public class HexViewer implements IsVueComponent {
 
   @JsMethod
   public String getHex(final byte bite) {
-    return new String(Hex.encode(new byte[] { bite })).toUpperCase();
+    return new String(Hex.encode(new byte[] { bite }));
   }
 }

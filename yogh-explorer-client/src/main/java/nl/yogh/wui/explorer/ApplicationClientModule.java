@@ -18,6 +18,7 @@ import nl.aerius.wui.place.DefaultPlace;
 import nl.aerius.wui.vue.AcceptsOneComponent;
 import nl.aerius.wui.vue.activity.VueActivityManager;
 import nl.yogh.wui.explorer.component.color.BlockColors;
+import nl.yogh.wui.explorer.component.color.ColorPicker;
 import nl.yogh.wui.explorer.component.color.SimpleColorPicker;
 import nl.yogh.wui.explorer.component.color.TransactionColors;
 import nl.yogh.wui.explorer.daemon.DaemonBootstrapper;
@@ -37,6 +38,7 @@ public class ApplicationClientModule extends AbstractGinModule {
     bind(ApplicationPlace.class).annotatedWith(DefaultPlace.class).to(LandingPlace.class);
     bind(Historian.class).to(HTML5Historian.class);
 
+    bind(ColorPicker.class).to(SimpleColorPicker.class);
     bind(TransactionColors.class).to(SimpleColorPicker.class);
     bind(BlockColors.class).to(SimpleColorPicker.class);
 
