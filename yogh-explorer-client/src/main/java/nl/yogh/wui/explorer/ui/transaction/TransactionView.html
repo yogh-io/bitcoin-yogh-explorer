@@ -12,92 +12,106 @@
       <p>{{ transaction.txid }}</p>
   
       <h2>Information</h2>
-      <simple-field label="Weight:">
+      <color-field label="Weight:"
+        :color="picker.transactionWeight()">
         {{ transaction.weight }}
-      </simple-field>
-      <simple-field label="Size:">
+      </color-field>
+      <color-field label="Size:"
+        :color="picker.transactionTotalSize()">
         {{ transaction.size }}
-      </simple-field>
+      </color-field>
   
       <h2>In blockchain</h2>
-      <simple-field label="Confirmed:">
+      <color-field label="Confirmed:"
+        :color="picker.transactionConfirmedState()">
         {{ transaction.status.confirmed }}
-      </simple-field>
+      </color-field>
       
       <template v-if="transaction.status.confirmed">
-        <simple-field label="Block hash:">
+        <color-field label="Block hash:"
+          :color="picker.blockHash()">
           <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
-        </simple-field>
-        <simple-field label="Date/time:">
+        </color-field>
+        <color-field label="Date/time:"
+          :color="picker.transactionTime()">
           {{ transaction.status.blockTime }}
-        </simple-field>
-        <simple-field label="Confirmed in:">
+        </color-field>
+        <color-field label="Confirmed in:">
           {{ transaction.status.blockHeight }}
-        </simple-field>
-        <simple-field label="Confirmations:" v-if="blockContext.tip != null">
+        </color-field>
+        <color-field label="Confirmations:"
+          v-if="blockContext.tip != null"
+          :color="picker.transactionConfirmations()">
           {{ blockContext.tip.height - transaction.status.blockHeight }}
-        </simple-field>
+        </color-field>
       </template>
   
       <h2>Inputs:</h2>
       <template v-for="(TransactionInput vin, index) in transaction.vin">
         <h3>input #{{ index }}</h3>
-        <simple-field label="Previous tx:">
+        <color-field label="Previous tx:"
+          :color="picker.transactionHash()">
           {{ vin.txid }}
-        </simple-field>
-        <simple-field label="Previous outpoint:">
+        </color-field>
+        <color-field label="Previous tx output index:"
+          :color="picker.transactionInputIndex()">
           {{ vin.vout }}
-        </simple-field>
-        <simple-field label="Is coinbase transaction:">
+        </color-field>
+        <color-field label="Is coinbase transaction:">
           {{ vin.isCoinbase }}
-        </simple-field>
-        <simple-field label="Sequence:">
+        </color-field>
+        <color-field label="Sequence:"
+          :color="picker.transactionInputSequence()">
           {{ vin.sequence }}
-        </simple-field>
+        </color-field>
         
         <template v-if="vin.scriptsig.isEmpty()">
           <h4>Segregated witness information</h4>
-          <simple-field label="# witness items:">
+          <color-field label="# witness items:">
             {{ vin.witness.length }}
-          </simple-field>
+          </color-field>
           
           <template v-for="(String witness, index) in vin.witness">
-            <simple-field :label='"Witness " + index + ":"'>
+            <color-field :label='"Witness " + index + ":"'
+              :color="picker.witnessPushData()">
               {{ formatPayload(witness) }}
-            </simple-field>
+            </color-field>
           </template>
         </template>
         <template v-else>
-          <simple-field label="Scriptsig:">
+          <color-field label="Scriptsig:">
             {{ formatPayload(vin.scriptsig) }}
-          </simple-field>
+          </color-field>
         </template>
       </template>
   
       <h2>Outputs:</h2>
       <template v-for="(TransactionOutput vout, index) in transaction.vout">
         <h3>output #{{ index }}</h3>
-        <simple-field label="ScriptPubKey:">
+        <color-field label="ScriptPubKey:"
+          :color="picker.transactionScriptPubKeyPushData()">
           {{ vout.scriptpubkey }}
-        </simple-field>
-        <simple-field label="Amount:">
+        </color-field>
+        <color-field label="Amount:"
+          :color="picker.transactionOutputAmount()">
           {{ vout.value }}
-        </simple-field>
-        <simple-field label="Type:">
+        </color-field>
+        <color-field label="Type:">
           {{ vout.scriptpubkeyType }}
-        </simple-field>
-        <simple-field label="Address">
+        </color-field>
+        <color-field label="Address"
+          :color="picker.address()">
           <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link>
-        </simple-field>
+        </color-field>
       </template>
   
       <h2>Miscellaneous information:</h2>
-      <simple-field label="Version:">
+      <color-field label="Version:">
         {{ transaction.version }}
-      </simple-field>
-        <simple-field label="Locktime:">
-          {{ transaction.locktime }}
-        </simple-field>
+      </color-field>
+      <color-field label="Locktime:">
+        {{ transaction.locktime }}
+      </color-field>
     </template>
     <template v-else-if="context.transactionLoading">
       <p>Transaction information is being loaded..</p>

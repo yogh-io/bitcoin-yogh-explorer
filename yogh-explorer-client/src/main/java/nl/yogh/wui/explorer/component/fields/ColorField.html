@@ -1,0 +1,27 @@
+<p class="line">
+  <span class="label">{{ label }}</span>
+  <span class="value"
+    :style='map(e("background", backcolor), e("border-top-color", forecolor))'>
+    {{value }}
+    <slot></slot>
+  </span>
+</p>
+
+<style lang="scss" scoped>
+.line {
+  margin: 0px 0px 10px;
+}
+
+.label {
+  display: inline-block;
+  width: 200px;
+}
+
+.value {
+  display: inline-block;
+  border-top: solid 3px black;
+  border-bottom: solid 3px transparent;
+  padding: 0px 5px;
+  line-height: 24px;
+}
+</style>
