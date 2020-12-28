@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import nl.yogh.wui.explorer.component.color.Color;
 import nl.yogh.wui.explorer.component.hex.Part;
-import nl.yogh.wui.explorer.component.hex.color.Color;
 import nl.yogh.wui.util.ArrayUtil;
 import nl.yogh.wui.util.VariableLengthInteger;
 

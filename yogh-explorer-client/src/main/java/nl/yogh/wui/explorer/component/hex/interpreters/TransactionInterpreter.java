@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import com.googlecode.gwt.crypto.bouncycastle.util.encoders.Hex;
 
 import nl.aerius.wui.dev.GWTProd;
+import nl.yogh.wui.explorer.component.color.TransactionColors;
 import nl.yogh.wui.explorer.component.hex.Part;
-import nl.yogh.wui.explorer.component.hex.color.TransactionColors;
 import nl.yogh.wui.util.VariableLengthInteger;
 
 public class TransactionInterpreter extends BasicInterpreter implements InterpretationStrategy {

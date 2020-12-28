@@ -6,24 +6,61 @@
   </template>
   <template v-else>
     <template v-if="block != null">
-      <p>Block hash: {{ block.id }}</p>
-      <p>Block height: {{ block.height }}</p>
-      <p>Bits: {{ block.bits }}</p>
-      <p>Difficulty: {{ block.difficulty }}</p>
-      <p>Merkle root: {{ block.merkleRoot }}</p>
-      <p>
-        Previous block:
-        <block-link :hash="block.previousBlockHash">{{ block.previousBlockHash }}</block-link>
-      </p>
+      <simple-field
+        label="Block hash"
+        :value="block.id">
+      </simple-field>
+      <simple-field
+        label="Block height:"
+        :value="block.height">
+      </simple-field>
+      <simple-field
+        v-if="context.tip != null"
+        label="Block depth:"
+        :value="context.tip.height - block.height">
+      </simple-field>
+      <simple-field
+        label="Difficulty:"
+        :value="block.difficulty">
+      </simple-field>
+      <simple-field
+        label="Size:"
+        :value="block.size">
+      </simple-field>
+      <simple-field
+        label="Weight:"
+        :value="block.weight">
+      </simple-field>
+      <simple-field
+        label="# transactions:"
+        :value="block.txCount">
+      </simple-field>
       
-      <p>Nonce: {{ block.nonce }}</p>
-      <p>Size: {{ block.size }}</p>
-      <p>Weight: {{ block.weight }}</p>
-      <p>Timestamp: {{ block.timestamp }}</p>
-      
-      <p>Version: {{ block.version }}</p>
-  
-      <p>Tx count: {{ block.txCount }}</p>
+      <h2>Block header</h2>
+      <simple-field
+        label="Version:"
+        :value="block.version">
+      </simple-field>
+      <simple-field
+        label="Previous block:"
+        :value="block.previousBlockHash">
+      </simple-field>
+      <simple-field
+        label="Merkle root:"
+        :value="block.merkleRoot">
+      </simple-field>
+      <simple-field
+        label="Timestamp:"
+        :value="block.timestamp">
+      </simple-field>
+      <simple-field
+        label="Bits:"
+        :value="block.bits">
+      </simple-field>
+      <simple-field
+        label="Nonce:"
+        :value="block.nonce">
+      </simple-field>
     </template>
     <template v-else-if="context.blockLoading">
       <p>Loading block information</p>

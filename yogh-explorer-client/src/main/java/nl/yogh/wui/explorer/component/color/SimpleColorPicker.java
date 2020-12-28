@@ -1,4 +1,4 @@
-package nl.yogh.wui.explorer.component.hex.color;
+package nl.yogh.wui.explorer.component.color;
 
 public class SimpleColorPicker implements ColorPicker {
   @Override

@@ -4,8 +4,8 @@ import javax.inject.Inject;
 
 import com.googlecode.gwt.crypto.bouncycastle.util.encoders.Hex;
 
+import nl.yogh.wui.explorer.component.color.BlockColors;
 import nl.yogh.wui.explorer.component.hex.Part;
-import nl.yogh.wui.explorer.component.hex.color.BlockColors;
 
 public class BlockInterpreter extends BasicInterpreter implements InterpretationStrategy {
   @Inject BlockColors colors;
