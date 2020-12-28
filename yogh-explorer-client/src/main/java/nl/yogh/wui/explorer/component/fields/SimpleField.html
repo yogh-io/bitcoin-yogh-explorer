@@ -1,6 +1,6 @@
 <p>
   <span class="label">{{ label }}</span>
-  <span class="value">{{ value }}</span>
+  <span class="value">{{value }}<slot></slot></span>
 </p>
 
 <style lang="scss" scoped>
@@ -10,6 +10,5 @@
 }
 
 .value {
-
 }
 </style>

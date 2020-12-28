@@ -8,6 +8,7 @@ import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.google.web.bindery.event.shared.EventBus;
 
+import nl.yogh.wui.explorer.component.fields.SimpleField;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
@@ -17,6 +18,7 @@ import nl.yogh.wui.explorer.context.AddressContext;
     BlockLink.class,
     TransactionLink.class,
     AddressLink.class,
+    SimpleField.class
 })
 public class AddressView implements IsVueComponent {
   @Prop EventBus eventBus;
