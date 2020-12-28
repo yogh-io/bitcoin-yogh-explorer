@@ -40,11 +40,21 @@ public class BlockDaemon extends SimpleStatefulDaemon<String> implements Daemon 
 
   @EventHandler
   public void onSourceChangedCommand(final SourceChangedCommand c) {
+    if (state == null) {
+      return;
+    }
+
+    final String hash = state;
     resetState();
+    eventBus.fireEvent(new LoadBlockCommand(hash));
   }
 
   @EventHandler
   public void onLoadBlockCommand(final LoadBlockCommand c) {
+    if (state == null) {
+      context.setLoading();
+    }
+
     final String hash = c.getValue();
     if (hash.equals(state)) {
       return;

@@ -6,12 +6,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.inject.assistedinject.Assisted;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.binder.EventBinder;
-import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
-import nl.yogh.wui.explorer.event.SourceChangedEvent;
 import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.ui.MainView;
 
@@ -21,7 +19,7 @@ public class BlockActivity extends BasicEventComponent implements BlockPresenter
   interface BlockActivityEventBinder extends EventBinder<BlockActivity> {}
 
   private final BlockPlace place;
-
+  
   @Inject
   public BlockActivity(@Assisted final MainView view, @Assisted final BlockPlace place) {
     this.place = place;
@@ -30,11 +28,6 @@ public class BlockActivity extends BasicEventComponent implements BlockPresenter
 
   @Override
   public void onStart() {
-    eventBus.fireEvent(new LoadBlockCommand(place.getHash()));
-  }
-
-  @EventHandler
-  public void onSourceChangedEvent(final SourceChangedEvent e) {
     eventBus.fireEvent(new LoadBlockCommand(place.getHash()));
   }
 
