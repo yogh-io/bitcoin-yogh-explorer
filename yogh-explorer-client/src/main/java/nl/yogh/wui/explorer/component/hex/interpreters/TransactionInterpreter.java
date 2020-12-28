@@ -26,8 +26,6 @@ public class TransactionInterpreter extends BasicInterpreter implements Interpre
       int pointer = 0;
       pointer = consume(bytes, pointer, 4, parts::add, colors.transactionVersion());
 
-      GWTProd.log("Pointer: " + pointer);
-
       boolean segregatedWitnessEnabled = false;
 
       // Inputs
@@ -35,7 +33,6 @@ public class TransactionInterpreter extends BasicInterpreter implements Interpre
       pointer = consumeVarInt(bytes, pointer, parts::add, transactionInputLength::setObj, colors.transactionInputLength());
       if (transactionInputLength.getObj().getValue() == 0) {
         segregatedWitnessEnabled = true;
-        GWTProd.log("Witness flag encountered.");
         pointer += 1;
 
         // pointer = parseWitnessFlag(transaction, pointer, bytes);

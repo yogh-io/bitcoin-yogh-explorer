@@ -10,7 +10,6 @@ import nl.yogh.wui.explorer.component.color.Color;
 
 @Component
 public class ColorField implements IsVueComponent {
-  @Prop String label;
   @Prop String value;
 
   @Prop Color color;
@@ -29,7 +28,6 @@ public class ColorField implements IsVueComponent {
   public String getBackcolor() {
     final Color back = color.copy();
     back.setA(0.2);
-
     return back.getValue();
   }
 

@@ -8,27 +8,27 @@
   </template>
   <template v-else>
     <template v-if="context.addressInformation != null">
-      <simple-field label="Address:">
+      <labeled-value label="Address:">
         {{ context.addressInformation.address }}
-      </simple-field>
+      </labeled-value>
       
       <h2>Mempool stats</h2>
       <template v-if="context.addressInformation.mempoolStats.txCount > 0">
-        <simple-field label="Confirmed transactions:">
+        <labeled-value label="Confirmed transactions:">
           {{ context.addressInformation.mempoolStats.txCount }}
-        </simple-field>
-        <simple-field label="Tx outputs incoming:">
+        </labeled-value>
+        <labeled-value label="Tx outputs incoming:">
           {{ context.addressInformation.mempoolStats.fundedTxoCount }}
-        </simple-field>
-        <simple-field label="Incoming amount sum:">
+        </labeled-value>
+        <labeled-value label="Incoming amount sum:">
           {{ context.addressInformation.mempoolStats.fundedTxoSum }}
-        </simple-field>
-        <simple-field label="Tx outputs outgoing">
+        </labeled-value>
+        <labeled-value label="Tx outputs outgoing">
           {{ context.addressInformation.mempoolStats.spentTxoCount }}
-        </simple-field>
-        <simple-field label="Outgoing amount sum:">
+        </labeled-value>
+        <labeled-value label="Outgoing amount sum:">
           {{ context.addressInformation.mempoolStats.spentTxoSum }}
-        </simple-field>
+        </labeled-value>
       </template>
       <template v-else>
         <p>This address relates to no known unconfirmed (mempool) transactions.</p>
@@ -36,21 +36,21 @@
       
       <h2>Chain stats</h2>
       <template v-if="context.addressInformation.chainStats.txCount > 0">
-        <simple-field label="Confirmed transactions:">
+        <labeled-value label="Confirmed transactions:">
           {{ context.addressInformation.chainStats.txCount }}
-        </simple-field>
-        <simple-field label="Tx outputs incoming:">
+        </labeled-value>
+        <labeled-value label="Tx outputs incoming:">
           {{ context.addressInformation.chainStats.fundedTxoCount }}
-        </simple-field>
-        <simple-field label="Incoming amount sum:">
+        </labeled-value>
+        <labeled-value label="Incoming amount sum:">
           {{ context.addressInformation.chainStats.fundedTxoSum }}
-        </simple-field>
-        <simple-field label="Tx outputs outgoing">
+        </labeled-value>
+        <labeled-value label="Tx outputs outgoing">
           {{ context.addressInformation.chainStats.spentTxoCount }}
-        </simple-field>
-        <simple-field label="Outgoing amount sum:">
+        </labeled-value>
+        <labeled-value label="Outgoing amount sum:">
           {{ context.addressInformation.chainStats.spentTxoSum }}
-        </simple-field>
+        </labeled-value>
       </template>
       <template v-else>
         <p>This address pertains to no confirmed transaction outputs.</p>
@@ -66,19 +66,19 @@
       <template v-if="context.utxos.length > 0">
         <template v-for="(UtxoInformation utxo, index) in context.utxos">
           <h3>UTXO #{{ index }}</h3>
-          <simple-field label="Tx ID:">
+          <labeled-value label="Tx ID:">
             <transaction-link :hash="utxo.txid">{{ utxo.txid }}</transaction-link>
-          </simple-field>
-          <simple-field label="Tx out:">
+          </labeled-value>
+          <labeled-value label="Tx out:">
             {{ utxo.vout }}
-          </simple-field>
-          <simple-field label="Value:">
+          </labeled-value>
+          <labeled-value label="Value:">
             {{ utxo.value }}
-          </simple-field>
+          </labeled-value>
           
-          <simple-field label="Status:">
+          <labeled-value label="Status:">
             <block-link :hash="utxo.status.blockHash">{{ utxo.status.confirmed }}</block-link>
-          </simple-field>
+          </labeled-value>
         </template>
       </template>
       <template v-else>
