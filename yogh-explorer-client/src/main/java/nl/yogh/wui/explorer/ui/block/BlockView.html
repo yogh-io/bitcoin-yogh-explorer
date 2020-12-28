@@ -10,6 +10,10 @@
         :interpreter="blockHashInterpreter">
       </hex-viewer>
       
+      <hex-viewer :hex="formatDifficultyTarget(block.bits)"
+        :interpreter="difficultyTargetInterpreter">
+      </hex-viewer>
+      
       <h2>Block information</h2>
       <color-field
         label="Block height:"

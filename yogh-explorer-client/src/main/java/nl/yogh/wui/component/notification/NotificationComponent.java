@@ -19,9 +19,10 @@ package nl.yogh.wui.component.notification;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.axellience.vuegwt.core.annotations.component.Component;
 import com.axellience.vuegwt.core.annotations.component.Data;
-import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
 import com.google.gwt.core.client.GWT;
@@ -52,7 +53,7 @@ public class NotificationComponent implements IsVueComponent, HasCreated {
 
   interface NotificationComponentEventBinder extends EventBinder<NotificationComponent> {}
 
-  @Prop EventBus eventBus;
+  @Inject EventBus eventBus;
 
   @Data boolean showing;
   @Data boolean tempShowing;
