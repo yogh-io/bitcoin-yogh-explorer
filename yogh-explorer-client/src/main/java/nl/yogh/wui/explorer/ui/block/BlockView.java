@@ -13,6 +13,7 @@ import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
 import com.google.web.bindery.event.shared.EventBus;
+import com.googlecode.gwt.crypto.bouncycastle.util.encoders.Hex;
 
 import jsinterop.annotations.JsMethod;
 
@@ -29,6 +30,8 @@ import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
+import nl.yogh.wui.util.BlockUtil;
+import nl.yogh.wui.util.NumberEncodeUtil;
 
 @Component(components = {
     BlockLink.class,
@@ -51,6 +54,14 @@ public class BlockView implements IsVueComponent, HasCreated {
   @Data @Inject ColorPicker picker;
 
   @Data InterpretationStrategy blockHashInterpreter = null;
+  @Data InterpretationStrategy difficultyTargetInterpreter = null;
+
+  @JsMethod
+  public String formatDifficultyTarget(final String bits) {
+    final byte[] bitsBytes = NumberEncodeUtil.encodeUint32(Integer.parseInt(bits));
+    final byte[] difficultyTarget = BlockUtil.getPoolDiffTarget(bitsBytes);
+    return new String(Hex.encode(difficultyTarget));
+  }
 
   @Computed
   public BlockInformation getBlock() {
@@ -82,5 +93,6 @@ public class BlockView implements IsVueComponent, HasCreated {
   @Override
   public void created() {
     blockHashInterpreter = new ColorInterpreter(picker.blockHash());
+    difficultyTargetInterpreter = new ColorInterpreter(picker.blockBits());
   }
 }

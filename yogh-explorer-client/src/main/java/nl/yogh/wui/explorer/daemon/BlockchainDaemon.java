@@ -15,6 +15,7 @@ import nl.aerius.wui.util.NotificationUtil;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
+import nl.yogh.wui.util.EllipsisUtil;
 
 public class BlockchainDaemon extends BasicEventComponent implements Daemon {
   private static final BlockchainDaemonEventBinder EVENT_BINDER = GWT.create(BlockchainDaemonEventBinder.class);
@@ -59,7 +60,14 @@ public class BlockchainDaemon extends BasicEventComponent implements Daemon {
   }
 
   private void updateBlock(final String hash) {
-    service.fetchBlock(hash, block -> context.setTip(block));
+    service.fetchBlock(hash, block -> {
+      if (context.tip != null) {
+        NotificationUtil.broadcastMessage(eventBus, "New block: " + EllipsisUtil.applyInner(block.id) + " at height " + block.height);
+      }
+
+      latestBlock = block.id;
+      context.setTip(block);
+    });
   }
 
   private void ifNotMatchThen(final String hash, final Runnable runnable) {

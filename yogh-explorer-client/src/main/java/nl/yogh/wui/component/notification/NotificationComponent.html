@@ -50,11 +50,20 @@
   .notification {
     cursor: pointer;
     padding: 10px;
-    background: #e17731;
     transition: background 0.15s ease-out;
     position: relative;
     border-radius: 4px;
     user-select: none;
+    
+    &.error {
+      background: #a00;
+    }
+    &.warning {
+      background: #f93;
+    }
+    &.message {
+      background: #31a0e1;
+    }
   }
   
   .datetime {
@@ -66,20 +75,6 @@
   .text {
     margin: 5px 0px 0px;
     color: white;
-  }
-  
-  &:hover {
-    background: #e17731;
-  }
-  
-  &.error {
-    border-left: #a00 10px solid;
-  }
-  &.warning {
-    border-left: #f93 10px solid;
-  }
-  &.message {
-    border-left: #1e61c5 10px solid;
   }
 }
 </style>
