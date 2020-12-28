@@ -15,6 +15,7 @@ import com.google.web.bindery.event.shared.EventBus;
 
 import jsinterop.annotations.JsMethod;
 
+import nl.yogh.wui.explorer.component.fields.SimpleField;
 import nl.yogh.wui.explorer.component.hex.HexViewer;
 import nl.yogh.wui.explorer.component.hex.interpreters.BlockInterpreter;
 import nl.yogh.wui.explorer.component.hex.interpreters.TransactionInterpreter;
@@ -28,7 +29,8 @@ import nl.yogh.wui.explorer.service.domain.BlockInformation;
     BlockLink.class,
     TransactionLink.class,
     AddressLink.class,
-    HexViewer.class
+    HexViewer.class,
+    SimpleField.class
 })
 public class BlockView implements IsVueComponent {
   @Prop EventBus eventBus;
