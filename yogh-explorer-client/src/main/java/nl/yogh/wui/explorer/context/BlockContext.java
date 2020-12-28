@@ -61,10 +61,14 @@ public class BlockContext {
   }
 
   public void clear() {
+    softClear();
     blockInformation = null;
     raw = null;
-    failure = null;
     txids = null;
     coinbaseHex = null;
+  }
+
+  public void softClear() {
+    failure = null;
   }
 }

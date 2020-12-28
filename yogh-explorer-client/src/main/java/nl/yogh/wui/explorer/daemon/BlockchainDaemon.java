@@ -41,7 +41,7 @@ public class BlockchainDaemon extends BasicEventComponent implements Daemon {
 
   @EventHandler
   public void onSourceChangedCommand(final SourceChangedCommand c) {
-    latestBlock = null;
+    checkTip();
   }
 
   private void init() {

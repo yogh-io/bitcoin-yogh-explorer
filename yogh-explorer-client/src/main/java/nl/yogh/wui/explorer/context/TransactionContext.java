@@ -25,10 +25,14 @@ public class TransactionContext {
     failure = e;
   }
 
+  public void softClear() {
+    failure = null;
+  }
+
   public void clear() {
+    softClear();
     transactionInformation = null;
     raw = null;
-    failure = null;
   }
 
   public void setLoading() {

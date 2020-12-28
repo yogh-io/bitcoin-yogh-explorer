@@ -19,7 +19,7 @@ import jsinterop.annotations.JsMethod;
 
 import nl.yogh.wui.explorer.component.color.ColorPicker;
 import nl.yogh.wui.explorer.component.fields.ColorField;
-import nl.yogh.wui.explorer.component.fields.SimpleField;
+import nl.yogh.wui.explorer.component.fields.LabeledValue;
 import nl.yogh.wui.explorer.component.hex.HexViewer;
 import nl.yogh.wui.explorer.component.hex.interpreters.BlockInterpreter;
 import nl.yogh.wui.explorer.component.hex.interpreters.ColorInterpreter;
@@ -38,7 +38,7 @@ import nl.yogh.wui.util.NumberEncodeUtil;
     TransactionLink.class,
     AddressLink.class,
     HexViewer.class,
-    SimpleField.class,
+    LabeledValue.class,
     ColorField.class
 })
 public class BlockView implements IsVueComponent, HasCreated {
@@ -55,7 +55,7 @@ public class BlockView implements IsVueComponent, HasCreated {
 
   @Data InterpretationStrategy blockHashInterpreter = null;
   @Data InterpretationStrategy difficultyTargetInterpreter = null;
-
+  
   @JsMethod
   public String formatDifficultyTarget(final String bits) {
     final byte[] bitsBytes = NumberEncodeUtil.encodeUint32(Integer.parseInt(bits));

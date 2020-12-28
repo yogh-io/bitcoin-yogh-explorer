@@ -14,7 +14,7 @@ import jsinterop.annotations.JsMethod;
 
 import nl.yogh.wui.explorer.component.color.ColorPicker;
 import nl.yogh.wui.explorer.component.fields.ColorField;
-import nl.yogh.wui.explorer.component.fields.SimpleField;
+import nl.yogh.wui.explorer.component.fields.LabeledValue;
 import nl.yogh.wui.explorer.component.hex.HexViewer;
 import nl.yogh.wui.explorer.component.hex.interpreters.ColorInterpreter;
 import nl.yogh.wui.explorer.component.hex.interpreters.InterpretationStrategy;
@@ -33,7 +33,7 @@ import nl.yogh.wui.util.EllipsisUtil;
     TransactionLink.class,
     AddressLink.class,
     HexViewer.class,
-    SimpleField.class,
+    LabeledValue.class,
     ColorField.class
 })
 public class TransactionView implements IsVueComponent, HasCreated {

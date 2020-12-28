@@ -16,106 +16,162 @@
       </hex-viewer>
   
       <h2>Information</h2>
-      <color-field label="Weight:"
-        :color="picker.transactionWeight()">
-        {{ transaction.weight }}
-      </color-field>
-      <color-field label="Size:"
-        :color="picker.transactionTotalSize()">
-        {{ transaction.size }}
-      </color-field>
+      <labeled-value label="Weight:">
+        <color-field
+          :value="transaction.weight"
+          :color="picker.transactionWeight()">
+        </color-field>
+      </labeled-value>
+      
+      <labeled-value label="Size:">
+        <color-field
+          :value="transaction.size"
+          :color="picker.transactionTotalSize()">
+        </color-field>
+      </labeled-value>
   
       <h2>In blockchain</h2>
-      <color-field label="Confirmed:"
-        :color="picker.transactionConfirmedState()">
-        {{ transaction.status.confirmed }}
-      </color-field>
+      <labeled-value label="Confirmed:">
+        <color-field
+          :value="transaction.status.confirmed"
+          :color="picker.transactionConfirmedState()">
+        </color-field>
+      </labeled-value>
       
       <template v-if="transaction.status.confirmed">
-        <color-field label="Block hash:"
-          :color="picker.blockHash()">
-          <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
-        </color-field>
-        <color-field label="Date/time:"
-          :color="picker.transactionTime()">
-          {{ transaction.status.blockTime }}
-        </color-field>
-        <color-field label="Confirmed in:">
-          {{ transaction.status.blockHeight }}
-        </color-field>
-        <color-field label="Confirmations:"
-          v-if="blockContext.tip != null"
-          :color="picker.transactionConfirmations()">
-          {{ blockContext.tip.height - transaction.status.blockHeight }}
-        </color-field>
+        <labeled-value label="Block hash:">
+          <block-link
+            :hash="transaction.status.blockHash">
+            <color-field
+              :value="transaction.status.blockHash"
+              :color="picker.blockHash()">
+            </color-field>
+          </block-link>
+        </labeled-value>
+        
+        <labeled-value label="Date/time:">
+          <color-field
+            :value="transaction.status.blockTime"
+            :color="picker.transactionTime()">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Confirmed in:">
+          <color-field :value="transaction.status.blockHeight">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Confirmations:"
+          v-if="blockContext.tip != null">
+          <color-field
+            :value="blockContext.tip.height - transaction.status.blockHeight"
+            :color="picker.transactionConfirmations()">
+          </color-field>
+        </labeled-value>
       </template>
   
       <h2>Inputs:</h2>
       <template v-for="(TransactionInput vin, index) in transaction.vin">
         <h3>input #{{ index }}</h3>
-        <color-field label="Previous tx:"
-          :color="picker.transactionHash()">
-          {{ vin.txid }}
-        </color-field>
-        <color-field label="Previous tx output index:"
-          :color="picker.transactionInputIndex()">
-          {{ vin.vout }}
-        </color-field>
-        <color-field label="Is coinbase transaction:">
-          {{ vin.isCoinbase }}
-        </color-field>
-        <color-field label="Sequence:"
-          :color="picker.transactionInputSequence()">
-          {{ vin.sequence }}
-        </color-field>
+        
+        <labeled-value label="Previous tx:"
+          v-if="blockContext.tip != null">
+          <transaction-link :hash="vin.txid">
+            <color-field
+              :value="vin.txid"
+              :color="picker.transactionHash()">
+            </color-field>
+          </transaction-link>
+        </labeled-value>
+        
+        <labeled-value label="Previous tx output index:">
+          <color-field
+            :value="vin.vout"
+            :color="picker.transactionInputIndex()">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Is coinbase transaction:">
+          <color-field :value="vin.isCoinbase">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Sequence:">
+          <color-field
+            :color="picker.transactionInputSequence()"
+            :value="vin.sequence">
+          </color-field>
+        </labeled-value>
         
         <template v-if="vin.scriptsig.isEmpty()">
           <h4>Segregated witness information</h4>
-          <color-field label="# witness items:">
-            {{ vin.witness.length }}
-          </color-field>
+          <labeled-value label="# witness items:">
+            <color-field :value="vin.witness.length">
+            </color-field>
+          </labeled-value>
           
           <template v-for="(String witness, index) in vin.witness">
-            <color-field :label='"Witness " + index + ":"'
-              :color="picker.witnessPushData()">
-              {{ formatPayload(witness) }}
-            </color-field>
+            <labeled-value label='"Witness " + index + ":"'>
+              <color-field
+                :value="formatPayload(witness)"
+                :color="picker.witnessPushData()">
+              </color-field>
+            </labeled-value>
           </template>
         </template>
         <template v-else>
-          <color-field label="Scriptsig:">
-            {{ formatPayload(vin.scriptsig) }}
-          </color-field>
+          <labeled-value label="Scriptsig:">
+            <color-field
+              :value="formatPayload(vin.scriptsig)"
+              :color="picker.transactionScriptSigPushData()">
+            </color-field>
+          </labeled-value>
         </template>
       </template>
   
       <h2>Outputs:</h2>
       <template v-for="(TransactionOutput vout, index) in transaction.vout">
         <h3>output #{{ index }}</h3>
-        <color-field label="ScriptPubKey:"
-          :color="picker.transactionScriptPubKeyPushData()">
-          {{ vout.scriptpubkey }}
-        </color-field>
-        <color-field label="Amount:"
-          :color="picker.transactionOutputAmount()">
-          {{ vout.value }}
-        </color-field>
-        <color-field label="Type:">
-          {{ vout.scriptpubkeyType }}
-        </color-field>
-        <color-field label="Address"
-          :color="picker.address()">
-          <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link>
-        </color-field>
+        <labeled-value label="ScriptPubKey:">
+          <color-field
+            :value="vout.scriptpubkey"
+            :color="picker.transactionScriptPubKeyPushData()">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Amount:">
+          <color-field
+            :color="picker.transactionOutputAmount()"
+            :value="vout.value">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Type:">
+          <color-field :value="vout.scriptpubkeyType">
+          </color-field>
+        </labeled-value>
+        
+        <labeled-value label="Address">
+          <address-link :address="vout.scriptpubkeyAddress">
+            <color-field
+              :value="vout.scriptpubkeyAddress"
+              :color="picker.address()">
+            </color-field>
+          </address-link>
+        </labeled-value>
       </template>
   
       <h2>Miscellaneous information:</h2>
-      <color-field label="Version:">
-        {{ transaction.version }}
-      </color-field>
-      <color-field label="Locktime:">
-        {{ transaction.locktime }}
-      </color-field>
+      
+      <labeled-value label="Version:">
+        <color-field :value="transaction.version">
+        </color-field>
+      </labeled-value>
+      
+      <labeled-value label="Locktime:">
+        <color-field :value="transaction.locktime">
+        </color-field>
+      </labeled-value>
     </template>
     <template v-else-if="context.transactionLoading">
       <p>Transaction information is being loaded..</p>

@@ -1,23 +1,9 @@
-<p class="line">
-  <span class="label">{{ label }}</span>
-  <span class="value"
-    :style='map(e("background", backcolor), e("border-top-color", forecolor))'>
-    {{value }}
-    <slot></slot>
-  </span>
-</p>
+<span class="value"
+  :style='map(e("background", backcolor), e("border-top-color", forecolor))'>
+  <slot>{{value }}</slot>
+</span>
 
 <style lang="scss" scoped>
-.line {
-  margin: 0px 0px 10px;
-  display: flex;
-}
-
-.label {
-  display: inline-block;
-  width: calc(8*24px + 15px);
-}
-
 .value {
   display: inline-block;
   border-top: solid 3px black;

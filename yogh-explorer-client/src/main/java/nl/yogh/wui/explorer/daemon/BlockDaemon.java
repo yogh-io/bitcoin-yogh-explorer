@@ -8,7 +8,7 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.command.PlaceChangeCommand;
-import nl.aerius.wui.event.BasicEventComponent;
+import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
@@ -18,7 +18,7 @@ import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 
-public class BlockDaemon extends BasicEventComponent implements Daemon {
+public class BlockDaemon extends SimpleStatefulDaemon<String> implements Daemon {
   private static final BlockDaemonEventBinder EVENT_BINDER = GWT.create(BlockDaemonEventBinder.class);
 
   interface BlockDaemonEventBinder extends EventBinder<BlockDaemon> {}
@@ -29,32 +29,33 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
 
   @Inject PlaceController placeController;
 
-  private String latestFetch;
-
   @EventHandler
   public void onPlaceChangeCommand(final PlaceChangeCommand c) {
     if (c.getValue() instanceof BlockPlace) {
       return;
     }
 
-    latestFetch = null;
+    resetState();
   }
 
   @EventHandler
   public void onSourceChangedCommand(final SourceChangedCommand c) {
-    latestFetch = null;
+    resetState();
   }
 
   @EventHandler
   public void onLoadBlockCommand(final LoadBlockCommand c) {
     final String hash = c.getValue();
-    if (hash.equals(latestFetch)) {
+    if (hash.equals(state)) {
       return;
     }
 
-    latestFetch = hash;
-    context.clear();
-    context.setLoading();
+    setState(hash);
+    context.softClear();
+    delayedLoad(() -> {
+      context.clear();
+      context.setLoading();
+    });
 
     service.fetchBlock(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadBlockInformation(v)),
@@ -67,12 +68,6 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
         e -> ifMatchThen(hash, () -> failTxids(e))));
 
     placeController.goTo(new BlockPlace(hash));
-  }
-
-  private void ifMatchThen(final String hash, final Runnable runnable) {
-    if (hash.equals(latestFetch)) {
-      runnable.run();
-    }
   }
 
   private void loadBlockInformation(final BlockInformation blockInformation) {
@@ -97,6 +92,9 @@ public class BlockDaemon extends BasicEventComponent implements Daemon {
   }
 
   private void failBlockInformation(final Throwable e) {
+    e.printStackTrace();
+    GWTProd.log(e);
+    GWTProd.log("Failing.. " + e.getMessage());
     context.setFailure(e);
   }
 
