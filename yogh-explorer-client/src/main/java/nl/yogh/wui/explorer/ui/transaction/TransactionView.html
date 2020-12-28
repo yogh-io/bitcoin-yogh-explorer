@@ -12,41 +12,92 @@
       <p>{{ transaction.txid }}</p>
   
       <h2>Information</h2>
-      <p>Transaction weight: {{ transaction.weight }}</p>
-      <p>Transaction size: {{ transaction.size }}</p>
+      <simple-field label="Weight:">
+        {{ transaction.weight }}
+      </simple-field>
+      <simple-field label="Size:">
+        {{ transaction.size }}
+      </simple-field>
   
       <h2>In blockchain</h2>
-      <p>Confirmed: {{ transaction.status.confirmed }}</p>
+      <simple-field label="Confirmed:">
+        {{ transaction.status.confirmed }}
+      </simple-field>
+      
       <template v-if="transaction.status.confirmed">
-        <p>
-          Block hash:
+        <simple-field label="Block hash:">
           <block-link :hash="transaction.status.blockHash">{{ transaction.status.blockHash }}</block-link>
-        </p>
-        <p>Date/time: {{ transaction.status.blockTime }}</p>
-        <p>Confirmed in: {{ transaction.status.blockHeight }}</p>
-        <p v-if="blockContext.tip != null">Confirmations: {{ blockContext.tip.height - transaction.status.blockHeight }}</p>
+        </simple-field>
+        <simple-field label="Date/time:">
+          {{ transaction.status.blockTime }}
+        </simple-field>
+        <simple-field label="Confirmed in:">
+          {{ transaction.status.blockHeight }}
+        </simple-field>
+        <simple-field label="Confirmations:" v-if="blockContext.tip != null">
+          {{ blockContext.tip.height - transaction.status.blockHeight }}
+        </simple-field>
       </template>
   
       <h2>Inputs:</h2>
       <template v-for="(TransactionInput vin, index) in transaction.vin">
         <h3>input #{{ index }}</h3>
-        <p>prevtx: <transaction-link :hash="vin.txid">{{ vin.txid }}</transaction-link></p>
-        <p>prevout: {{ vin.vout }}</p>
+        <simple-field label="Previous tx:">
+          {{ vin.txid }}
+        </simple-field>
+        <simple-field label="Previous outpoint:">
+          {{ vin.vout }}
+        </simple-field>
+        <simple-field label="Is coinbase transaction:">
+          {{ vin.isCoinbase }}
+        </simple-field>
+        <simple-field label="Sequence:">
+          {{ vin.sequence }}
+        </simple-field>
+        
+        <template v-if="vin.scriptsig.isEmpty()">
+          <h4>Segregated witness information</h4>
+          <simple-field label="# witness items:">
+            {{ vin.witness.length }}
+          </simple-field>
+          
+          <template v-for="(String witness, index) in vin.witness">
+            <simple-field :label='"Witness " + index + ":"'>
+              {{ formatPayload(witness) }}
+            </simple-field>
+          </template>
+        </template>
+        <template v-else>
+          <simple-field label="Scriptsig:">
+            {{ vin.scriptsig }}
+          </simple-field>
+        </template>
       </template>
   
       <h2>Outputs:</h2>
       <template v-for="(TransactionOutput vout, index) in transaction.vout">
         <h3>output #{{ index }}</h3>
-        <p>scriptpubkey: {{ vout.scriptpubkey }}</p>
-        <p>value: {{ vout.value }}</p>
-        
-        <p>Address: <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link></p>
-        <p>Type: {{ vout.scriptpubkeyType }}</p>
+        <simple-field label="ScriptPubKey:">
+          {{ vout.scriptpubkey }}
+        </simple-field>
+        <simple-field label="Amount:">
+          {{ vout.value }}
+        </simple-field>
+        <simple-field label="Type:">
+          {{ vout.scriptpubkeyType }}
+        </simple-field>
+        <simple-field label="Address">
+          <address-link :address="vout.scriptpubkeyAddress">{{ vout.scriptpubkeyAddress }}</address-link>
+        </simple-field>
       </template>
   
       <h2>Miscellaneous information:</h2>
-      <p>Format version: {{ transaction.version }}</p>
-      <p>Locktime: {{ transaction.locktime }}</p>
+      <simple-field label="Version:">
+        {{ transaction.version }}
+      </simple-field>
+        <simple-field label="Locktime:">
+          {{ transaction.locktime }}
+        </simple-field>
     </template>
     <template v-else-if="context.transactionLoading">
       <p>Transaction information is being loaded..</p>
