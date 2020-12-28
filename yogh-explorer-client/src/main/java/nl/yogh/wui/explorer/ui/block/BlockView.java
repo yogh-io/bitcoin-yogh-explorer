@@ -11,13 +11,18 @@ import com.axellience.vuegwt.core.annotations.component.Computed;
 import com.axellience.vuegwt.core.annotations.component.Data;
 import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
+import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
 import com.google.web.bindery.event.shared.EventBus;
 
 import jsinterop.annotations.JsMethod;
 
+import nl.yogh.wui.explorer.component.color.ColorPicker;
+import nl.yogh.wui.explorer.component.fields.ColorField;
 import nl.yogh.wui.explorer.component.fields.SimpleField;
 import nl.yogh.wui.explorer.component.hex.HexViewer;
 import nl.yogh.wui.explorer.component.hex.interpreters.BlockInterpreter;
+import nl.yogh.wui.explorer.component.hex.interpreters.ColorInterpreter;
+import nl.yogh.wui.explorer.component.hex.interpreters.InterpretationStrategy;
 import nl.yogh.wui.explorer.component.hex.interpreters.TransactionInterpreter;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
@@ -30,17 +35,22 @@ import nl.yogh.wui.explorer.service.domain.BlockInformation;
     TransactionLink.class,
     AddressLink.class,
     HexViewer.class,
-    SimpleField.class
+    SimpleField.class,
+    ColorField.class
 })
-public class BlockView implements IsVueComponent {
+public class BlockView implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;
 
   @Data @Inject BlockContext context;
 
   @Data int limit = 10;
-  
+
   @Inject @Data BlockInterpreter blockInterpreter;
   @Inject @Data TransactionInterpreter transactionInterpreter;
+
+  @Data @Inject ColorPicker picker;
+
+  @Data InterpretationStrategy blockHashInterpreter = null;
 
   @Computed
   public BlockInformation getBlock() {
@@ -67,5 +77,10 @@ public class BlockView implements IsVueComponent {
   @JsMethod
   public void increaseLimit() {
     limit += 5;
+  }
+
+  @Override
+  public void created() {
+    blockHashInterpreter = new ColorInterpreter(picker.blockHash());
   }
 }

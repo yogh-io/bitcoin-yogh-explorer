@@ -9,7 +9,11 @@
   </template>
   <template v-else>
     <template v-if="transaction != null">
-      <p>{{ transaction.txid }}</p>
+      <h2>Transaction hash</h2>
+      <hex-viewer
+        :hex="transaction.txid"
+        :interpreter="transactionInterpreter">
+      </hex-viewer>
   
       <h2>Information</h2>
       <color-field label="Weight:"

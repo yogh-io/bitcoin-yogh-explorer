@@ -6,61 +6,74 @@
   </template>
   <template v-else>
     <template v-if="block != null">
-      <simple-field
-        label="Block hash"
-        :value="block.id">
-      </simple-field>
-      <simple-field
+      <hex-viewer :hex="block.id"
+        :interpreter="blockHashInterpreter">
+      </hex-viewer>
+      
+      <h2>Block information</h2>
+      <color-field
         label="Block height:"
+        :color="picker.blockHeight()"
         :value="block.height">
-      </simple-field>
-      <simple-field
+      </color-field>
+      <color-field
         v-if="context.tip != null"
+        :color="picker.blockConfirmations()"
         label="Block depth:"
         :value="context.tip.height - block.height">
-      </simple-field>
-      <simple-field
+      </color-field>
+      <color-field
         label="Difficulty:"
+        :color="picker.blockBits()"
         :value="block.difficulty">
-      </simple-field>
-      <simple-field
+      </color-field>
+      <color-field
         label="Size:"
+        :color="picker.blockSize()"
         :value="block.size">
-      </simple-field>
-      <simple-field
+      </color-field>
+      <color-field
         label="Weight:"
+        :color="picker.blockWeight()"
         :value="block.weight">
-      </simple-field>
-      <simple-field
+      </color-field>
+      <color-field
         label="# transactions:"
+        :color="picker.blockNumTransactions()"
         :value="block.txCount">
-      </simple-field>
+      </color-field>
       
       <h2>Block header</h2>
-      <simple-field
+      <color-field
         label="Version:"
-        :value="block.version">
-      </simple-field>
-      <simple-field
+        :value="block.version"
+        :color="picker.blockVersion()">
+      </color-field>
+      <color-field
         label="Previous block:"
-        :value="block.previousBlockHash">
-      </simple-field>
-      <simple-field
+        :color="picker.blockHash()">
+        <block-link :hash="block.previousBlockHash">{{ block.previousBlockHash }}</block-link>
+      </color-field>
+      <color-field
         label="Merkle root:"
-        :value="block.merkleRoot">
-      </simple-field>
-      <simple-field
+        :value="block.merkleRoot"
+        :color="picker.blockMerkleRoot()">
+      </color-field>
+      <color-field
         label="Timestamp:"
-        :value="block.timestamp">
-      </simple-field>
-      <simple-field
+        :value="block.timestamp"
+        :color="picker.blockTime()">
+      </color-field>
+      <color-field
         label="Bits:"
-        :value="block.bits">
-      </simple-field>
-      <simple-field
+        :value="block.bits"
+        :color="picker.blockBits()">
+      </color-field>
+      <color-field
         label="Nonce:"
-        :value="block.nonce">
-      </simple-field>
+        :value="block.nonce"
+        :color="picker.blockNonce()">
+      </color-field>
     </template>
     <template v-else-if="context.blockLoading">
       <p>Loading block information</p>

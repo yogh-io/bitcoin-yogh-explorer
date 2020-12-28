@@ -262,4 +262,9 @@ public class SimpleColorPicker implements ColorPicker {
   public Color error() {
     return ColorBuilder.interpret("darkred");
   }
+
+  @Override
+  public Color blockWeight() {
+    return ColorBuilder.interpret("darkorange");
+  }
 }

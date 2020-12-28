@@ -6,10 +6,12 @@ public interface BlockColors {
   Color blockHeight();
 
   Color blockConfirmations();
-
+  
   Color blockNumTransactions();
 
   Color blockSize();
+  
+  Color blockWeight();
 
   Color blockVersion();
 

@@ -7,6 +7,7 @@ import com.axellience.vuegwt.core.annotations.component.Computed;
 import com.axellience.vuegwt.core.annotations.component.Data;
 import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
+import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
 import com.google.web.bindery.event.shared.EventBus;
 
 import jsinterop.annotations.JsMethod;
@@ -15,6 +16,8 @@ import nl.yogh.wui.explorer.component.color.ColorPicker;
 import nl.yogh.wui.explorer.component.fields.ColorField;
 import nl.yogh.wui.explorer.component.fields.SimpleField;
 import nl.yogh.wui.explorer.component.hex.HexViewer;
+import nl.yogh.wui.explorer.component.hex.interpreters.ColorInterpreter;
+import nl.yogh.wui.explorer.component.hex.interpreters.InterpretationStrategy;
 import nl.yogh.wui.explorer.component.hex.interpreters.TransactionInterpreter;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
@@ -33,7 +36,7 @@ import nl.yogh.wui.util.EllipsisUtil;
     SimpleField.class,
     ColorField.class
 })
-public class TransactionView implements IsVueComponent {
+public class TransactionView implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;
 
   @Inject ElectrServiceAsync service;
@@ -42,8 +45,10 @@ public class TransactionView implements IsVueComponent {
   @Data @Inject BlockContext blockContext;
 
   @Data @Inject TransactionInterpreter txInterpreter;
-  
+
   @Data @Inject ColorPicker picker;
+
+  @Data InterpretationStrategy transactionInterpreter = null;
 
   @Computed
   public TransactionInformation getTransaction() {
@@ -58,5 +63,10 @@ public class TransactionView implements IsVueComponent {
   @JsMethod
   public String formatPayload(final String payload) {
     return EllipsisUtil.applyInnerPayload(payload);
+  }
+
+  @Override
+  public void created() {
+    transactionInterpreter = new ColorInterpreter(picker.transactionHash());
   }
 }
