@@ -28,6 +28,7 @@ import nl.yogh.wui.explorer.component.hex.interpreters.TransactionInterpreter;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
+import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
@@ -40,7 +41,8 @@ import nl.yogh.wui.util.NumberEncodeUtil;
     AddressLink.class,
     HexViewer.class,
     LabeledValue.class,
-    ColorField.class
+    ColorField.class,
+    LoadingHeading.class
 })
 public class BlockView extends BitcoinUtilityComponent implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;

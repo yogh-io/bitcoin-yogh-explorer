@@ -1,0 +1,18 @@
+<div class="headingContainer">
+  <heading class="heading"
+    :level="level">
+    <slot>{{ text }}</slot>
+  </heading>
+  <loading v-show="loading"></loading>
+</div>
+
+<style scoped>
+.headingContainer {
+  display: flex;
+  align-items: center;
+}
+
+.heading {
+  margin-right: 20px;
+}
+</style>

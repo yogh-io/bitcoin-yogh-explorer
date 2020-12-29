@@ -7,9 +7,13 @@
   <template v-if="context.failure != null">
     <p>Loading failed.</p>
   </template>
+  
   <template v-else>
+    <loading-heading level="2"
+      :loading="context.transactionLoading"
+      text="Transaction hash">
+    </loading-heading>
     <template v-if="transaction != null">
-      <h2>Transaction hash</h2>
       <hex-viewer
         :hex="transaction.txid"
         :interpreter="transactionInterpreter">
@@ -173,19 +177,16 @@
         </color-field>
       </labeled-value>
     </template>
-    <template v-else-if="context.transactionLoading">
-      <p>Transaction information is being loaded..</p>
-    </template>
     
+    <loading-heading level="2"
+      :loading="context.rawLoading"
+      text="Raw transaction">
+    </loading-heading>
     <template v-if="raw != null">
-      <h2>Raw transaction</h2>
       <hex-viewer
         :hex="raw"
         :interpreter="txInterpreter">
       </hex-viewer>
-    </template>
-    <template v-else-if="context.rawLoading">
-      <p>Raw transaction is being loaded..</p>
     </template>
   </template>
 </div>

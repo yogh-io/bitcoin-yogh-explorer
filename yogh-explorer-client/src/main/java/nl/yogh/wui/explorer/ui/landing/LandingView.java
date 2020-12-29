@@ -17,6 +17,7 @@ import nl.yogh.wui.explorer.component.fields.LabeledValue;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
+import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.OverviewContext;
 import nl.yogh.wui.explorer.place.MempoolPlace;
 import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
@@ -27,6 +28,7 @@ import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
     AddressLink.class,
     ColorField.class,
     LabeledValue.class,
+    LoadingHeading.class
 })
 public class LandingView extends BitcoinUtilityComponent implements IsVueComponent {
   @Prop EventBus eventBus;

@@ -1,7 +1,10 @@
 <vue-gwt:import class="nl.yogh.wui.explorer.service.domain.UtxoInformation" />
 
 <div>
-  <h1>Address</h1>
+  <loading-heading level="1"
+    :loading="context.addressLoading"
+    text="Address">
+  </loading-heading>
   
   <template v-if="context.failure != null">
     <p>Loading failed.</p>
@@ -59,11 +62,11 @@
         <p>This address pertains to no confirmed transaction outputs.</p>
       </template>
     </template>
-    <template v-else="context.addressLoading">
-      <p>Address information is being loaded..</p>
-    </template>
     
-    <h2>Unspent transaction outputs</h2>
+    <loading-heading level="2"
+      :loading="context.utxosLoading"
+      text="Unspent transaction outputs">
+    </loading-heading>
     <template v-if="context.utxos != null">
       <template v-if="context.utxos.length > 0">
         <template v-for="(UtxoInformation utxo, index) in context.utxos">
@@ -97,9 +100,6 @@
       <template v-else>
         <p>All transaction outputs have been spent.</p>
       </template>
-    </template>
-    <template v-else="context.utxosLoading">
-      <p>UTXO information is being loaded..</p>
     </template>
   </template>
 </div>

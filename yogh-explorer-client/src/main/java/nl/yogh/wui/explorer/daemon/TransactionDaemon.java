@@ -61,9 +61,9 @@ public class TransactionDaemon extends DelayingStatefulDaemon<String> implements
 
     setState(hash);
     context.softClear();
-    delayedLoad(() -> {
+    context.setLoading();
+    delayedClear(() -> {
       context.clear();
-      context.setLoading();
     });
 
     service.fetchTransaction(hash, AppAsyncCallback.create(

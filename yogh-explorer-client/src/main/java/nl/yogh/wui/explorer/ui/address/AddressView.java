@@ -14,6 +14,7 @@ import nl.yogh.wui.explorer.component.fields.LabeledValue;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
+import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.AddressContext;
 
 @Component(components = {
@@ -21,7 +22,8 @@ import nl.yogh.wui.explorer.context.AddressContext;
     TransactionLink.class,
     AddressLink.class,
     LabeledValue.class,
-    ColorField.class
+    ColorField.class,
+    LoadingHeading.class
 })
 public class AddressView implements IsVueComponent {
   @Prop EventBus eventBus;

@@ -23,7 +23,7 @@ public abstract class DelayingStatefulDaemon<T> extends BasicEventComponent {
     this.loaded = state;
   }
 
-  protected void delayedLoad(final Runnable runner) {
+  protected void delayedClear(final Runnable runner) {
     loaded = null;
     SchedulerUtil.delay(() -> {
       if (this.state.equals(loaded)) {
