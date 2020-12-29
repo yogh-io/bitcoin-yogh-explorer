@@ -16,6 +16,7 @@ import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.AddressContext;
+import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
 
 @Component(components = {
     BlockLink.class,
@@ -25,7 +26,7 @@ import nl.yogh.wui.explorer.context.AddressContext;
     ColorField.class,
     LoadingHeading.class
 })
-public class AddressView implements IsVueComponent {
+public class AddressView extends BitcoinUtilityComponent implements IsVueComponent {
   @Prop EventBus eventBus;
 
   @Data @Inject AddressContext context;
