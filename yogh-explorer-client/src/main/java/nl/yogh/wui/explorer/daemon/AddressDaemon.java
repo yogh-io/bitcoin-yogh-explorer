@@ -9,6 +9,7 @@ import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.command.PlaceChangeCommand;
 import nl.aerius.wui.event.BasicEventComponent;
+import nl.aerius.wui.event.NotifyHistoryEvent;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadAddressCommand;
@@ -31,6 +32,13 @@ public class AddressDaemon extends BasicEventComponent implements Daemon {
   @Inject PlaceController placeController;
 
   private String latestFetch;
+
+  @EventHandler
+  public void onNotifyHistoryEvent(final NotifyHistoryEvent e) {
+    if (e.getValue() instanceof AddressPlace) {
+      eventBus.fireEvent(new LoadAddressCommand(((AddressPlace) e.getValue()).getHash()));
+    }
+  }
 
   @EventHandler
   public void onPlaceChangeCommand(final PlaceChangeCommand c) {
