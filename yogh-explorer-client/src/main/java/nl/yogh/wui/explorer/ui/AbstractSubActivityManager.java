@@ -33,6 +33,8 @@ public abstract class AbstractSubActivityManager<V, S extends SubActivity> {
 
   private boolean delegate;
 
+  private S currentActivity;
+
   public boolean delegate(final ResettableEventBus eventBus, final Place place, final Consumer<Place> redirector) {
     this.eventBus = eventBus;
     this.place = place;
@@ -58,12 +60,16 @@ public abstract class AbstractSubActivityManager<V, S extends SubActivity> {
       return;
     }
     
+    if (currentActivity != null) {
+      currentActivity.onStop();
+    }
     eventBus.removeHandlers();
 
     if (act instanceof HasEventBus) {
       ((HasEventBus) act).setEventBus(eventBus);
     }
     act.onStart();
+    currentActivity = act;
   }
 
   private S redirect(final Place place) {

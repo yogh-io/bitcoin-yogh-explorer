@@ -9,7 +9,6 @@ import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.command.PlaceChangeCommand;
 import nl.aerius.wui.event.BasicEventComponent;
-import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadMempoolCommand;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
@@ -49,9 +48,6 @@ public class MempoolDaemon extends BasicEventComponent implements Daemon {
     context.clear();
     context.setLoading();
 
-    service.fetchMempool(AppAsyncCallback.create(
-        v -> context.setMempool(v),
-        e -> context.setFailure(e)));
 
     placeController.goTo(new MempoolPlace());
   }
