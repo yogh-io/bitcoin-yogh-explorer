@@ -22,6 +22,7 @@ import nl.yogh.wui.explorer.component.hex.interpreters.TransactionInterpreter;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
+import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.context.TransactionContext;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
@@ -34,7 +35,8 @@ import nl.yogh.wui.util.EllipsisUtil;
     AddressLink.class,
     HexViewer.class,
     LabeledValue.class,
-    ColorField.class
+    ColorField.class,
+    LoadingHeading.class
 })
 public class TransactionView implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;

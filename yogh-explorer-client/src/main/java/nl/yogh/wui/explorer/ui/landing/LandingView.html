@@ -8,7 +8,10 @@
     <p>Loading failed.</p>
   </template>
   <template v-else>
-    <h2>Recent blocks</h2>
+    <loading-heading level="2"
+      :loading="context.blocksLoading"
+      text="Recent blocks">
+    </loading-heading>
     <template v-if="context.blocks != null">
       <div v-for="BlockInformation block in context.blocks"
         class="marginBottom">
@@ -44,13 +47,12 @@
         </color-field>
       </div>
     </template>
-    <template v-else="context.blocksLoading">
-      <p>Recent blocks are loading..</p>
-    </template>
     
+  <loading-heading level="2"
+    :loading="context.mempoolLoading"
+    text="Mempool">
+  </loading-heading>
   <template v-if="context.pool != null">
-    <h2>Mempool</h2>
-    
     <labeled-value label="# Transactions">
       <color-field
         :color="picker.blockNumTransactions()"
@@ -79,11 +81,11 @@
       </color-field>
     </labeled-value>
   </template>
-  <template v-else-if="context.mempoolLoading">
-    <p>Mempool information is being loaded..</p>
-  </template>
     
-    <h2>Recent transactions</h2>
+    <loading-heading level="2"
+      :loading="context.transactionsLoading"
+      text="Recent transactions">
+    </loading-heading>
     <template v-if="context.transactions != null">
       <div v-for="TransactionSummary tx in context.transactions"
         class="marginBottom">
@@ -112,9 +114,6 @@
           :value="formatFee(tx.fee, tx.vsize)">
         </color-field>
       </div>
-    </template>
-    <template v-else="context.transactionsLoading">
-      <p>Recent transactions are loading..</p>
     </template>
   </template>
 </div>

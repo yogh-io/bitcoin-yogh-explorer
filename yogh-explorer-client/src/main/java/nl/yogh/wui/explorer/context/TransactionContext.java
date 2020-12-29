@@ -20,6 +20,11 @@ public class TransactionContext {
     this.raw = raw;
   }
 
+  public void setTransactionInformation(final TransactionInformation transactionInformation) {
+    transactionLoading = false;
+    this.transactionInformation = transactionInformation;
+  }
+
   public void setFailure(final Throwable e) {
     clear();
     failure = e;
@@ -38,9 +43,5 @@ public class TransactionContext {
   public void setLoading() {
     rawLoading = true;
     transactionLoading = true;
-  }
-
-  public void setTransactionInformation(final TransactionInformation transactionInformation) {
-    this.transactionInformation = transactionInformation;
   }
 }

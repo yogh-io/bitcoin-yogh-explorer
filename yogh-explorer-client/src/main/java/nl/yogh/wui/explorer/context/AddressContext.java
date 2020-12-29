@@ -41,5 +41,6 @@ public class AddressContext {
 
   public void setLoading() {
     addressLoading = true;
+    utxosLoading = true;
   }
 }

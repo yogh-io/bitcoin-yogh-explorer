@@ -59,10 +59,6 @@ public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemo
 
   @EventHandler
   public void onLoadBlockCommand(final LoadBlockCommand c) {
-    if (state == null) {
-      context.setLoading();
-    }
-
     final String hash = c.getValue();
     if (hash.equals(state)) {
       return;
@@ -70,9 +66,9 @@ public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemo
 
     setState(hash);
     context.softClear();
-    delayedLoad(() -> {
+    context.setLoading();
+    delayedClear(() -> {
       context.clear();
-      context.setLoading();
     });
 
     service.fetchBlock(hash, AppAsyncCallback.create(

@@ -7,7 +7,6 @@ import com.google.gwt.user.client.Timer;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
-import com.google.web.bindery.event.shared.binder.GenericEvent;
 
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.aerius.wui.future.AppAsyncCallback;
@@ -37,17 +36,24 @@ public class OverviewDaemon extends BasicEventComponent implements Daemon {
     };
   };
 
-  @EventHandler(handles = { SourceChangedCommand.class, ActivateOverviewCommand.class })
-  public void onSourceChangedCommand(final GenericEvent c) {
+  private boolean active;
+
+  @EventHandler
+  public void onSourceChangedCommand(final SourceChangedCommand c) {
+    if (!active) {
+      return;
+    }
+
+    refresh();
+  }
+
+  private void refresh() {
     context.clear();
     context.setLoading();
 
     fetchRecentBlocks();
     fetchMempool();
     fetchRecentTransactions();
-
-    // Reset timer
-    timer.scheduleRepeating(DELAY);
   }
 
   @EventHandler
@@ -74,8 +80,17 @@ public class OverviewDaemon extends BasicEventComponent implements Daemon {
   }
 
   @EventHandler
+  public void onActivateOverviewCommand(final ActivateOverviewCommand c) {
+    refresh();
+    timer.cancel();
+    timer.scheduleRepeating(DELAY);
+    active = true;
+  }
+
+  @EventHandler
   public void onDeactivateOverviewCommand(final DeactivateOverviewCommand c) {
     timer.cancel();
+    active = false;
   }
 
   @Override

@@ -5,8 +5,11 @@
     <p>Loading failed.</p>
   </template>
   <template v-else>
+    <loading-heading level="2"
+      :loading="context.blockLoading"
+      text="Block hash">
+    </loading-heading>
     <template v-if="block != null">
-      <h2>Block hash</h2>
       <hex-viewer :hex="block.id"
         :interpreter="blockHashInterpreter">
       </hex-viewer>
@@ -15,7 +18,10 @@
         :interpreter="difficultyTargetInterpreter">
       </hex-viewer>
       
-      <h2>Coinbase transaction</h2>
+      <loading-heading level="2"
+        :loading="context.txidsLoading"
+        text="Coinbase transaction">
+      </loading-heading>
       <template v-if="context.txids != null">
         <transaction-link :hash="txids[0]">
           <hex-viewer
@@ -24,12 +30,11 @@
           </hex-viewer>
         </transaction-link>
       </template>
-      <template v-else-if="context.txidsLoading">
-        <p>Loading coinbase transaction</p>
-      </template>
       
-      <h2>Block information</h2>
-      
+      <loading-heading level="2"
+        :loading="context.blockLoading"
+        text="Block information">
+      </loading-heading>
       <labeled-value label="Block height">
         <color-field
           :color="picker.blockHeight()"
@@ -74,7 +79,10 @@
         </color-field>
       </labeled-value>
       
-      <h2>Block header</h2>
+      <loading-heading level="2"
+        :loading="context.blockLoading"
+        text="Block header">
+      </loading-heading>
       <labeled-value label="Version">
         <color-field
           :value="block.version"
@@ -119,34 +127,34 @@
         </color-field>
       </labeled-value>
     </template>
-    <template v-else-if="context.blockLoading">
-      <p>Loading block information</p>
-    </template>
-      
+
+    <loading-heading level="2"
+      :loading="context.rawLoading"
+      text="Block header in hex">
+    </loading-heading>
     <template v-if="raw != null">
-      <h2>Block header in hex</h2>
       <hex-viewer
         :hex="raw"
         :interpreter="blockInterpreter">
       </hex-viewer>
     </template>
-    <template v-else-if="context.rawLoading">
-      <p>Loading raw header</p>
-    </template>
-      
-    <h2>Coinbase transaction in hex</h2>
+
+    <loading-heading level="2"
+      :loading="context.coinbaseLoading"
+      text="Coinbase transaction in hex">
+    </loading-heading>
     <template v-if="context.coinbaseHex != null">
       <hex-viewer
         :hex="context.coinbaseHex"
         :interpreter="transactionInterpreter">
       </hex-viewer>
     </template>
-    <template v-else-if="context.coinbaseLoading">
-      <p>Loading coinbase transaction</p>
-    </template>
-      
+
+    <loading-heading level="2"
+      :loading="context.txidsLoading"
+      text="Transactions">
+    </loading-heading>
     <template v-if="txids != null">
-      <h2>Transactions:</h2>
       <transaction-link v-for="String txid in limit(txids)"
         :hash="txid">
         <color-field class="marginBottom"
@@ -158,9 +166,6 @@
       <p>
         <a href="" @click.prevent="increaseLimit()">Load more...</a>
       </p>
-    </template>
-    <template v-else-if="context.txidsLoading">
-      <p>Loading transaction ids</p>
     </template>
   </template>
 </div>
