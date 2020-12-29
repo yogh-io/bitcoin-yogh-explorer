@@ -25,8 +25,10 @@ public abstract class DelayingStatefulDaemon<T> extends BasicEventComponent {
 
   protected void delayedClear(final Runnable runner) {
     loaded = null;
+    final T instanceState = state;
     SchedulerUtil.delay(() -> {
-      if (this.state.equals(loaded)) {
+      if (this.state.equals(loaded)
+          || !this.state.equals(instanceState)) {
         return;
       } else {
         runner.run();
