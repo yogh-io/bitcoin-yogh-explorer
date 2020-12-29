@@ -13,11 +13,11 @@ public class BlockInformation {
 
   @JsProperty(name = "merkle_root") public String merkleRoot;
 
-  @JsProperty public String nonce;
+  @JsProperty public int nonce;
   @JsProperty(name = "previousblockhash") public String previousBlockHash;
-  @JsProperty public String size;
-  @JsProperty public String timestamp;
-  @JsProperty(name = "tx_count") public String txCount;
+  @JsProperty public int size;
+  @JsProperty public int timestamp;
+  @JsProperty(name = "tx_count") public int txCount;
   @JsProperty public String version;
-  @JsProperty public String weight;
+  @JsProperty public int weight;
 }

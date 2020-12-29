@@ -7,28 +7,28 @@
   <template v-if="context.pool != null">
     <h2>Mempool</h2>
     
-    <labeled-value label="# Transactions:">
+    <labeled-value label="# Transactions">
       <color-field
         :color="picker.blockNumTransactions()"
         :value="context.pool.count">
       </color-field>
     </labeled-value>
     
-    <labeled-value label="Virtual size:">
+    <labeled-value label="Virtual size (MB)">
       <color-field
         :color="picker.transactionVSize()"
-        :value="context.pool.vsize">
+        :value="formatSizeInMb(context.pool.vsize)">
       </color-field>
     </labeled-value>
     
-    <labeled-value label="Total fee:">
+    <labeled-value label="Total fees">
       <color-field
         :color="picker.transactionOutputAmount()"
-        :value="context.pool.totalFee">
+        :value="formatAmountWithUnit(context.pool.totalFee)">
       </color-field>
     </labeled-value>
     
-    <labeled-value label="Histogram(#):">
+    <labeled-value label="Histogram(#)">
       <color-field
         :color="picker.blockHeight()"
         :value="context.pool.feeHistogram.length">
@@ -43,8 +43,8 @@
     <p>Loading failed.</p>
   </template>
   <template v-else>
+    <h2>Recent blocks</h2>
     <template v-if="context.blocks != null">
-      <h2>Recent blocks</h2>
       <div v-for="BlockInformation block in context.blocks"
         class="marginBottom">
         <color-field
@@ -55,19 +55,25 @@
         <block-link :hash="block.id">
           <color-field
             :color="picker.blockHash()"
-            :value="block.id">
+            :value="ellipsisHash(block.id)">
           </color-field>
         </block-link>
         
         <color-field
+          :color="picker.blockTime()"
+          :value="formatTimestamp(block.timestamp)">
+        </color-field>
+        
+        <color-field
           :color="picker.blockWeight()"
-          :value="block.size">
+          :value="formatSizeInKb(block.weight)">
         </color-field>
         <color-field
           :color="picker.blockSize()"
-          :value="block.weight">
+          :value="formatSizeInKb(block.size)">
         </color-field>
         <color-field
+          class="txCount"
           :color="picker.blockNumTransactions()"
           :value="block.txCount">
         </color-field>
@@ -77,11 +83,12 @@
       <p>Recent blocks are loading..</p>
     </template>
     
+    <h2>Recent transactions</h2>
     <template v-if="context.transactions != null">
-      <h2>Recent transactions</h2>
       <div v-for="TransactionSummary tx in context.transactions"
         class="marginBottom">
-        <transaction-link :hash="tx.txid">
+        <transaction-link :hash="tx.txid"
+          class="tx">
           <color-field
             :color="picker.transactionHash()"
             :value="tx.txid">
@@ -89,17 +96,20 @@
         </transaction-link>
         
         <color-field
+          class="amount"
           :color="picker.transactionOutputAmount()"
-          :value="tx.value">
+          :value="formatAmountWithUnit(tx.value)">
         </color-field>
         
         <color-field
+          class="size"
           :color="picker.transactionVSize()"
-          :value="tx.vsize">
+          :value="formatSizeInVbWithUnit(tx.vsize)">
         </color-field>
         <color-field
+          class="fee"
           :color="picker.transactionOutputAmount()"
-          :value="tx.fee">
+          :value="formatFee(tx.fee, tx.vsize)">
         </color-field>
       </div>
     </template>
@@ -112,5 +122,25 @@
 <style scoped lang="scss">
 .marginBottom {
   margin-bottom: 10px;
+}
+.txCount {
+  width: 40px;
+  text-align: center;
+}
+.tx {
+  width: 471px;
+  display: inline-block;
+}
+.amount {
+  width: 130px;
+  text-align: right;
+}
+.size {
+  width: 55px;
+  text-align: center;
+}
+.fee {
+  width: 105px;
+  text-align: right;
 }
 </style>

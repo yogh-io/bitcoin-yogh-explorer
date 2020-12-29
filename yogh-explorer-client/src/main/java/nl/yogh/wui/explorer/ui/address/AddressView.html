@@ -9,7 +9,10 @@
   <template v-else>
     <template v-if="context.addressInformation != null">
       <labeled-value label="Address:">
-        {{ context.addressInformation.address }}
+        <color-field
+          :value="context.addressInformation.address"
+          :color="picker.address()">
+        </color-field>
       </labeled-value>
       
       <h2>Mempool stats</h2>
@@ -60,9 +63,8 @@
       <p>Address information is being loaded..</p>
     </template>
     
+    <h2>Unspent transaction outputs</h2>
     <template v-if="context.utxos != null">
-      <h2>Unspent transaction outputs for this address:</h2>
-      
       <template v-if="context.utxos.length > 0">
         <template v-for="(UtxoInformation utxo, index) in context.utxos">
           <h3>UTXO #{{ index }}</h3>
@@ -76,8 +78,19 @@
             {{ utxo.value }}
           </labeled-value>
           
-          <labeled-value label="Status:">
-            <block-link :hash="utxo.status.blockHash">{{ utxo.status.confirmed }}</block-link>
+          <labeled-value v-if="utxo.status.confirmed" label="Status:">
+            <block-link :hash="utxo.status.blockHash">
+              <color-field
+                :value="utxo.status.confirmed"
+                :color="picker.transactionConfirmedState()">
+              </color-field>
+            </block-link>
+          </labeled-value>
+          <labeled-value v-else label="Status:">
+            <color-field
+              :value="utxo.status.confirmed"
+              :color="picker.transactionConfirmedState()">
+            </color-field>
           </labeled-value>
         </template>
       </template>

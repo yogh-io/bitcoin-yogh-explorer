@@ -30,14 +30,14 @@
       
       <h2>Block information</h2>
       
-      <labeled-value label="Block height:">
+      <labeled-value label="Block height">
         <color-field
           :color="picker.blockHeight()"
           :value="block.height">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Block depth:">
+      <labeled-value label="Block depth">
         <color-field
           v-if="context.tip != null"
           :color="picker.blockConfirmations()"
@@ -45,29 +45,29 @@
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Difficulty:">
+      <labeled-value label="Difficulty">
         <color-field
           :color="picker.blockBits()"
           :value="block.difficulty">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Block size:">
+      <labeled-value label="Block size (KB)">
         <color-field
-          label="Size:"
+          label="Size"
           :color="picker.blockSize()"
-          :value="block.size">
+          :value="formatSizeInKb(block.size)">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Weight:">
+      <labeled-value label="Weight (KWU)">
         <color-field
           :color="picker.blockWeight()"
-          :value="block.weight">
+          :value="formatSizeInKb(block.weight)">
         </color-field>
       </labeled-value>
 
-      <labeled-value label="# transactions:">
+      <labeled-value label="# transactions">
         <color-field
           :color="picker.blockNumTransactions()"
           :value="block.txCount">
@@ -75,14 +75,14 @@
       </labeled-value>
       
       <h2>Block header</h2>
-      <labeled-value label="Version:">
+      <labeled-value label="Version">
         <color-field
           :value="block.version"
           :color="picker.blockVersion()">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Previous block:">
+      <labeled-value label="Previous block">
         <block-link :hash="block.previousBlockHash">
           <color-field
             :color="picker.blockHash()"
@@ -91,28 +91,28 @@
         </block-link>
       </labeled-value>
       
-      <labeled-value label="Merkle root:">
+      <labeled-value label="Merkle root">
         <color-field
           :value="block.merkleRoot"
           :color="picker.blockMerkleRoot()">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Timestamp:">
+      <labeled-value label="Timestamp">
         <color-field
-          :value="block.timestamp"
+          :value="formatTimestamp(block.timestamp)"
           :color="picker.blockTime()">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Bits:">
+      <labeled-value label="Bits">
         <color-field
           :value="block.bits"
           :color="picker.blockBits()">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Nonce:">
+      <labeled-value label="Nonce">
         <color-field
           :value="block.nonce"
           :color="picker.blockNonce()">

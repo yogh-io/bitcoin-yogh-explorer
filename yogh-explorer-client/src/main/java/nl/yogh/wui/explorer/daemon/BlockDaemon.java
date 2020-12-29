@@ -8,17 +8,17 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.command.PlaceChangeCommand;
-import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
+import nl.yogh.wui.explorer.daemon.util.DelayingStatefulDaemon;
 import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 
-public class BlockDaemon extends SimpleStatefulDaemon<String> implements Daemon {
+public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemon {
   private static final BlockDaemonEventBinder EVENT_BINDER = GWT.create(BlockDaemonEventBinder.class);
 
   interface BlockDaemonEventBinder extends EventBinder<BlockDaemon> {}
@@ -102,9 +102,6 @@ public class BlockDaemon extends SimpleStatefulDaemon<String> implements Daemon 
   }
 
   private void failBlockInformation(final Throwable e) {
-    e.printStackTrace();
-    GWTProd.log(e);
-    GWTProd.log("Failing.. " + e.getMessage());
     context.setFailure(e);
   }
 
