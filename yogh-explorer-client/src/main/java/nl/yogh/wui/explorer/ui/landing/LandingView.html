@@ -4,8 +4,41 @@
 <div>
   <h1>Landing</h1>
   
-  <a @click.prevent="viewMempool()" href="/mempool">View mempool</a>
-  
+  <template v-if="context.pool != null">
+    <h2>Mempool</h2>
+    
+    <labeled-value label="# Transactions:">
+      <color-field
+        :color="picker.blockNumTransactions()"
+        :value="context.pool.count">
+      </color-field>
+    </labeled-value>
+    
+    <labeled-value label="Virtual size:">
+      <color-field
+        :color="picker.transactionVSize()"
+        :value="context.pool.vsize">
+      </color-field>
+    </labeled-value>
+    
+    <labeled-value label="Total fee:">
+      <color-field
+        :color="picker.transactionOutputAmount()"
+        :value="context.pool.totalFee">
+      </color-field>
+    </labeled-value>
+    
+    <labeled-value label="Histogram(#):">
+      <color-field
+        :color="picker.blockHeight()"
+        :value="context.pool.feeHistogram.length">
+      </color-field>
+    </labeled-value>
+  </template>
+  <template v-else-if="context.mempoolLoading">
+    <p>Mempool information is being loaded..</p>
+  </template>
+
   <template v-if="context.failure != null">
     <p>Loading failed.</p>
   </template>

@@ -6,11 +6,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.inject.assistedinject.Assisted;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.binder.EventBinder;
-import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.event.BasicEventComponent;
-import nl.yogh.wui.explorer.command.UpdateRecentBlocksCommand;
-import nl.yogh.wui.explorer.event.SourceChangedEvent;
+import nl.yogh.wui.explorer.command.ActivateOverviewCommand;
+import nl.yogh.wui.explorer.command.DeactivateOverviewCommand;
 import nl.yogh.wui.explorer.ui.MainView;
 
 public class LandingActivity extends BasicEventComponent implements LandingPresenter {
@@ -25,12 +24,12 @@ public class LandingActivity extends BasicEventComponent implements LandingPrese
 
   @Override
   public void onStart() {
-    eventBus.fireEvent(new UpdateRecentBlocksCommand());
+    eventBus.fireEvent(new ActivateOverviewCommand());
   }
 
-  @EventHandler
-  public void onSourceChangedEvent(final SourceChangedEvent e) {
-    eventBus.fireEvent(new UpdateRecentBlocksCommand());
+  @Override
+  public void onStop() {
+    eventBus.fireEvent(new DeactivateOverviewCommand());
   }
 
   @Override

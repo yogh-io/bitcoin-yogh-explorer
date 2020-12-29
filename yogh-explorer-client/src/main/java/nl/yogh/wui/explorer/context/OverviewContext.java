@@ -7,14 +7,18 @@ import com.axellience.vuegwt.core.annotations.component.Data;
 import jsinterop.annotations.JsProperty;
 
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
+import nl.yogh.wui.explorer.service.domain.MempoolInformation;
 import nl.yogh.wui.explorer.service.domain.TransactionSummary;
 
 @Singleton
 public class OverviewContext {
   @Data @JsProperty public BlockInformation[] blocks = null;
   @Data @JsProperty public TransactionSummary[] transactions = null;
-  @Data @JsProperty public boolean blocksLoading;
-  @Data @JsProperty public boolean transactionsLoading;
+  @Data public MempoolInformation pool = null;
+
+  @Data public boolean blocksLoading;
+  @Data public boolean transactionsLoading;
+  @Data public boolean mempoolLoading;
 
   @Data public Throwable failure = null;
 
@@ -27,11 +31,18 @@ public class OverviewContext {
     failure = null;
     blocks = null;
     transactions = null;
+    pool = null;
   }
 
   public void setLoading() {
     blocksLoading = true;
     transactionsLoading = true;
+    mempoolLoading = true;
+  }
+
+  public void setMempool(final MempoolInformation mempool) {
+    mempoolLoading = false;
+    this.pool = mempool;
   }
 
   public void setRecentBlocks(final BlockInformation[] blocks) {
