@@ -11,6 +11,8 @@ import com.google.web.bindery.event.shared.EventBus;
 import jsinterop.annotations.JsMethod;
 
 import nl.aerius.wui.place.PlaceController;
+import nl.yogh.wui.explorer.component.color.ColorPicker;
+import nl.yogh.wui.explorer.component.fields.ColorField;
 import nl.yogh.wui.explorer.component.links.AddressLink;
 import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
@@ -20,7 +22,8 @@ import nl.yogh.wui.explorer.place.MempoolPlace;
 @Component(components = {
     BlockLink.class,
     TransactionLink.class,
-    AddressLink.class
+    AddressLink.class,
+    ColorField.class
 })
 public class LandingView implements IsVueComponent {
   @Prop EventBus eventBus;
@@ -28,6 +31,8 @@ public class LandingView implements IsVueComponent {
   @Inject @Data OverviewContext context;
 
   @Inject PlaceController placeController;
+
+  @Data @Inject ColorPicker picker;
 
   @JsMethod
   public void viewMempool() {

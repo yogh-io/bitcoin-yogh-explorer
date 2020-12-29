@@ -12,9 +12,33 @@
   <template v-else>
     <template v-if="context.blocks != null">
       <h2>Recent blocks</h2>
-      <template v-for="BlockInformation block in context.blocks">
-        <p>{{ block.height }}: <block-link :hash="block.id">{{ block.id }}</block-link></p>
-      </template>
+      <div v-for="BlockInformation block in context.blocks"
+        class="marginBottom">
+        <color-field
+          :color="picker.blockHeight()"
+          :value="block.height">
+        </color-field>
+        
+        <block-link :hash="block.id">
+          <color-field
+            :color="picker.blockHash()"
+            :value="block.id">
+          </color-field>
+        </block-link>
+        
+        <color-field
+          :color="picker.blockWeight()"
+          :value="block.size">
+        </color-field>
+        <color-field
+          :color="picker.blockSize()"
+          :value="block.weight">
+        </color-field>
+        <color-field
+          :color="picker.blockNumTransactions()"
+          :value="block.txCount">
+        </color-field>
+      </div>
     </template>
     <template v-else="context.blocksLoading">
       <p>Recent blocks are loading..</p>
@@ -22,9 +46,29 @@
     
     <template v-if="context.transactions != null">
       <h2>Recent transactions</h2>
-      <template v-for="TransactionSummary tx in context.transactions">
-        <p><transaction-link :hash="tx.txid">{{ tx.txid }}</transaction-link> ({{ tx.value }} @ {{ tx.fee }})</p>
-      </template>
+      <div v-for="TransactionSummary tx in context.transactions"
+        class="marginBottom">
+        <transaction-link :hash="tx.txid">
+          <color-field
+            :color="picker.transactionHash()"
+            :value="tx.txid">
+          </color-field>
+        </transaction-link>
+        
+        <color-field
+          :color="picker.transactionOutputAmount()"
+          :value="tx.value">
+        </color-field>
+        
+        <color-field
+          :color="picker.transactionVSize()"
+          :value="tx.vsize">
+        </color-field>
+        <color-field
+          :color="picker.transactionOutputAmount()"
+          :value="tx.fee">
+        </color-field>
+      </div>
     </template>
     <template v-else="context.transactionsLoading">
       <p>Recent transactions are loading..</p>
@@ -33,4 +77,7 @@
 </div>
 
 <style scoped lang="scss">
+.marginBottom {
+  margin-bottom: 10px;
+}
 </style>

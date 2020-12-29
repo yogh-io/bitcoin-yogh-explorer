@@ -134,7 +134,7 @@
         <h3>output #{{ index }}</h3>
         <labeled-value label="ScriptPubKey:">
           <color-field
-            :value="vout.scriptpubkey"
+            :value="formatPayload(vout.scriptpubkey)"
             :color="picker.transactionScriptPubKeyPushData()">
           </color-field>
         </labeled-value>
