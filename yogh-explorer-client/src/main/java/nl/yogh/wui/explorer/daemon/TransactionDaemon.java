@@ -8,6 +8,7 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
 
 import nl.aerius.wui.command.PlaceChangeCommand;
+import nl.aerius.wui.event.NotifyHistoryEvent;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
@@ -28,6 +29,13 @@ public class TransactionDaemon extends DelayingStatefulDaemon<String> implements
   @Inject TransactionContext context;
 
   @Inject PlaceController placeController;
+
+  @EventHandler
+  public void onNotifyHistoryEvent(final NotifyHistoryEvent e) {
+    if (e.getValue() instanceof TransactionPlace) {
+      eventBus.fireEvent(new LoadTransactionCommand(((TransactionPlace) e.getValue()).getHash()));
+    }
+  }
 
   @EventHandler
   public void onPlaceChangeCommand(final PlaceChangeCommand c) {
