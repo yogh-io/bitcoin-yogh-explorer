@@ -111,7 +111,7 @@
           </labeled-value>
           
           <template v-for="(String witness, index) in vin.witness">
-            <labeled-value label='"Witness " + index + ":"'>
+            <labeled-value :label='"Witness " + index + ":"'>
               <color-field
                 :value="formatPayload(witness)"
                 :color="picker.witnessPushData()">

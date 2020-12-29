@@ -30,6 +30,7 @@ import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
+import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
 import nl.yogh.wui.util.BlockUtil;
 import nl.yogh.wui.util.NumberEncodeUtil;
 
@@ -41,7 +42,7 @@ import nl.yogh.wui.util.NumberEncodeUtil;
     LabeledValue.class,
     ColorField.class
 })
-public class BlockView implements IsVueComponent, HasCreated {
+public class BlockView extends BitcoinUtilityComponent implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;
 
   @Data @Inject BlockContext context;

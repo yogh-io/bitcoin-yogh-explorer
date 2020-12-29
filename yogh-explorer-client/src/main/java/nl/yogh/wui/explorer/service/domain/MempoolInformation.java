@@ -5,8 +5,8 @@ import jsinterop.annotations.JsType;
 
 @JsType
 public class MempoolInformation {
-  @JsProperty public String count;
-  @JsProperty public String vsize;
-  @JsProperty(name = "total_fee") public String totalFee;
+  @JsProperty public int count;
+  @JsProperty public int vsize;
+  @JsProperty(name = "total_fee") public int totalFee;
   @JsProperty(name = "fee_histogram") public String[][] feeHistogram;
 }

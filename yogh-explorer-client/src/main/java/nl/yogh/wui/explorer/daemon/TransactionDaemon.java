@@ -13,11 +13,12 @@ import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.component.links.LoadTransactionCommand;
 import nl.yogh.wui.explorer.context.TransactionContext;
+import nl.yogh.wui.explorer.daemon.util.DelayingStatefulDaemon;
 import nl.yogh.wui.explorer.place.TransactionPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
 
-public class TransactionDaemon extends SimpleStatefulDaemon<String> implements Daemon {
+public class TransactionDaemon extends DelayingStatefulDaemon<String> implements Daemon {
   private static final BlockDaemonEventBinder EVENT_BINDER = GWT.create(BlockDaemonEventBinder.class);
 
   interface BlockDaemonEventBinder extends EventBinder<TransactionDaemon> {}
