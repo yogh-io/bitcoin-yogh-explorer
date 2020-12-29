@@ -8,12 +8,12 @@ public class SimpleColorPicker implements ColorPicker {
 
   @Override
   public Color blockHeight() {
-    return ColorBuilder.interpret("green");
+    return ColorBuilder.interpret("orchid");
   }
 
   @Override
   public Color blockConfirmations() {
-    return ColorBuilder.interpret("grey");
+    return ColorBuilder.interpret("green");
   }
 
   @Override

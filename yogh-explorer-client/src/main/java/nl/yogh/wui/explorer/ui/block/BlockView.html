@@ -6,6 +6,7 @@
   </template>
   <template v-else>
     <template v-if="block != null">
+      <h2>Block hash</h2>
       <hex-viewer :hex="block.id"
         :interpreter="blockHashInterpreter">
       </hex-viewer>
@@ -13,6 +14,19 @@
       <hex-viewer :hex="formatDifficultyTarget(block.bits)"
         :interpreter="difficultyTargetInterpreter">
       </hex-viewer>
+      
+      <h2>Coinbase transaction</h2>
+      <template v-if="context.txids != null">
+        <transaction-link :hash="txids[0]">
+          <hex-viewer
+            :hex="txids[0]"
+            :interpreter="transactionHashInterpreter">
+          </hex-viewer>
+        </transaction-link>
+      </template>
+      <template v-else-if="context.txidsLoading">
+        <p>Loading coinbase transaction</p>
+      </template>
       
       <h2>Block information</h2>
       
@@ -38,7 +52,7 @@
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Block height:">
+      <labeled-value label="Block size:">
         <color-field
           label="Size:"
           :color="picker.blockSize()"
@@ -120,8 +134,8 @@
       <p>Loading raw header</p>
     </template>
       
+    <h2>Coinbase transaction in hex</h2>
     <template v-if="context.coinbaseHex != null">
-      <h2>Coinbase transaction in hex</h2>
       <hex-viewer
         :hex="context.coinbaseHex"
         :interpreter="transactionInterpreter">
@@ -133,11 +147,17 @@
       
     <template v-if="txids != null">
       <h2>Transactions:</h2>
-      <p v-for="String txid in limit(txids)">
-        <transaction-link :hash="txid">{{ txid }}</transaction-link>
-      </p>
+      <transaction-link v-for="String txid in limit(txids)"
+        :hash="txid">
+        <color-field class="marginBottom"
+          :color="picker.transactionHash()"
+          :value="txid">
+        </color-field>
+      </transaction-link>
       
-      <a href="" @click.prevent="increaseLimit()">Load more...</a>
+      <p>
+        <a href="" @click.prevent="increaseLimit()">Load more...</a>
+      </p>
     </template>
     <template v-else-if="context.txidsLoading">
       <p>Loading transaction ids</p>
@@ -146,4 +166,7 @@
 </div>
 
 <style scoped lang="scss">
+.marginBottom {
+  margin-bottom: 10px;
+}
 </style>

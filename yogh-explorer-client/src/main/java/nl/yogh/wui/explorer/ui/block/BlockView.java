@@ -54,6 +54,7 @@ public class BlockView implements IsVueComponent, HasCreated {
   @Data @Inject ColorPicker picker;
 
   @Data InterpretationStrategy blockHashInterpreter = null;
+  @Data InterpretationStrategy transactionHashInterpreter = null;
   @Data InterpretationStrategy difficultyTargetInterpreter = null;
   
   @JsMethod
@@ -93,6 +94,7 @@ public class BlockView implements IsVueComponent, HasCreated {
   @Override
   public void created() {
     blockHashInterpreter = new ColorInterpreter(picker.blockHash());
+    transactionHashInterpreter = new ColorInterpreter(picker.transactionHash());
     difficultyTargetInterpreter = new ColorInterpreter(picker.blockBits());
   }
 }
