@@ -27,6 +27,7 @@ import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.context.TransactionContext;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.TransactionInformation;
+import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
 import nl.yogh.wui.util.EllipsisUtil;
 
 @Component(components = {
@@ -38,7 +39,7 @@ import nl.yogh.wui.util.EllipsisUtil;
     ColorField.class,
     LoadingHeading.class
 })
-public class TransactionView implements IsVueComponent, HasCreated {
+public class TransactionView extends BitcoinUtilityComponent implements IsVueComponent, HasCreated {
   @Prop EventBus eventBus;
 
   @Inject ElectrServiceAsync service;

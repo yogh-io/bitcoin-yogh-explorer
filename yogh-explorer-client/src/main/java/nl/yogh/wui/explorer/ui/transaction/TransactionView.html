@@ -55,7 +55,7 @@
         
         <labeled-value label="Date/time:">
           <color-field
-            :value="transaction.status.blockTime"
+            :value="formatTimestamp(transaction.status.blockTime)"
             :color="picker.transactionTime()">
           </color-field>
         </labeled-value>

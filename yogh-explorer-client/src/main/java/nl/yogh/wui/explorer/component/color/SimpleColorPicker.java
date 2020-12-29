@@ -90,7 +90,7 @@ public class SimpleColorPicker implements ColorPicker {
 
   @Override
   public Color transactionTime() {
-    return ColorBuilder.interpret("grey");
+    return ColorBuilder.interpret("red");
   }
 
   @Override
