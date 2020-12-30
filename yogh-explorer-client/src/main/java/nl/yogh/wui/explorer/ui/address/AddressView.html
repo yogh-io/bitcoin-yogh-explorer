@@ -11,7 +11,7 @@
   </template>
   <template v-else>
     <template v-if="context.addressInformation != null">
-      <labeled-value label="Address:">
+      <labeled-value label="Address">
         <color-field
           :value="context.addressInformation.address"
           :color="picker.address()">
@@ -20,17 +20,17 @@
       
       <h2>Mempool stats</h2>
       <template v-if="context.addressInformation.mempoolStats.txCount > 0">
-        <labeled-value label="Unconfirmed transactions:">
+        <labeled-value label="Unconfirmed transactions">
           <color-field>
             {{ context.addressInformation.mempoolStats.txCount }}
           </color-field>
         </labeled-value>
-        <labeled-value label="Tx outputs incoming:">
+        <labeled-value label="Tx outputs incoming">
           <color-field>
             {{ context.addressInformation.mempoolStats.fundedTxoCount }}
           </color-field>
         </labeled-value>
-        <labeled-value label="Incoming amount sum:">
+        <labeled-value label="Incoming amount sum">
           <color-field
             :color="picker.transactionOutputAmount()">
             {{ formatAmountWithUnit(context.addressInformation.mempoolStats.fundedTxoSum) }}
@@ -41,7 +41,7 @@
             {{ context.addressInformation.mempoolStats.spentTxoCount }}
           </color-field>
         </labeled-value>
-        <labeled-value label="Outgoing amount sum:">
+        <labeled-value label="Outgoing amount sum">
           <color-field
             :color="picker.transactionOutputAmount()">
             {{ formatAmountWithUnit(context.addressInformation.mempoolStats.spentTxoSum) }}
@@ -49,22 +49,22 @@
         </labeled-value>
       </template>
       <template v-else>
-        <p>This address relates to no known unconfirmed (mempool) transactions.</p>
+        <p>No known unconfirmed (mempool) transactions pertain to this address.</p>
       </template>
       
       <h2>Chain stats</h2>
       <template v-if="context.addressInformation.chainStats.txCount > 0">
-        <labeled-value label="Confirmed transactions:">
+        <labeled-value label="Confirmed transactions">
           <color-field>
             {{ context.addressInformation.chainStats.txCount }}
           </color-field>
         </labeled-value>
-        <labeled-value label="Tx outputs incoming:">
+        <labeled-value label="Tx outputs incoming">
           <color-field>
             {{ context.addressInformation.chainStats.fundedTxoCount }}
           </color-field>
         </labeled-value>
-        <labeled-value label="Incoming amount sum:">
+        <labeled-value label="Incoming amount sum">
           <color-field
             :color="picker.transactionOutputAmount()">
             {{ formatAmountWithUnit(context.addressInformation.chainStats.fundedTxoSum) }}
@@ -75,7 +75,7 @@
             {{ context.addressInformation.chainStats.spentTxoCount }}
           </color-field>
         </labeled-value>
-        <labeled-value label="Outgoing amount sum:">
+        <labeled-value label="Outgoing amount sum">
           <color-field
             :color="picker.transactionOutputAmount()">
             {{ formatAmountWithUnit(context.addressInformation.chainStats.spentTxoSum) }}
@@ -93,18 +93,22 @@
           {{ formatAmountWithUnit(context.addressInformation.chainStats.fundedTxoSum - context.addressInformation.chainStats.spentTxoSum) }}
         </color-field>
       </labeled-value>
-      <labeled-value label="Unconfirmed mutation">
-        <color-field
-          :color="picker.transactionOutputAmount()">
-          {{ formatAmountWithUnit(context.addressInformation.mempoolStats.fundedTxoSum - context.addressInformation.mempoolStats.spentTxoSum) }}
-        </color-field>
-      </labeled-value>
-      <labeled-value label="Unconfirmed balance">
-        <color-field
-          :color="picker.transactionOutputAmount()">
-          {{ formatAmountWithUnit((context.addressInformation.chainStats.fundedTxoSum - context.addressInformation.chainStats.spentTxoSum) - (context.addressInformation.chainStats.fundedTxoSum - context.addressInformation.chainStats.spentTxoSum)) }}
-        </color-field>
-      </labeled-value>
+      
+      <template v-if="context.addressInformation.mempoolStats.fundedTxoSum != 0 || context.addressInformation.mempoolStats.spentTxoSum != 0">
+        <labeled-value label="Unconfirmed mutation">
+          <color-field
+            :color="picker.transactionOutputAmount()">
+            {{ formatAmountWithUnit(context.addressInformation.mempoolStats.fundedTxoSum - context.addressInformation.mempoolStats.spentTxoSum) }}
+          </color-field>
+        </labeled-value>
+        <labeled-value label="Unconfirmed balance">
+          <color-field
+            :color="picker.transactionOutputAmount()">
+            {{ formatAmountWithUnit((context.addressInformation.chainStats.fundedTxoSum - context.addressInformation.chainStats.spentTxoSum) 
+            + (context.addressInformation.mempoolStats.fundedTxoSum - context.addressInformation.mempoolStats.spentTxoSum)) }}
+          </color-field>
+        </labeled-value>
+      </template>
     </template>
     
     <loading-heading level="2"
@@ -115,19 +119,19 @@
       <template v-if="context.utxos.length > 0">
         <template v-for="(UtxoInformation utxo, index) in context.utxos">
           <h3>UTXO #{{ index }}</h3>
-          <labeled-value label="Tx ID:">
+          <labeled-value label="Tx ID">
             <transaction-link :hash="utxo.txid">
               <color-field :color="picker.transactionHash()">{{ utxo.txid }}</color-field>
             </transaction-link>
           </labeled-value>
-          <labeled-value label="Tx out:">
+          <labeled-value label="Tx out">
             <color-field :color="picker.transactionInputIndex()">{{ utxo.vout }}</color-field>
           </labeled-value>
-          <labeled-value label="Value:">
-            <color-field :color="picker.transactionOutputAmount()">{{ utxo.value }}</color-field>
+          <labeled-value label="Value">
+            <color-field :color="picker.transactionOutputAmount()">{{ formatAmountWithUnit(utxo.value) }}</color-field>
           </labeled-value>
           
-          <labeled-value v-if="utxo.status.confirmed" label="Status:">
+          <labeled-value v-if="utxo.status.confirmed" label="Confirmed">
             <block-link :hash="utxo.status.blockHash">
               <color-field
                 :value="utxo.status.confirmed"
@@ -135,7 +139,7 @@
               </color-field>
             </block-link>
           </labeled-value>
-          <labeled-value v-else label="Status:">
+          <labeled-value v-else label="Confirmed">
             <color-field
               :value="utxo.status.confirmed"
               :color="picker.transactionConfirmedState()">
