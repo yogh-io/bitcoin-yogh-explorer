@@ -20,16 +20,16 @@
       </hex-viewer>
   
       <h2>Information</h2>
-      <labeled-value label="Weight:">
+      <labeled-value label="Weight (KWU):">
         <color-field
-          :value="transaction.weight"
+          :value="formatSizeInKb(transaction.weight)"
           :color="picker.transactionWeight()">
         </color-field>
       </labeled-value>
       
-      <labeled-value label="Size:">
+      <labeled-value label="Size (KB):">
         <color-field
-          :value="transaction.size"
+          :value="formatSizeInKb(transaction.size)"
           :color="picker.transactionTotalSize()">
         </color-field>
       </labeled-value>
@@ -146,7 +146,7 @@
         <labeled-value label="Amount:">
           <color-field
             :color="picker.transactionOutputAmount()"
-            :value="vout.value">
+            :value="formatAmountWithUnit(vout.value)">
           </color-field>
         </labeled-value>
         
