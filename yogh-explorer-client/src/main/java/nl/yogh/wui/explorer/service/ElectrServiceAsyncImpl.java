@@ -22,7 +22,7 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
   @Inject ConfigurationContext context;
 
   private static final String BLOCKSTREAM_HOST = "https://blockstream.info/api/";
-  private static final String LOCAL_HOST = "/electr/";
+  private static final String YOGH_HOST = "https://electr.yogh.io/api/";
 
   @Override
   public void fetchTip(final AsyncCallback<String> callback) {
@@ -122,12 +122,9 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
     case "blockstream":
       host = BLOCKSTREAM_HOST;
       break;
-    case "non":
-      host = "";
-      break;
     case "local":
     default:
-      host = LOCAL_HOST;
+      host = YOGH_HOST;
       break;
     }
 

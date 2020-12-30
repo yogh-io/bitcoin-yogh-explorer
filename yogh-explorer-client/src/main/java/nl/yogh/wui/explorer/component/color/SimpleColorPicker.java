@@ -28,7 +28,7 @@ public class SimpleColorPicker implements ColorPicker {
 
   @Override
   public Color blockVersion() {
-    return ColorBuilder.interpret("grey");
+    return ColorBuilder.interpret("sienna");
   }
 
   @Override
