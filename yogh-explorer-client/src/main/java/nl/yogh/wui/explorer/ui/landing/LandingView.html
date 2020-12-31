@@ -13,14 +13,24 @@
       text="Recent blocks">
     </loading-heading>
     <template v-if="context.blocks != null">
+      <div class="marginBottom line">
+        <div class="blockHeight">Height</div>
+        <div class="blockHash">Block hash</div>
+        <div class="blockTimestamp">Timestamp</div>
+        <div class="blockWeight">Weight</div>
+        <div class="blockSize">Size</div>
+        <div class="blockTxCount"># tx</div>
+      </div>
       <div v-for="BlockInformation block in context.blocks"
-        class="marginBottom">
+        class="marginBottom line">
         <color-field
+          class="blockHeight"
           :color="picker.blockHeight()"
           :value="block.height">
         </color-field>
         
-        <block-link :hash="block.id">
+        <block-link :hash="block.id"
+          class="blockHash">
           <color-field
             :color="picker.blockHash()"
             :value="ellipsisHash(block.id)">
@@ -28,20 +38,23 @@
         </block-link>
         
         <color-field
+          class="blockTimestamp"
           :color="picker.blockTime()"
           :value="formatTimestamp(block.timestamp)">
         </color-field>
         
         <color-field
+          class="blockWeight"
           :color="picker.blockWeight()"
           :value="formatSizeInKb(block.weight)">
         </color-field>
         <color-field
+          class="blockSize"
           :color="picker.blockSize()"
           :value="formatSizeInKb(block.size)">
         </color-field>
         <color-field
-          class="txCount"
+          class="blockTxCount"
           :color="picker.blockNumTransactions()"
           :value="block.txCount">
         </color-field>
@@ -87,10 +100,16 @@
       text="Recent transactions">
     </loading-heading>
     <template v-if="context.transactions != null">
+      <div class="marginBottom line blockHeader">
+        <div class="transactionHash">Transaction hash / txid</div>
+        <div class="transactionValue">Value</div>
+        <div class="transactionVSize">VSize</div>
+        <div class="transactionFee">Fee</div>
+      </div>
       <div v-for="TransactionSummary tx in context.transactions"
-        class="marginBottom">
+        class="marginBottom line">
         <transaction-link :hash="tx.txid"
-          class="tx">
+          class="transactionHash">
           <color-field
             :color="picker.transactionHash()"
             :value="tx.txid">
@@ -98,18 +117,18 @@
         </transaction-link>
         
         <color-field
-          class="amount"
+          class="transactionValue"
           :color="picker.transactionOutputAmount()"
           :value="formatAmountWithUnit(tx.value)">
         </color-field>
         
         <color-field
-          class="size"
+          class="transactionVSize"
           :color="picker.transactionVSize()"
           :value="formatSizeInVbWithUnit(tx.vsize)">
         </color-field>
         <color-field
-          class="fee"
+          class="transactionFee"
           :color="picker.transactionOutputAmount()"
           :value="formatFee(tx.fee, tx.vsize)">
         </color-field>
@@ -119,27 +138,62 @@
 </div>
 
 <style scoped lang="scss">
-.marginBottom {
-  margin-bottom: 10px;
+.blockHeader {
+  div {
+    padding: 0px 5px;
+    margin-right: 6px;
+  }
 }
-.txCount {
+
+.line {
+  display: flex;
+  
+  * {
+   margin-right: 6px;
+   
+   &:last-child {
+     margin-right: 0px;
+   }
+  }
+}
+
+.blockHeight {
+  width: 43px;
+}
+.blockHash {
+  width: 397px;
+}
+.blockTimestamp {
+  width: 148px;
+}
+.blockWeight {
+  width: 75px;
+}
+.blockSize {
+  width: 75px;
+}
+.blockTxCount {
   width: 40px;
   text-align: center;
 }
-.tx {
+
+.transactionHash {
   width: 471px;
-  display: inline-block;
 }
-.amount {
+.transactionValue {
   width: 130px;
   text-align: right;
 }
-.size {
+.transactionVSize {
   width: 55px;
   text-align: center;
 }
-.fee {
+.transactionFee {
   width: 105px;
   text-align: right;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
 }
 </style>
