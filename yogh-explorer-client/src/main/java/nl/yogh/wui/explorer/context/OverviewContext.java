@@ -54,4 +54,8 @@ public class OverviewContext {
     transactionsLoading = false;
     this.transactions = transactions;
   }
+
+  public void setTransactionsLoading() {
+    transactionsLoading = true;
+  }
 }
