@@ -74,6 +74,7 @@ public class OverviewDaemon extends BasicEventComponent implements Daemon {
   }
 
   private void fetchRecentTransactions() {
+    context.setTransactionsLoading();
     service.fetchRecentTransactions(AppAsyncCallback.create(
         v -> context.setRecentTransactions(v),
         e -> {}));
