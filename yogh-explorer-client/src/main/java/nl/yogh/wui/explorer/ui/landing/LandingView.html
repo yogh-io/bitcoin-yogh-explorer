@@ -13,7 +13,7 @@
       text="Recent blocks">
     </loading-heading>
     <template v-if="context.blocks != null">
-      <div class="marginBottom line">
+      <div class="marginBottom line header">
         <div class="blockHeight">Height</div>
         <div class="blockHash">Block hash</div>
         <div class="blockTimestamp">Timestamp</div>
@@ -100,7 +100,7 @@
       text="Recent transactions">
     </loading-heading>
     <template v-if="context.transactions != null">
-      <div class="marginBottom line blockHeader">
+      <div class="marginBottom line header">
         <div class="transactionHash">Transaction hash / txid</div>
         <div class="transactionValue">Value</div>
         <div class="transactionVSize">VSize</div>
@@ -138,7 +138,7 @@
 </div>
 
 <style scoped lang="scss">
-.blockHeader {
+.header {
   div {
     padding: 0px 5px;
     margin-right: 6px;
