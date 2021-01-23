@@ -27,6 +27,8 @@ public interface ElectrServiceAsync {
 
   void fetchBlock(String hash, AsyncCallback<BlockInformation> callback);
 
+  void fetchBlockAtHeight(String height, AsyncCallback<String> callback);
+
   void fetchRawBlock(String hash, AsyncCallback<String> callback);
 
   void fetchTipHeight(AsyncCallback<String> callback);

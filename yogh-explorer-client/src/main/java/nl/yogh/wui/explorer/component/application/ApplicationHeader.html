@@ -1,0 +1,70 @@
+<div class="header">
+  <a @click.prevent="goHome()"
+    href="/landing"
+    class="inert title">
+    <h1>Bitcoin explorer</h1>
+  </a>
+  
+  <div class="source">
+    <select v-model="source" class="list">
+      <option value="blockstream">Blockstream Electr instance</option>
+      <option value="yogh">Yogh Electr instance (not yet available)</option>
+      <option value="local">Local Electr instance (localhost:3000)</option>
+    </select>
+  </div>
+
+  <input
+    @keyup.enter="submitSearch"
+    v-model="search"
+    type="text"
+    class="search"
+    placeholder="Search txid, hash, block height, or address">
+</div>
+
+<style scoped lang="scss">
+.header {
+  background: #fff;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "title source"
+                      "search search";
+  grid-gap: 10px 30px;
+                      
+  margin-bottom: 20px;
+  padding: 1em;
+  
+  .title {
+    grid-area: title;
+    padding: 10px;
+  }
+  
+  .source {
+    grid-area: source;
+    align-self: center;
+  }
+  
+  .search {
+    grid-area: search;
+    padding: 10px;
+  }
+  
+  .inert {
+    color: initial;
+    text-decoration: none;
+    transition: color 0.1s ease-out, background 0.1s ease-out;
+    
+    &:hover {
+      color: coral;
+      background: #f5f5f5;
+    }
+    &:active {
+      background: #e5e5e5;
+    }
+  }
+  
+  .list {
+    padding: 10px;
+  }
+}
+</style>

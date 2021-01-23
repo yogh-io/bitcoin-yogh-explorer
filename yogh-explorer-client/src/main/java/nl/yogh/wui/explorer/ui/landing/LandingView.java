@@ -6,7 +6,10 @@ import com.axellience.vuegwt.core.annotations.component.Component;
 import com.axellience.vuegwt.core.annotations.component.Data;
 import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
+import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
+import com.google.gwt.core.client.GWT;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.binder.EventBinder;
 
 import jsinterop.annotations.JsMethod;
 
@@ -30,7 +33,11 @@ import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
     LabeledValue.class,
     LoadingHeading.class
 })
-public class LandingView extends BitcoinUtilityComponent implements IsVueComponent {
+public class LandingView extends BitcoinUtilityComponent implements IsVueComponent, HasCreated {
+  private static final LandingViewEventBinder EVENT_BINDER = GWT.create(LandingViewEventBinder.class);
+
+  interface LandingViewEventBinder extends EventBinder<LandingView> {}
+
   @Prop EventBus eventBus;
 
   @Inject @Data OverviewContext context;
@@ -43,4 +50,13 @@ public class LandingView extends BitcoinUtilityComponent implements IsVueCompone
   public void viewMempool() {
     placeController.goTo(new MempoolPlace());
   }
+
+  @Override
+  public void created() {
+    EVENT_BINDER.bindEventHandlers(this, eventBus);
+  }
+
+  public static native void tippy() /*-{
+                                    tippy('[data-tippy-content]');    
+                                    }-*/;
 }

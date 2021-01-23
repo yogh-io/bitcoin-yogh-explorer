@@ -24,6 +24,7 @@ public class ExplorerTokenizers {
   private static final String ALIAS_LANDING = "landing";
   public static final String ALIAS_TRANSACTION = "tx";
   public static final String ALIAS_BLOCK = "block";
+  public static final String ALIAS_BLOCK_HEIGHT = "block-height";
   public static final String ALIAS_ADDRESS = "address";
   public static final String ALIAS_MEMPOOL = "mempool";
 
@@ -31,10 +32,11 @@ public class ExplorerTokenizers {
 
   public static final PlaceTokenizer<TransactionPlace> TRANSACTION = new TransactionTokenizer();
   public static final PlaceTokenizer<BlockPlace> BLOCK = new BlockTokenizer();
+  public static final PlaceTokenizer<BlockHeightPlace> BLOCK_HEIGHT = new BlockHeightTokenizer();
   public static final PlaceTokenizer<AddressPlace> ADDRESS = new AddressTokenizer();
   public static final PlaceTokenizer<MempoolPlace> MEMPOOL = new MempoolTokenizer();
 
   public static final PlaceTokenizer<?>[] TOKENIZERS = new PlaceTokenizer[] {
-      LANDING, TRANSACTION, BLOCK, ADDRESS, MEMPOOL
+      LANDING, TRANSACTION, BLOCK_HEIGHT, BLOCK, ADDRESS, MEMPOOL
   };
 }

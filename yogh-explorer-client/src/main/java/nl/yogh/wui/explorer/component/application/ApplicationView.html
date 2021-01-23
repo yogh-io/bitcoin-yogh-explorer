@@ -1,19 +1,11 @@
 <div class="root">
   <div class="main">
-    <div class="header">
-      <a @click.prevent="goHome()"
-        href="/landing"
-        class="inert">
-        <h1>Bitcoin explorer</h1>
-      </a>
-      
-      <div>
-        <select v-model="source" class="list">
-          <option value="blockstream">Blockstream Electr instance</option>
-          <option value="local">Yogh Electr instance (not yet available)</option>
-        </select>
-      </div>
-    </div>
+    <application-header
+      :eventBus="eventBus">
+    </application-header>
+    
+    <div @click="toggleNotifications()"
+      class="notificationsToggle">N</div>
   
     <div class="content">
       <keep-alive>
@@ -26,13 +18,32 @@
     <div class="footer">
       <i>
         <span>Application build number:</span>
-        <a :href='"https://github.com/yogh-io/bitcoin-yogh-explorer/commit/" + cfg.getBuildNumber()'> {{ cfg.getBuildNumber() }}</a>
+        <a :href="applicationBuild"
+          target="_blank">
+          {{ cfg.getBuildNumber() }}
+        </a>
       </i>
     </div>
   </div>
 </div>
 
 <style scoped lang="scss">
+.notificationsToggle {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  color: #bbb;
+  padding: 5px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.5em;
+  transition: color 0.1s ease-out;
+  
+  &:hover {
+    color: black;
+  }
+}
+
 .root {
   display: flex;
   justify-content: center;
@@ -44,26 +55,6 @@
 .main {
   width: calc(32*24px + 3*15px + 2em);
 }
-
-.header {
-  background: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  margin-bottom: 20px;
-  padding: 1em;
-  
-  .inert {
-    color: initial;
-    text-decoration: none;
-  }
-  
-  .list {
-    padding: 10px;
-  }
-}
-
 
 .content {
   padding: 1em;

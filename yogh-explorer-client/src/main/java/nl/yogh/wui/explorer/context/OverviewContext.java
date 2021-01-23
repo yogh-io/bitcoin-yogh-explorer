@@ -1,8 +1,10 @@
 package nl.yogh.wui.explorer.context;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.axellience.vuegwt.core.annotations.component.Data;
+import com.google.web.bindery.event.shared.EventBus;
 
 import jsinterop.annotations.JsProperty;
 
@@ -21,6 +23,8 @@ public class OverviewContext {
   @Data public boolean mempoolLoading;
 
   @Data public Throwable failure = null;
+
+  @Inject EventBus eventBus;
 
   public void setFailure(final Throwable e) {
     clear();

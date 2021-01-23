@@ -6,7 +6,7 @@
   <base href="${pageContext.request.contextPath}/">
   
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
-
+  
   <script src="webjars/vue/${vue.version}/vue.js" type="text/javascript"></script>
   
   <!-- Application code -->
@@ -17,5 +17,8 @@
   <div id="bootstrap"></div>
   <div id="base"></div>
   <div id="error"></div>
+  
+  <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 </body>
 </html>
