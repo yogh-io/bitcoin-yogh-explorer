@@ -22,7 +22,8 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
   @Inject ConfigurationContext context;
 
   private static final String BLOCKSTREAM_HOST = "https://blockstream.info/api/";
-  private static final String YOGH_HOST = "https://electr.yogh.io/api/";
+  private static final String YOGH_HOST = "/electr/";
+  private static final String LOCAL_HOST = "http://localhost:3000/";
 
   @Override
   public void fetchTip(final AsyncCallback<String> callback) {
@@ -50,6 +51,13 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
     final String url = RequestUtil.prepareUrl(getHost(), "block/:hash", ":hash", hash);
 
     InteropRequestUtil.doGet(url, callback);
+  }
+
+  @Override
+  public void fetchBlockAtHeight(final String height, final AsyncCallback<String> callback) {
+    final String url = RequestUtil.prepareUrl(getHost(), "block-height/:height", ":height", height);
+
+    RequestUtil.doGet(url, callback);
   }
 
   @Override
@@ -123,6 +131,9 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
       host = BLOCKSTREAM_HOST;
       break;
     case "local":
+      host = LOCAL_HOST;
+      break;
+    case "yogh":
     default:
       host = YOGH_HOST;
       break;

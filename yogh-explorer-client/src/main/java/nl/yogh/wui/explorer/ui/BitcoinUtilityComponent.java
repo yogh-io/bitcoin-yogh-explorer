@@ -57,13 +57,13 @@ public class BitcoinUtilityComponent implements IsVueComponent {
   public String formatFee(final int fee, final int vsize) {
     return String.valueOf(toFixed((double) fee / vsize, 2)) + " sat/vB";
   }
-  
+
   public static native String toFixed(double d, int round) /*-{
-    return Number(d).toLocaleString("en-US", {minimumFractionDigits: round, maximumFractionDigits: round});
-  }-*/;
-  
+                                                           return Number(d).toLocaleString("en-US", {minimumFractionDigits: round, maximumFractionDigits: round});
+                                                           }-*/;
+
   public static native String zeroPad(Object num, int places) /*-{
-    return String(num).padStart(places, '0');
-  }-*/;
+                                                              return String(num).padStart(places, '0');
+                                                              }-*/;
 
 }

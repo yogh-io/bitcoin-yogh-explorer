@@ -12,9 +12,11 @@ import nl.aerius.wui.event.NotifyHistoryEvent;
 import nl.aerius.wui.future.AppAsyncCallback;
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
+import nl.yogh.wui.explorer.command.LoadBlockHeightCommand;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.daemon.util.DelayingStatefulDaemon;
+import nl.yogh.wui.explorer.place.BlockHeightPlace;
 import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
@@ -34,12 +36,15 @@ public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemo
   public void onNotifyHistoryEvent(final NotifyHistoryEvent e) {
     if (e.getValue() instanceof BlockPlace) {
       eventBus.fireEvent(new LoadBlockCommand(((BlockPlace) e.getValue()).getHash()));
+    } else if (e.getValue() instanceof BlockHeightPlace) {
+      eventBus.fireEvent(new LoadBlockHeightCommand(((BlockHeightPlace) e.getValue()).getHeight()));
     }
   }
 
   @EventHandler
   public void onPlaceChangeCommand(final PlaceChangeCommand c) {
-    if (c.getValue() instanceof BlockPlace) {
+    if (c.getValue() instanceof BlockPlace
+        || c.getValue() instanceof BlockHeightPlace) {
       return;
     }
 
@@ -57,20 +62,37 @@ public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemo
     eventBus.fireEvent(new LoadBlockCommand(hash));
   }
 
-  @EventHandler
-  public void onLoadBlockCommand(final LoadBlockCommand c) {
-    final String hash = c.getValue();
-    if (hash.equals(state)) {
-      return;
+  private boolean initLoad(final String loadState) {
+    if (loadState.equals(state)) {
+      return false;
     }
 
-    setState(hash);
+    setState(loadState);
     context.softClear();
     context.setLoading();
     delayedClear(() -> {
       context.clear();
     });
 
+    return true;
+  }
+
+  @EventHandler
+  public void onLoadBlockHeightCommand(final LoadBlockHeightCommand c) {
+    final String height = c.getValue();
+    if (!initLoad(height)) {
+      return;
+    }
+
+    service.fetchBlockAtHeight(height, AppAsyncCallback.create(
+        v -> ifMatchThen(height, () -> loadBlock(v)),
+        e -> ifMatchThen(height, () -> failBlockInformation(e))));
+
+    placeController.goTo(new BlockHeightPlace(c.getValue()));
+  }
+
+  private void loadBlock(final String hash) {
+    setState(hash);
     service.fetchBlock(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadBlockInformation(v)),
         e -> ifMatchThen(hash, () -> failBlockInformation(e))));
@@ -80,6 +102,16 @@ public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemo
     service.fetchTxids(hash, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadTxids(hash, v)),
         e -> ifMatchThen(hash, () -> failTxids(e))));
+  }
+
+  @EventHandler
+  public void onLoadBlockCommand(final LoadBlockCommand c) {
+    final String hash = c.getValue();
+    if (!initLoad(hash)) {
+      return;
+    }
+
+    loadBlock(hash);
 
     placeController.goTo(new BlockPlace(hash));
   }
