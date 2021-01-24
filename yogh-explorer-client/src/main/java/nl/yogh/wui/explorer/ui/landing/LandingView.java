@@ -22,7 +22,7 @@ import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.OverviewContext;
-import nl.yogh.wui.explorer.place.MempoolPlace;
+import nl.yogh.wui.explorer.place.places.MempoolPlace;
 import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
 
 @Component(components = {

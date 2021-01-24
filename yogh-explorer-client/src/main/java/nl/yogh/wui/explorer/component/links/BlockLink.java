@@ -11,7 +11,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import jsinterop.annotations.JsMethod;
 
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
-import nl.yogh.wui.explorer.place.BlockPlace;
+import nl.yogh.wui.explorer.place.places.BlockPlace;
 
 @Component
 public class BlockLink implements IsVueComponent {

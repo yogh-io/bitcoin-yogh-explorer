@@ -20,12 +20,12 @@ import com.google.inject.Inject;
 
 import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.place.Place;
-import nl.yogh.wui.explorer.place.AddressPlace;
-import nl.yogh.wui.explorer.place.BlockHeightPlace;
-import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
-import nl.yogh.wui.explorer.place.MempoolPlace;
-import nl.yogh.wui.explorer.place.TransactionPlace;
+import nl.yogh.wui.explorer.place.places.AddressPlace;
+import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
+import nl.yogh.wui.explorer.place.places.BlockPlace;
+import nl.yogh.wui.explorer.place.places.MempoolPlace;
+import nl.yogh.wui.explorer.place.places.TransactionPlace;
 
 public class MainActivityManager extends AbstractSubActivityManager<MainView, MainSubPresenter> {
   private final MainActivityFactory activityFactory;

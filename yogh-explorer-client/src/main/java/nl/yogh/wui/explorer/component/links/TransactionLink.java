@@ -10,7 +10,7 @@ import com.google.web.bindery.event.shared.EventBus;
 
 import jsinterop.annotations.JsMethod;
 
-import nl.yogh.wui.explorer.place.TransactionPlace;
+import nl.yogh.wui.explorer.place.places.TransactionPlace;
 
 @Component
 public class TransactionLink implements IsVueComponent {

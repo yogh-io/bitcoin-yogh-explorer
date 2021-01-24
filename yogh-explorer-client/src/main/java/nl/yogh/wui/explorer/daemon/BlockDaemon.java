@@ -16,8 +16,8 @@ import nl.yogh.wui.explorer.command.LoadBlockHeightCommand;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.daemon.util.DelayingStatefulDaemon;
-import nl.yogh.wui.explorer.place.BlockHeightPlace;
-import nl.yogh.wui.explorer.place.BlockPlace;
+import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
+import nl.yogh.wui.explorer.place.places.BlockPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 

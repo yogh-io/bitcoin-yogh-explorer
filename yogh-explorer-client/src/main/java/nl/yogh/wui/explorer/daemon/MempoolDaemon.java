@@ -13,7 +13,7 @@ import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadMempoolCommand;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.MempoolContext;
-import nl.yogh.wui.explorer.place.MempoolPlace;
+import nl.yogh.wui.explorer.place.places.MempoolPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 
 public class MempoolDaemon extends BasicEventComponent implements Daemon {

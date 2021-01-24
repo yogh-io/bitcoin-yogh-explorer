@@ -1,8 +1,10 @@
-package nl.yogh.wui.explorer.place;
+package nl.yogh.wui.explorer.place.tokenizer;
 
 import java.util.List;
 
 import nl.aerius.wui.place.ApplicationPlace;
+import nl.yogh.wui.explorer.place.ExplorerTokenizers;
+import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
 
 public class BlockHeightTokenizer extends ApplicationPlace.Tokenizer<BlockHeightPlace> {
   public BlockHeightTokenizer() {

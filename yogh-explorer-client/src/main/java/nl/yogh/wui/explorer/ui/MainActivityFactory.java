@@ -1,11 +1,11 @@
 package nl.yogh.wui.explorer.ui;
 
-import nl.yogh.wui.explorer.place.AddressPlace;
-import nl.yogh.wui.explorer.place.BlockHeightPlace;
-import nl.yogh.wui.explorer.place.BlockPlace;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
-import nl.yogh.wui.explorer.place.MempoolPlace;
-import nl.yogh.wui.explorer.place.TransactionPlace;
+import nl.yogh.wui.explorer.place.places.AddressPlace;
+import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
+import nl.yogh.wui.explorer.place.places.BlockPlace;
+import nl.yogh.wui.explorer.place.places.MempoolPlace;
+import nl.yogh.wui.explorer.place.places.TransactionPlace;
 import nl.yogh.wui.explorer.ui.address.AddressActivity;
 import nl.yogh.wui.explorer.ui.block.BlockActivity;
 import nl.yogh.wui.explorer.ui.block.BlockHeightActivity;
