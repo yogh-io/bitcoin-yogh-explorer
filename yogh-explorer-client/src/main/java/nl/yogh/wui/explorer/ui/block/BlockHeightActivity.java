@@ -9,7 +9,7 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.yogh.wui.explorer.command.LoadBlockHeightCommand;
-import nl.yogh.wui.explorer.place.BlockHeightPlace;
+import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
 import nl.yogh.wui.explorer.ui.MainView;
 
 public class BlockHeightActivity extends BasicEventComponent implements BlockPresenter {

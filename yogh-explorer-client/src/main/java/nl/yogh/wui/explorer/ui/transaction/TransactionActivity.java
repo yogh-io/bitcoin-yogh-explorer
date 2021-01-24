@@ -11,7 +11,7 @@ import com.google.web.bindery.event.shared.binder.EventHandler;
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.yogh.wui.explorer.component.links.LoadTransactionCommand;
 import nl.yogh.wui.explorer.event.SourceChangedEvent;
-import nl.yogh.wui.explorer.place.TransactionPlace;
+import nl.yogh.wui.explorer.place.places.TransactionPlace;
 import nl.yogh.wui.explorer.ui.MainView;
 
 public class TransactionActivity extends BasicEventComponent implements TransactionPresenter {

@@ -15,7 +15,7 @@ import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.command.LoadAddressCommand;
 import nl.yogh.wui.explorer.command.SourceChangedCommand;
 import nl.yogh.wui.explorer.context.AddressContext;
-import nl.yogh.wui.explorer.place.AddressPlace;
+import nl.yogh.wui.explorer.place.places.AddressPlace;
 import nl.yogh.wui.explorer.service.ElectrServiceAsync;
 import nl.yogh.wui.explorer.service.domain.AddressInformation;
 import nl.yogh.wui.explorer.service.domain.UtxoInformation;

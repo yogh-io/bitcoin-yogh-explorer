@@ -11,7 +11,7 @@ import com.google.web.bindery.event.shared.binder.EventHandler;
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.yogh.wui.explorer.command.LoadAddressCommand;
 import nl.yogh.wui.explorer.event.SourceChangedEvent;
-import nl.yogh.wui.explorer.place.AddressPlace;
+import nl.yogh.wui.explorer.place.places.AddressPlace;
 import nl.yogh.wui.explorer.ui.MainView;
 
 public class AddressActivity extends BasicEventComponent implements AddressPresenter {

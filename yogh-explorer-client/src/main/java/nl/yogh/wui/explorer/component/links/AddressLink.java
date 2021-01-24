@@ -11,7 +11,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import jsinterop.annotations.JsMethod;
 
 import nl.yogh.wui.explorer.command.LoadAddressCommand;
-import nl.yogh.wui.explorer.place.AddressPlace;
+import nl.yogh.wui.explorer.place.places.AddressPlace;
 
 @Component
 public class AddressLink implements IsVueComponent {

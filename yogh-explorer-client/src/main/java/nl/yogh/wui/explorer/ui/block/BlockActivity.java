@@ -9,7 +9,7 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 
 import nl.aerius.wui.event.BasicEventComponent;
 import nl.yogh.wui.explorer.command.LoadBlockCommand;
-import nl.yogh.wui.explorer.place.BlockPlace;
+import nl.yogh.wui.explorer.place.places.BlockPlace;
 import nl.yogh.wui.explorer.ui.MainView;
 
 public class BlockActivity extends BasicEventComponent implements BlockPresenter {

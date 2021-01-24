@@ -1,8 +1,10 @@
-package nl.yogh.wui.explorer.place;
+package nl.yogh.wui.explorer.place.tokenizer;
 
 import java.util.List;
 
 import nl.aerius.wui.place.ApplicationPlace;
+import nl.yogh.wui.explorer.place.ExplorerTokenizers;
+import nl.yogh.wui.explorer.place.places.TransactionPlace;
 
 public class TransactionTokenizer extends ApplicationPlace.Tokenizer<TransactionPlace> {
   public TransactionTokenizer() {
