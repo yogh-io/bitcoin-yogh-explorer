@@ -21,7 +21,7 @@ public class LegacyTokenizer implements PlaceTokenizer<ApplicationPlace> {
     case "block":
       final String blockType = parts[1];
       switch (blockType) {
-      case "hash":
+      case "id":
         place = new BlockPlace(parts[2]);
         break;
       case "height":
