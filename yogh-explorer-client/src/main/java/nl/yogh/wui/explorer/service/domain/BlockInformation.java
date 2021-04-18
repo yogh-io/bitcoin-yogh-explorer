@@ -1,9 +1,11 @@
 package nl.yogh.wui.explorer.service.domain;
 
+import static jsinterop.annotations.JsPackage.GLOBAL;
+
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
-@JsType
+@JsType(namespace = GLOBAL, name = "Object", isNative = true)
 public class BlockInformation {
   @JsProperty public String bits;
   @JsProperty public String difficulty;

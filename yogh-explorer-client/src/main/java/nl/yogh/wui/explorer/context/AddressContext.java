@@ -26,6 +26,8 @@ public class AddressContext {
 
   public void setFailure(final Throwable e) {
     clear();
+    utxosLoading = false;
+    addressLoading = false;
     failure = e;
   }
 

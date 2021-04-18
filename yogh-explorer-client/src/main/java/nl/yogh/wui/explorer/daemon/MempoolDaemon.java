@@ -34,8 +34,6 @@ public class MempoolDaemon extends BasicEventComponent implements Daemon {
     } else {
       // Deactivate
     }
-
-    // Or coordinate via Activity? <-- Yes
   }
 
   @EventHandler
