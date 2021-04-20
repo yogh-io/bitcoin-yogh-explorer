@@ -14,7 +14,7 @@ import nl.yogh.wui.util.EllipsisUtil;
 public class BitcoinUtilityComponent implements IsVueComponent {
   private static final double KILO = 1000D;
 
-  private static final double SATOSHIS_IN_BITCOIN = 1D * 1000D * 1000D;
+  private static final double SATOSHIS_IN_BITCOIN = 100D * 1000D * 1000D; // One hundred million
 
   private static final DateTimeFormat FORMAT = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
 

@@ -55,7 +55,7 @@ public class VueBootstrap implements EntryPoint {
   private void registerComponents() {
     Vue.component(MaterialIconFactory.get());
 
-    Vue.getConfig().addIgnoredElement("mempool-histogram");
+    //Vue.getConfig().addIgnoredElement("mempool-histogram");
   }
 
   private void initVueLibraries() {
