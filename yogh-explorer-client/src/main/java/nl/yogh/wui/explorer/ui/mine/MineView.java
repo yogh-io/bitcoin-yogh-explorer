@@ -1,4 +1,4 @@
-package nl.yogh.wui.explorer.ui.landing;
+package nl.yogh.wui.explorer.ui.mine;
 
 import javax.inject.Inject;
 
@@ -11,8 +11,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.binder.EventBinder;
 
-import jsinterop.annotations.JsMethod;
-
 import nl.aerius.wui.place.PlaceController;
 import nl.yogh.wui.explorer.component.color.ColorPicker;
 import nl.yogh.wui.explorer.component.fields.ColorField;
@@ -22,8 +20,6 @@ import nl.yogh.wui.explorer.component.links.BlockLink;
 import nl.yogh.wui.explorer.component.links.TransactionLink;
 import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.OverviewContext;
-import nl.yogh.wui.explorer.place.ExplorerPlaces.MinePlace;
-import nl.yogh.wui.explorer.place.places.MempoolPlace;
 import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
 
 @Component(components = {
@@ -34,10 +30,10 @@ import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
     LabeledValue.class,
     LoadingHeading.class
 })
-public class LandingView extends BitcoinUtilityComponent implements IsVueComponent, HasCreated {
+public class MineView extends BitcoinUtilityComponent implements IsVueComponent, HasCreated {
   private static final LandingViewEventBinder EVENT_BINDER = GWT.create(LandingViewEventBinder.class);
 
-  interface LandingViewEventBinder extends EventBinder<LandingView> {}
+  interface LandingViewEventBinder extends EventBinder<MineView> {}
 
   @Prop EventBus eventBus;
 
@@ -47,22 +43,8 @@ public class LandingView extends BitcoinUtilityComponent implements IsVueCompone
 
   @Data @Inject ColorPicker picker;
 
-  @JsMethod
-  public void viewMempool() {
-    placeController.goTo(new MempoolPlace());
-  }
-  
-  @JsMethod
-  public void viewSimulator() {
-    placeController.goTo(new MinePlace());
-  }
-
   @Override
   public void created() {
     EVENT_BINDER.bindEventHandlers(this, eventBus);
   }
-
-  public static native void tippy() /*-{
-                                    tippy('[data-tippy-content]');    
-                                    }-*/;
 }
