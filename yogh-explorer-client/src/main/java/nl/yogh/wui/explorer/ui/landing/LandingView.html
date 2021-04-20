@@ -61,41 +61,47 @@
         </color-field>
       </div>
     </template>
-    
-  <loading-heading level="2"
-    :loading="context.mempoolLoading"
-    text="Mempool">
-  </loading-heading>
-  <template v-if="context.pool != null">
-    <labeled-value label="# Transactions">
-      <color-field
-        :color="picker.blockNumTransactions()"
-        :value="context.pool.count">
-      </color-field>
-    </labeled-value>
-    
-    <labeled-value label="Virtual size (MB)">
-      <color-field
-        :color="picker.transactionVSize()"
-        :value="formatSizeInMb(context.pool.vsize)">
-      </color-field>
-    </labeled-value>
-    
-    <labeled-value label="Total fees">
-      <color-field
-        :color="picker.transactionOutputAmount()"
-        :value="formatAmountWithUnit(context.pool.totalFee)">
-      </color-field>
-    </labeled-value>
-    
-    <labeled-value label="Histogram(#)">
-      <color-field
-        :color="picker.blockHeight()"
-        :value="context.pool.feeHistogram.length">
-      </color-field>
-    </labeled-value>
-  </template>
-    
+
+    <loading-heading level="2"
+      :loading="context.mempoolLoading"
+      text="Mempool">
+    </loading-heading>
+    <template v-if="context.pool != null">
+      <labeled-value label="# Transactions">
+        <color-field
+          :color="picker.blockNumTransactions()"
+          :value="context.pool.count">
+        </color-field>
+      </labeled-value>
+      
+      <labeled-value label="Virtual size (MB)">
+        <color-field
+          :color="picker.transactionVSize()"
+          :value="formatSizeInMb(context.pool.vsize)">
+        </color-field>
+      </labeled-value>
+      
+      <labeled-value label="Total fees">
+        <color-field
+          :color="picker.transactionOutputAmount()"
+          :value="formatAmountWithUnit(context.pool.totalFee)">
+        </color-field>
+      </labeled-value>
+      
+      <labeled-value label="Histogram(#)">
+        <color-field
+          :color="picker.blockHeight()"
+          :value="context.pool.feeHistogram.length">
+        </color-field>
+      </labeled-value>
+    </template>
+
+    <h2>Miscellaneous</h2>
+    <div class="misc">
+      <div @click="viewSimulator()"
+        class="sim">Simulator</div>
+    </div>
+
     <loading-heading level="2"
       :loading="context.transactionsLoading"
       text="Recent transactions">
@@ -139,6 +145,32 @@
 </div>
 
 <style scoped lang="scss">
+.misc {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 150px;
+  
+  div {
+    border: 0px solid transparent;
+    transition: all 0.15s ease-out;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  
+  .sim {
+    background: #00a000;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    
+    &:hover {
+      border: 25px solid #008000;
+    }
+  }
+}
+
 .header {
   div {
     padding: 0px 5px;

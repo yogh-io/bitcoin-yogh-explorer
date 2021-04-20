@@ -21,6 +21,7 @@ import com.google.inject.Inject;
 import nl.aerius.wui.dev.GWTProd;
 import nl.aerius.wui.place.Place;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
+import nl.yogh.wui.explorer.place.ExplorerPlaces.MinePlace;
 import nl.yogh.wui.explorer.place.places.AddressPlace;
 import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
 import nl.yogh.wui.explorer.place.places.BlockPlace;
@@ -49,6 +50,8 @@ public class MainActivityManager extends AbstractSubActivityManager<MainView, Ma
       return activityFactory.createAddressPresenter(view, (AddressPlace) place);
     } else if (place instanceof MempoolPlace) {
       return activityFactory.createMempoolPresenter(view, (MempoolPlace) place);
+    } else if (place instanceof MinePlace) {
+      return activityFactory.createMinePresenter(view, (MinePlace) place);
     } else {
       GWTProd.warn("MainActivityManager", "Could not create sub-activity inside MainActivityManager: no activity for " + place);
 //      return activityFactory.createEmptyActivity(view);

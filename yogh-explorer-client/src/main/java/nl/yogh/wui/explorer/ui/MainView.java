@@ -14,6 +14,7 @@ import nl.yogh.wui.explorer.ui.address.AddressView;
 import nl.yogh.wui.explorer.ui.block.BlockView;
 import nl.yogh.wui.explorer.ui.landing.LandingView;
 import nl.yogh.wui.explorer.ui.mempool.MempoolView;
+import nl.yogh.wui.explorer.ui.mine.MineView;
 import nl.yogh.wui.explorer.ui.transaction.TransactionView;
 
 @Component(components = {
@@ -22,7 +23,8 @@ import nl.yogh.wui.explorer.ui.transaction.TransactionView;
     TransactionView.class,
     BlockView.class,
     AddressView.class,
-    MempoolView.class
+    MempoolView.class,
+    MineView.class
 })
 public class MainView implements IsVueComponent, HasActivated {
   @Data String main;

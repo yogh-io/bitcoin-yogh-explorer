@@ -20,6 +20,7 @@ import nl.aerius.wui.place.ApplicationPlace;
 import nl.aerius.wui.place.ApplicationPlace.Tokenizer;
 import nl.aerius.wui.place.PlaceTokenizer;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.LandingPlace;
+import nl.yogh.wui.explorer.place.ExplorerPlaces.MinePlace;
 import nl.yogh.wui.explorer.place.places.AddressPlace;
 import nl.yogh.wui.explorer.place.places.BlockHeightPlace;
 import nl.yogh.wui.explorer.place.places.BlockPlace;
@@ -39,7 +40,8 @@ public class ExplorerTokenizers {
   public static final String ALIAS_BLOCK_HEIGHT = "block-height";
   public static final String ALIAS_ADDRESS = "address";
   public static final String ALIAS_MEMPOOL = "mempool";
-  
+  public static final String ALIAS_MINE = "mine";
+
   public static final PlaceTokenizer<ApplicationPlace> LEGACY = new LegacyTokenizer();
 
   public static final PlaceTokenizer<LandingPlace> LANDING = Tokenizer.create(() -> new LandingPlace(), ALIAS_LANDING);
@@ -50,7 +52,9 @@ public class ExplorerTokenizers {
   public static final PlaceTokenizer<AddressPlace> ADDRESS = new AddressTokenizer();
   public static final PlaceTokenizer<MempoolPlace> MEMPOOL = new MempoolTokenizer();
 
+  public static final PlaceTokenizer<MinePlace> MINE = Tokenizer.create(() -> new MinePlace(), ALIAS_MINE);
+
   public static final PlaceTokenizer<?>[] TOKENIZERS = new PlaceTokenizer[] {
-      LEGACY, LANDING, TRANSACTION, BLOCK_HEIGHT, BLOCK, ADDRESS, MEMPOOL
+      LEGACY, LANDING, TRANSACTION, BLOCK_HEIGHT, BLOCK, ADDRESS, MEMPOOL, MINE
   };
 }

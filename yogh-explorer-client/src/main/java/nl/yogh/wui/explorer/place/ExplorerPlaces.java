@@ -28,6 +28,12 @@ public final class ExplorerPlaces {
     }
   }
 
+  public static class MinePlace extends MainPlace {
+    public MinePlace() {
+      super(ExplorerTokenizers.MINE);
+    }
+  }
+
   public static class LandingPlace extends MainPlace {
     public LandingPlace() {
       super(ExplorerTokenizers.LANDING);
