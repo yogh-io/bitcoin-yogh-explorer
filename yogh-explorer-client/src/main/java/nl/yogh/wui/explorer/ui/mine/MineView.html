@@ -3,6 +3,43 @@
 
 <div>
   <h1>Simulator</h1>
+  
+  <h3>Hash</h3>
+  <h4>Block hash</h4>
+  <hex-viewer
+    :hex="computedBlockHash"
+    :interpreter="blockHashInterpreter">
+  </hex-viewer>
+  
+  <h4>Target hash difficulty</h4>
+  <hex-viewer
+    :hex="targetDifficulty"
+    :interpreter="difficultyTargetInterpreter">
+  </hex-viewer>
+  
+  <h3>Controls</h3>
+  <div>
+    <button @click="nonceNum++">Nonce++</button>
+    <button @click="nonceNum--">Nonce--</button>
+    <!--     
+    <button>Extra nonce++</button>
+    <button>Extra nonce--</button>
+    
+    <button>Sync time</button>
+     -->
+  </div>
+  
+  <h3>Block headers</h3>
+  <hex-viewer
+    :hex="rawHeaders"
+    :interpreter="blockInterpreter">
+  </hex-viewer>
+  
+  <h3>Coinbase transaction</h3>
+  <hex-viewer
+    :hex="rawCoinbase"
+    :interpreter="transactionInterpreter">
+  </hex-viewer>
 </div>
 
 <style scoped lang="scss">

@@ -29,6 +29,10 @@ public class HexViewer implements IsVueComponent {
 
   @Watch(value = "hex", isImmediate = true)
   public void onHexChange() {
+    if (hex == null) {
+      return;
+    }
+    
     parts = interpreter.interpret(hex);
   }
 

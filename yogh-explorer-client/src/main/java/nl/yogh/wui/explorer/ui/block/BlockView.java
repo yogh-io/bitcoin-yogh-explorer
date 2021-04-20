@@ -32,6 +32,7 @@ import nl.yogh.wui.explorer.component.misc.LoadingHeading;
 import nl.yogh.wui.explorer.context.BlockContext;
 import nl.yogh.wui.explorer.service.domain.BlockInformation;
 import nl.yogh.wui.explorer.ui.BitcoinUtilityComponent;
+import nl.yogh.wui.util.ArrayUtil;
 import nl.yogh.wui.util.BlockUtil;
 import nl.yogh.wui.util.NumberEncodeUtil;
 
@@ -63,7 +64,9 @@ public class BlockView extends BitcoinUtilityComponent implements IsVueComponent
   @JsMethod
   public String formatDifficultyTarget(final String bits) {
     final byte[] bitsBytes = NumberEncodeUtil.encodeUint32(Integer.parseInt(bits));
+    ArrayUtil.reverse(bitsBytes);
     final byte[] difficultyTarget = BlockUtil.getPoolDiffTarget(bitsBytes);
+    
     return new String(Hex.encode(difficultyTarget));
   }
 
