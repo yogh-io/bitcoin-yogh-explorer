@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import nl.aerius.wui.dev.GWTProd;
 import nl.yogh.wui.explorer.component.color.Color;
 import nl.yogh.wui.explorer.component.hex.Part;
 import nl.yogh.wui.util.ArrayUtil;
@@ -18,7 +19,12 @@ public abstract class BasicInterpreter {
     backcolor.setA(0.2);
 
     final Part p = new Part(asList(snatch(bytes, start, start + length)), backcolor.getValue(), forecolor.getValue());
-    consumer.accept(p);
+    if (!p.bytes.isEmpty()) {
+      consumer.accept(p);
+    } else {
+      GWTProd.warn("No bytes for part: " + bytes + " > " + start + " > " + length);
+    }
+    
     return start + length;
   }
 
@@ -26,13 +32,17 @@ public abstract class BasicInterpreter {
       final Color color) {
     final VariableLengthInteger variableInteger = new VariableLengthInteger(bytes, pointer);
     varInt.accept(variableInteger);
-    
+
     consumer.accept(buildPart(variableInteger.getBytes(), color));
-    
+
     return pointer + variableInteger.getByteSize();
   }
 
   protected byte[] snatch(final byte[] bytes, final int a, final int b) {
+    if (b > bytes.length) {
+      return new byte[0];
+    }
+
     return ArrayUtil.arrayCopy(bytes, a, b);
   }
 

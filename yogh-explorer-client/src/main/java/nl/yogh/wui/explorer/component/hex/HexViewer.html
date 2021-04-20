@@ -1,6 +1,6 @@
 <div>
-  <div class="hex">
-    <template v-for="Part part in parts">
+  <div class="hex" v-if="hex != null">
+    <template v-for="Part part in parts" v-if="part != null">
       <span v-for="byte bite in part.bytes"
         :style='map(e("background", part.backcolor), e("border-top-color", part.forecolor))'>
       {{ getHex(bite) }}
