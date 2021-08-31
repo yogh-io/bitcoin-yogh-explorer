@@ -4,8 +4,14 @@
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/index.jsp</location>
-  </error-page>
+
+  <!-- Explicitly direct /** to index.jsp (preserving request URI) -->
+  <servlet>
+    <servlet-name>StartPage</servlet-name>
+    <jsp-file>/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartPage</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
 </web-app>
