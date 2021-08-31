@@ -12,6 +12,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>StartPage</servlet-name>
-    <url-pattern>/mine</url-pattern>
+    <url-pattern>/mine/</url-pattern>
   </servlet-mapping>
 </web-app>
