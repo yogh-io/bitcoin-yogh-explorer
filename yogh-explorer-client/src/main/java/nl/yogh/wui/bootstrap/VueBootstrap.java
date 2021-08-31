@@ -18,7 +18,7 @@ public class VueBootstrap implements EntryPoint {
   public void onModuleLoad() {
     final long startTime = new Date().getTime();
 
-    GWTProd.info("Hello! Welcome to the AERIUS Gerichte Opkoop Console!");
+    GWTProd.info("Hello! Welcome to the YOGH Explorer Console!");
 
     VueGWT.init();
     VueGWT.onReady(() -> {
