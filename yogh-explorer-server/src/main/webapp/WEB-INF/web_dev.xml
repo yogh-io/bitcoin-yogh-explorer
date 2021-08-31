@@ -5,13 +5,13 @@
     <welcome-file>/dev.jsp</welcome-file>
   </welcome-file-list>
 
-  <!-- Explicitly direct /** to index.jsp (preserving request URI) -->
+  <!-- Explicitly direct /mine to index.jsp (preserving request URI) -->
   <servlet>
     <servlet-name>StartPage</servlet-name>
     <jsp-file>/dev.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>StartPage</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/mine</url-pattern>
   </servlet-mapping>
 </web-app>
