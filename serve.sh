@@ -26,11 +26,6 @@ tmux set-option remain-on-exit
 
 tmux split-window -v -p 66 ./zuulproxy.sh
 tmux split-window -v -t 0 ./webserver.sh $2
-# If reload is passed, also start a livereload server
-if [ "$1" = "reload" ]; then
-  tmux split-window -t 1 -v ./livereload.sh $1
-fi
-
 tmux split-window -v -t 0 ./bitcoind.sh
 tmux split-window -h ./electr.sh
 
