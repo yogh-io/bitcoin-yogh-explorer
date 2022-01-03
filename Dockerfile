@@ -7,7 +7,6 @@ RUN mvn clean install
 
 RUN mkdir /out
 RUN unzip /app/yogh-explorer-server/target/explorer.war -d /out
-RUN ls /out
 
 FROM alpine
 

@@ -12,7 +12,6 @@
   <packaging>war</packaging>
 
   <properties>
-    <!-- This version must also be updated in the static index.html -->
     <vue.version>2.6.11</vue.version>
     <application.root>${project.basedir}/..</application.root>
   </properties>
