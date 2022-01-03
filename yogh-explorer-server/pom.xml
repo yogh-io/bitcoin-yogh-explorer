@@ -12,6 +12,7 @@
   <packaging>war</packaging>
 
   <properties>
+    <!-- This version must also be updated in the static index.html -->
     <vue.version>2.6.11</vue.version>
     <application.root>${project.basedir}/..</application.root>
   </properties>
@@ -67,6 +68,8 @@
       </dependencies>
 
       <build>
+        <finalName>explorer</finalName>
+              
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -89,6 +92,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
             <configuration>
+              <packagingExcludes>dev.html,config_dev.js</packagingExcludes>
               <webResources>
                 <resource>
                   <directory>src/main/index</directory>
@@ -100,12 +104,6 @@
                 </resource>
                 <resource>
                   <directory>src/main/webapp</directory>
-                  <excludes>
-                    <!-- Exclude various dev files -->
-                    <exclude>src/main/webapp/scripts/config_dev.js</exclude>
-                    <exclude>src/main/webapp/scripts/reload.js</exclude>
-                    <exclude>src/main/webapp/dev.jsp</exclude>
-                  </excludes>
                 </resource>
               </webResources>
             </configuration>
@@ -136,7 +134,7 @@
             <targetPath>${project.build.directory}/jettyFilteredIndex</targetPath>
             <excludes>
               <!-- Exclude prod files -->
-              <exclude>index.jsp</exclude>
+              <exclude>index.html</exclude>
             </excludes>
           </resource>
         </resources>
@@ -154,50 +152,6 @@
                     <resourceBase>${application.root}/target/gwt/launcherDir/</resourceBase>
                   </resourceBases>
                   <overrideDescriptor>${basedir}/src/main/webapp/WEB-INF/web_dev.xml</overrideDescriptor>
-                </webApp>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-
-    <profile>
-      <id>env-dev-reload</id>
-      <activation>
-        <property>
-          <name>env</name>
-          <value>dev-reload</value>
-        </property>
-      </activation>
-
-      <build>
-        <resources>
-          <resource>
-            <!-- this is relative to the pom.xml directory -->
-            <directory>src/main/index</directory>
-            <filtering>true</filtering>
-            <targetPath>${project.build.directory}/jettyFilteredIndex</targetPath>
-            <excludes>
-              <!-- Exclude prod files -->
-              <exclude>index.jsp</exclude>
-            </excludes>
-          </resource>
-        </resources>
-
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.eclipse.jetty</groupId>
-              <artifactId>jetty-maven-plugin</artifactId>
-              <configuration>
-                <webApp>
-                  <resourceBases>
-                    <resourceBase>${basedir}/src/main/webapp</resourceBase>
-                    <resourceBase>${project.build.directory}/jettyFilteredIndex</resourceBase>
-                    <resourceBase>${application.root}/target/gwt/launcherDir/</resourceBase>
-                  </resourceBases>
-                  <overrideDescriptor>${basedir}/src/main/webapp/WEB-INF/web_dev_gwt.xml</overrideDescriptor>
                 </webApp>
               </configuration>
             </plugin>

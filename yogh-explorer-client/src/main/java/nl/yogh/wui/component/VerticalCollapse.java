@@ -21,10 +21,10 @@ import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.Vue;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 
-import jsinterop.annotations.JsMethod;
-
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+
+import jsinterop.annotations.JsMethod;
 
 import nl.aerius.wui.util.ComputedStyleUtil;
 
