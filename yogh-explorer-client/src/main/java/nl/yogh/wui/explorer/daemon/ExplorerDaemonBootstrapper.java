@@ -3,11 +3,11 @@ package nl.yogh.wui.explorer.daemon;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
-import nl.aerius.wui.dev.DevelopmentObserver;
 import nl.aerius.wui.event.BasicEventComponent;
+import nl.yogh.wui.explorer.dev.ExplorerDevelopmentObserver;
 
 public class ExplorerDaemonBootstrapper extends BasicEventComponent implements DaemonBootstrapper {
-  @Inject DevelopmentObserver developmentObserver;
+  @Inject ExplorerDevelopmentObserver developmentObserver;
   @Inject ExceptionDaemon exceptionDaemon;
 
   @Inject BlockDaemon blockDaemon;

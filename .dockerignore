@@ -1,0 +1,4 @@
+Dockerfile
+*.jar
+*.class
+/target

@@ -23,10 +23,10 @@ import com.axellience.vuegwt.core.client.Vue;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.axellience.vuegwt.core.client.component.hooks.HasCreated;
 
-import jsinterop.annotations.JsMethod;
-
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+
+import jsinterop.annotations.JsMethod;
 
 import nl.aerius.wui.util.ComputedStyleUtil;
 

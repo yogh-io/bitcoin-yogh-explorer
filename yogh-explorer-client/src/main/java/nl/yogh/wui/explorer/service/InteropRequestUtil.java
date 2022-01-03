@@ -4,11 +4,11 @@ import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import jsinterop.base.Js;
-
 import elemental2.dom.FormData;
 import elemental2.dom.ProgressEvent;
 import elemental2.dom.XMLHttpRequest;
+
+import jsinterop.base.Js;
 
 import nl.aerius.wui.service.exception.RequestClientException;
 

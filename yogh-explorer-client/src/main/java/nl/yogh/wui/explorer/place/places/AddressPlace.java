@@ -1,9 +1,8 @@
 package nl.yogh.wui.explorer.place.places;
 
 import nl.aerius.wui.place.ApplicationPlace;
-import nl.yogh.wui.explorer.place.ExplorerPlaces;
-import nl.yogh.wui.explorer.place.ExplorerTokenizers;
 import nl.yogh.wui.explorer.place.ExplorerPlaces.MainPlace;
+import nl.yogh.wui.explorer.place.ExplorerTokenizers;
 
 public class AddressPlace extends MainPlace {
   private String address;
