@@ -37,7 +37,7 @@ public class TransactionInterpreter extends BasicInterpreter implements Interpre
 
         // pointer = parseWitnessFlag(transaction, pointer, bytes);
         parts.remove(parts.size() - 1);
-        parts.add(buildPart(new byte[] { 0x00, 0x01 }, colors.transactionWitness()));
+        parts.add(buildPart(new byte[] {0x00, 0x01}, colors.transactionWitness()));
 
         // Parse the now-pushed-forward transaction input size
         pointer = consumeVarInt(bytes, pointer,
@@ -74,18 +74,24 @@ public class TransactionInterpreter extends BasicInterpreter implements Interpre
       }
 
       if (segregatedWitnessEnabled) {
-        final Semaphore<VariableLengthInteger> witnessItemLength = new Semaphore<>();
-        pointer = consumeVarInt(bytes, pointer, parts::add, witnessItemLength::setObj, colors.witnessItemLength());
+        for (int i = 0; i < transactionInputLength.getObj().getValue(); i++) {
+          final Semaphore<VariableLengthInteger> witnessItemLength = new Semaphore<>();
+          pointer = consumeVarInt(bytes, pointer, parts::add, witnessItemLength::setObj, colors.witnessItemLength());
 
-        for (int i = 0; i < witnessItemLength.getObj().getValue(); i++) {
-          final Semaphore<VariableLengthInteger> witnessPushDataLength = new Semaphore<>();
-          pointer = consumeVarInt(bytes, pointer, parts::add, witnessPushDataLength::setObj, colors.witnessPushDataLength());
+          for (int j = 0; j < witnessItemLength.getObj().getValue(); j++) {
+            final Semaphore<VariableLengthInteger> witnessPushDataLength = new Semaphore<>();
+            pointer = consumeVarInt(bytes, pointer, parts::add, witnessPushDataLength::setObj, colors.witnessPushDataLength());
 
-          pointer = consume(bytes, pointer, (int) witnessPushDataLength.getObj().getValue(), parts::add, colors.witnessPushData());
+            pointer = consume(bytes, pointer, (int) witnessPushDataLength.getObj().getValue(), parts::add, colors.witnessPushData());
+          }
         }
       }
 
       pointer = consume(bytes, pointer, 4, parts::add, colors.transactionLockTime());
+
+      if (bytes.length != pointer) {
+        GWTProd.warn("Consumed a differend amount of bytes than available (" + pointer + "/" + bytes.length + ")");
+      }
     } catch (final Exception e) {
       e.printStackTrace();
       GWTProd.warn("Could not parse transaction: " + e.getMessage());
