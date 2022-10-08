@@ -12,7 +12,7 @@
   <packaging>war</packaging>
 
   <properties>
-    <vue.version>2.6.11</vue.version>
+    <vue.version>2.7.2</vue.version>
     <application.root>${project.basedir}/..</application.root>
   </properties>
   
@@ -22,9 +22,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.webjars</groupId>
+      <groupId>org.webjars.npm</groupId>
       <artifactId>vue</artifactId>
       <version>${vue.version}</version>
+      <exclusions>
+        <!-- exclude vue__compiler-sfc because compiler-sfc is no longer an external dependency but this is not reflected in the webjars pom. -->
+        <exclusion>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>vue__compiler-sfc</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

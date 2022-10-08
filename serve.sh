@@ -3,7 +3,6 @@ echo "Using root dir: $1"
 
 # Check if the necessary tools are installed
 command -v tmux >/dev/null 2>&1 || { echo >&2 "I require tmux but it's not installed.  Aborting."; exit 1; }
-command -v entr >/dev/null 2>&1 || { echo >&2 "I require entr but it's not installed.  Aborting."; exit 1; }
 command -v lsof >/dev/null 2>&1 || { echo >&2 "I require lsof but it's not installed.  Aborting."; exit 1; }
 
 # Kill existing session of the same name, and sleep a while to let threads die. Do this before port checks.
