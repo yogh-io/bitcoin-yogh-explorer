@@ -1,11 +1,15 @@
 package nl.yogh.wui.explorer.daemon;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import com.google.gwt.core.client.GWT;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
+
+import elemental2.core.JsArray;
 
 import nl.aerius.wui.command.PlaceChangeCommand;
 import nl.aerius.wui.event.NotifyHistoryEvent;
@@ -124,10 +128,11 @@ public class BlockDaemon extends DelayingStatefulDaemon<String> implements Daemo
     context.setRawBlock(raw);
   }
 
-  private void loadTxids(final String hash, final String[] txids) {
-    context.setTxids(txids);
+  private void loadTxids(final String hash, final JsArray<String> txids) {
+    final List<String> lst = txids.asList();
+    context.setTxids(lst);
 
-    final String coinbaseTxid = txids[0];
+    final String coinbaseTxid = lst.get(0);
     service.fetchTransactionHex(coinbaseTxid, AppAsyncCallback.create(
         v -> ifMatchThen(hash, () -> loadCoinbaseTransaction(v)),
         e -> ifMatchThen(hash, () -> failCoinbaseTransaction(e))));

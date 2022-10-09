@@ -1,5 +1,7 @@
 package nl.yogh.wui.explorer.context;
 
+import java.util.List;
+
 import javax.inject.Singleton;
 
 import com.axellience.vuegwt.core.annotations.component.Data;
@@ -14,7 +16,7 @@ public class BlockContext {
 
   @Data public BlockInformation blockInformation = null;
   @Data public String raw = null;
-  @Data @JsProperty public String[] txids = null;
+  @Data @JsProperty public List<String> txids = null;
   @Data public String coinbaseHex = null;
 
   @Data public boolean blockLoading;
@@ -34,7 +36,7 @@ public class BlockContext {
     this.raw = raw;
   }
 
-  public void setTxids(final String[] txids) {
+  public void setTxids(final List<String> txids) {
     txidsLoading = false;
     this.txids = txids;
   }

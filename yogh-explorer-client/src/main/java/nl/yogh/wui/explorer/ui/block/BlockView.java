@@ -2,7 +2,6 @@ package nl.yogh.wui.explorer.ui.block;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -60,13 +59,13 @@ public class BlockView extends BitcoinUtilityComponent implements IsVueComponent
   @Data InterpretationStrategy blockHashInterpreter = null;
   @Data InterpretationStrategy transactionHashInterpreter = null;
   @Data InterpretationStrategy difficultyTargetInterpreter = null;
-  
+
   @JsMethod
   public String formatDifficultyTarget(final String bits) {
     final byte[] bitsBytes = NumberEncodeUtil.encodeUint32(Integer.parseInt(bits));
     ArrayUtil.reverse(bitsBytes);
     final byte[] difficultyTarget = BlockUtil.getPoolDiffTarget(bitsBytes);
-    
+
     return new String(Hex.encode(difficultyTarget));
   }
 
@@ -81,13 +80,13 @@ public class BlockView extends BitcoinUtilityComponent implements IsVueComponent
   }
 
   @Computed
-  public String[] getTxids() {
+  public List<String> getTxids() {
     return context.txids;
   }
 
   @JsMethod
-  public List<String> limit(final String[] lst) {
-    return Stream.of(lst)
+  public List<String> limit(final List<String> lst) {
+    return lst.stream()
         .limit(limit)
         .collect(Collectors.toList());
   }

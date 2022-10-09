@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Singleton;
 
+import elemental2.core.JsArray;
+
 import nl.aerius.wui.util.RequestUtil;
 import nl.yogh.wui.explorer.config.EnvironmentConfiguration;
 import nl.yogh.wui.explorer.context.ConfigurationContext;
@@ -89,7 +91,7 @@ public class ElectrServiceAsyncImpl implements ElectrServiceAsync {
   }
 
   @Override
-  public void fetchTxids(final String hash, final AsyncCallback<String[]> callback) {
+  public void fetchTxids(final String hash, final AsyncCallback<JsArray<String>> callback) {
     final String url = RequestUtil.prepareUrl(getHost(), "block/:hash/txids", ":hash", hash);
 
     InteropRequestUtil.doGet(url, callback);
