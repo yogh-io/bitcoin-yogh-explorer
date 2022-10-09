@@ -23,9 +23,9 @@
         text="Coinbase transaction">
       </loading-heading>
       <template v-if="context.txids != null">
-        <transaction-link :hash="txids[0]">
+        <transaction-link :hash="txids.get(0)">
           <hex-viewer
-            :hex="txids[0]"
+            :hex="txids.get(0)"
             :interpreter="transactionHashInterpreter">
           </hex-viewer>
         </transaction-link>
